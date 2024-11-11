@@ -21,9 +21,17 @@ function NavComands() {
         <>
 
             <div className="header">
-                <div onClick={clickMenu} className="icon-menu">
-                    <i className="fa-solid fa-bars menu"></i>
-                </div>
+                
+                {estadoMenu == 'close' &&(
+                    <div onClick={clickMenu} className="icon-menu">
+                        <i className="fa-solid fa-bars menu"></i>
+                    </div>
+                )}
+                {estadoMenu == 'open' &&(
+                    <div onClick={clickMenu} className="icon-menu">
+                        <i className="fa-solid fa-x menu"></i>
+                    </div>
+                )}
 
                 <div className="separador-um"></div>
 
@@ -35,25 +43,25 @@ function NavComands() {
             </div>
 
             {estadoMenu === 'close' && (
-                <nav class="menu-lateral">
+                <nav className="menu-lateral">
 
-                    <div class="container-icons">
+                    <div className="container-icons">
 
-                        <i class="fa-solid fa-house house"></i>
-                        <div class="separador-dois"></div>
+                        <i className="fa-solid fa-house house"></i>
+                        <div className="separador-dois"></div>
 
-                        <i class="fa-solid fa-magnifying-glass lupa"></i>
-                        <div class="separador-dois"></div>
+                        <i className="fa-solid fa-magnifying-glass lupa"></i>
+                        <div className="separador-dois"></div>
 
-                        <div class="escrita-filter">
-                            <i class="fa-solid fa-sliders filtro_btn"></i>
+                        <div className="escrita-filter">
+                            <i className="fa-solid fa-sliders filtro_btn"></i>
                         </div>
 
-                        <div class="confing-buttons">
-                            <div class="duvidas">
-                                <p class="interrogacao">?</p>
+                        <div className="confing-buttons">
+                            <div className="duvidas">
+                                <p className="interrogacao">?</p>
                             </div>
-                            <i class="fa-solid fa-gear"></i>
+                            <i className="fa-solid fa-gear"></i>
                         </div>
 
                     </div>
@@ -63,51 +71,46 @@ function NavComands() {
 
             {estadoMenu === 'open' && (
 
-                <nav class="menu-lateral-open">
+                <nav className="menu-lateral-open">
 
-                    <div class="container-icons">
-                        <div class="escrita-open-house">
-                            <i class="fa-solid fa-house house"></i>
-                            <p class="escrita-open">Início</p>
+                    <div className="container-icons">
+                        <div className="escrita-open-house">
+                            <i className="fa-solid fa-house house"></i>
+                            <p className="escrita-open">Início</p>
                         </div>
 
-                        <div class="separador-tres"></div>
+                        <div className="separador-tres"></div>
 
-                        <div class="escrita-open-lupa">
-                            <i class="fa-solid fa-magnifying-glass lupa"></i>
-                            <p class="escrita-open">Pesquisar</p>
+                        <div className="escrita-open-lupa">
+                            <i className="fa-solid fa-magnifying-glass lupa"></i>
+                            <p className="escrita-open">Pesquisar</p>
                         </div>
 
-                        <div class="separador-tres"></div>
+                        <div className="separador-tres"></div>
 
-                        <div class="escrita-open-filter">
-                            <i class="fa-solid fa-sliders filtro_btn"></i>
-                            <p class="escrita-open">Filtrar</p>
+                        <div className="escrita-open-filter">
+                            <i className="fa-solid fa-sliders filtro_btn"></i>
+                            <p className="escrita-open">Filtrar</p>
                         </div>
 
-                        <div class="confing-buttons">
-                            <div class="div-duvidas">
-                                <div class="duvidas">
-                                    <p class="interrogacao">?</p>
+                        <div className="confing-buttons">
+                            <div className="div-duvidas">
+                                <div className="duvidas">
+                                    <p className="interrogacao">?</p>
                                 </div>
-                                <p class="guia">Guia</p>
+                                <p className="guia">Guia</p>
                             </div>
 
-                            <div class="escrita-open-config">
-                                <i class="fa-solid fa-gear"></i>
-                                <p class="escrita-open">Filtrar</p>
+                            <div className="escrita-open-config">
+                                <i className="fa-solid fa-gear"></i>
+                                <p className="escrita-open">Filtrar</p>
                             </div>
                         </div>
 
                     </div>
 
                 </nav>
-
             )}
-
-
-
-
 
         </>
     )
