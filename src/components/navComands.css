@@ -1,69 +1,7 @@
-*{
-    padding: 0;
-    margin: 0;
-    font-family: "Arimo", sans-serif;
-}
-
-body, html, #root{
-    height: 100%;
-}
-
-.header{
-    display: flex;
-    align-items: center;
-
-    background-color: #004b24;
-    width: 100%;
-    height: 12%;
-}
-
-.icon-menu{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 2.4vw;
-    margin: 25px;
-    margin-left: 38px;
-}
-
-.icon-menu i{
-    font-size: 2.6rem;
-    color: #fff;
-    cursor: pointer;
-}
-
-.cabecalho-logo{
-    display: flex;
-    align-items: center;
-    margin-left: 36px;
-}
-
-.cabecalho-logo img{
-    width: 50px;
-}
-
-.cabecalho-logo h1{
-color: #e7c801;
-text-align: center;
-/* H3 BOLD */
-font-family: Arial;
-font-size: 28px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-padding-left: 36px;
-}
-
-.separador-um{
-    border: 1px solid white;
-    height: 50px;
-    margin-left: 24px;
-}
-
 
 /*Navegação lateral*/
 .menu-lateral{
-    height: 88%;
+    height: 100%;
     width: 110px;
 
     background: linear-gradient(0deg, #0EB860 38.3%, #00582A 89.3%, #004b24 100%);
@@ -124,7 +62,7 @@ padding-left: 36px;
 /*Menu lateral aberto*/
 
 .menu-lateral-open{
-    height: 88%;
+    height: 100%;
     width: 250px;
 
     background: linear-gradient(0deg, #0EB860 38.3%, #00582A 89.3%, #004b24 100%); 
@@ -242,4 +180,8 @@ padding-left: 36px;
     width: 100%;
     height: 100%;
     background-color: blue;
+}
+
+.menu-lateral, .menu-lateral-open{
+    /* position: absolute; */
 }

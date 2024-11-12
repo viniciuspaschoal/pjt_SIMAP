@@ -1,0 +1,6 @@
+.flex-conteudo {
+    height: 88%;
+    display: flex;
+    background-color: red; /* ou a cor que desejar */
+    box-sizing: border-box;
+}
