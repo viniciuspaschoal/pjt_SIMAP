@@ -2,10 +2,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #b6ffbf;
 
     width: 100%;
+    margin-left: 6%;
     gap: 50px; /* Espaçamento entre as linhas */
-    padding: 20px;
+    
 }
 
 .separa-dupla {
@@ -22,6 +24,7 @@
     height: 45vh;
     margin: 0;
     padding: 0;
+    cursor: pointer;
 }
 
 .div-icons {
