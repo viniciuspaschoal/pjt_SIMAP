@@ -1,6 +1,7 @@
 import '../components/container.css'
 import NavComands from './NavComands'
 import Header from './Header'
+import HeroHome from './HeroHome'
 import { useState } from 'react'
 
 function Container(){
@@ -23,6 +24,7 @@ function Container(){
 
             <div className='flex-conteudo'>
                 <NavComands estadoMenuLateral={estadoMenu} />
+                <HeroHome />
             </div>
             
         </>
