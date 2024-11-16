@@ -1,5 +1,4 @@
 import './heroHome.css'
-import { useState } from 'react'
 
 function HeroHome({clickGeral, clickPJ, clickSearch, clickGauge, estadoHome}){    
 

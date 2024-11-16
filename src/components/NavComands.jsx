@@ -52,7 +52,7 @@ function NavComands({estadoMenuLateral, clickHome, clickBusca, clickFilter, clic
                             </div>
                             <div className="escrita-open-config" onClick={clickSettings}>
                                 <i className="fa-solid fa-gear"></i>
-                                <p className="escrita-open">Filtrar</p>
+                                <p className="escrita-open">Configurar</p>
                             </div>
                         </div>
                     </div>

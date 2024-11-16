@@ -2,12 +2,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     background-color: #b6ffbf;
 
     width: 100%;
-    margin-left: 6%;
+    height: 100%;
     gap: 50px; /* Espaçamento entre as linhas */
-    
 }
 
 .separa-dupla {
@@ -36,6 +36,7 @@
     align-items: center;
     justify-content: center;
     background-color: #f0f0f0; /* Cor de fundo */
+    position: relative;
 }
 
 .title-itens {
@@ -49,4 +50,19 @@
 
 .icon-home{
     font-size: 8rem;
+    position: absolute;
+    /* transition: transform 0.3s; */
 }
+/* 
+.div-icons:hover .icon-home {
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg) translateX(40px) rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg) translateX(40px) rotate(-360deg);
+    }
+} */

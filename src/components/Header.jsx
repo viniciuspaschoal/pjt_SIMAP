@@ -1,22 +1,7 @@
 import '../components/header.css'
 import logoSecretaria from '../assets/images/logo_secretaria.png'
-import { useState } from 'react'
 
 function Header({estadoMenu, clickMenu}){
-
-    // const [estadoMenu, setEstadoMenu] = useState('close')
-
-    // function clickMenu() {
-    //     if (estadoMenu === 'close') {
-    //         setEstadoMenu('open')
-    //         setEstadoMenuLateral('open')
-    //         console.log('open')
-    //     } else {
-    //         setEstadoMenu('close')
-    //         setEstadoMenuLateral('close')
-    //         console.log('close')
-    //     }
-    // }
 
     return(
         <>

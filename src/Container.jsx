@@ -1,7 +1,8 @@
-import '../components/container.css'
-import NavComands from './NavComands'
-import Header from './Header'
-import HeroHome from './HeroHome'
+import '../src/container.css'
+import NavComands from './components/NavComands'
+import Header from './components/Header'
+import HeroHome from './components/HeroHome'
+import Geral from './components/Geral'
 import { useState } from 'react'
 
 function Container(){
@@ -22,21 +23,27 @@ function Container(){
 
     //função gerar estados para itens da nav
     function clickHome(){
-        setEstadoHome('home')
-        console.log(estadoHome)
+        if(estadoHome != 'home'){
+            setEstadoHome('home')
+            console.log(estadoHome)
+        }
     }
+
     function clickBusca(){
         setEstadoHome('busca')
         console.log(estadoHome)
     }
+
     function clickFilter(){
         setEstadoHome('filtro')
         console.log(estadoHome)
     }
+
     function clickGuide(){
         setEstadoHome('guide')
         console.log(estadoHome)
     }
+
     function clickSettings(){
         setEstadoHome('settings')
         console.log(estadoHome)
@@ -44,23 +51,25 @@ function Container(){
 
     //função vai gerar estados para itens Home
     function clickGeral(){
-        setEstadoHome('geral')
-        console.log('geral')
+        if(estadoHome != 'geral'){
+            setEstadoHome('geral')
+            console.log(estadoHome)
+        }
     }
 
     function clickPJ(){
         setEstadoHome('projeto')
-        console.log('projeto')
+        console.log(estadoHome)
     }
 
     function clickSearch(){
         setEstadoHome('busca')
-        console.log('busca')
+        console.log(estadoHome)
     }
 
     function clickGauge(){
         setEstadoHome('relatorio')
-        console.log('relatorio')
+        console.log(estadoHome)
     }
 
 
@@ -70,8 +79,27 @@ function Container(){
 
             <div className='flex-conteudo'>
                 <NavComands estadoMenuLateral={estadoMenu} clickHome={clickHome} clickBusca={clickBusca} clickFilter={clickFilter} clickGuide={clickGuide} clickSettings={clickSettings}/>
-
-                <HeroHome estadoHome={estadoHome} clickGauge={clickGauge} clickGeral={clickGeral} clickPJ={clickPJ} clickSearch={clickSearch}/>
+                
+                <div className="conteudo-geral">
+                    {estadoHome === 'home' &&(
+                        <HeroHome estadoHome={estadoHome} clickGauge={clickGauge} clickGeral={clickGeral} clickPJ={clickPJ} clickSearch={clickSearch}/>
+                    )}
+                    {estadoHome === 'geral' &&(
+                        <Geral />
+                    )}
+                    {estadoHome === 'projeto' &&(
+                        <Geral />
+                    )}
+                    {estadoHome === 'busca' &&(
+                        <Geral />
+                    )}
+                    {estadoHome === 'relatorio' &&(
+                        <Geral />
+                    )}
+                    
+                    
+                </div>
+                
             </div>
             
         </>

@@ -4,3 +4,8 @@
     /* background-color: red; ou a cor que desejar */
     box-sizing: border-box;
 }
+
+.conteudo-geral{
+    width: 100%;
+    margin-left: 6%;
+}
