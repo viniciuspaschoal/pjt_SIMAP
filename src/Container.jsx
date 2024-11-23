@@ -2,7 +2,7 @@ import '../src/container.css'
 import NavComands from './components/NavComands'
 import Header from './components/Header'
 import HeroHome from './components/HeroHome'
-import Geral from './components/Geral'
+import Filtrar from './components/Filtrar'
 import { useState } from 'react'
 
 function Container(){
@@ -91,7 +91,7 @@ function Container(){
                         <Geral />
                     )}
                     {estadoHome === 'busca' &&(
-                        <Geral />
+                        <Filtrar />
                     )}
                     {estadoHome === 'relatorio' &&(
                         <Geral />

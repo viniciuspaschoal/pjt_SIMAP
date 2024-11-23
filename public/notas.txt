@@ -1,0 +1,152 @@
+-----------------------CHECKBOC--------------------------------------------------
+
+                    <div class="dropdown-checkbox">
+                        <div className="box-close">
+                            <p><span className='traco'>-</span>ESCOLAS</p>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+
+                        <div className="box-open" >
+                            <div className="write-open">
+                                <p><span className='traco'>-</span>ESCOLAS</p>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+
+                            <form action="" className='form-filtro'>
+                                <label className='box-filtro'>
+                                    <span></span>
+                                    <input type="checkbox" value="emefei-analía"/> <p>EMEFEI ANÁLIA</p>
+                                </label>
+
+                                <label className='box-filtro'>
+                                    <input type="checkbox" value="outra-escola1" /> <p>OUTRA ESCOLA</p>
+                                </label>
+
+                                <label className='box-filtro'>
+                                    <input type="checkbox" value="outra-escola2" /> <p>OUTRA ESCOLA</p>
+                                </label>
+
+                                <label className='box-filtro'>
+                                    <input type="checkbox" value="outra-escola3" /> <p>OUTRA ESCOLA</p>
+                                </label>
+                            </form>
+                        </div>
+                    </div>
+
+
+----------//--------CSS---------//----------------
+
+.dropdown-checkbox{
+    width: 17vw;
+    border: 3px solid black;
+    padding: 0 5px;
+}
+
+.box-close{
+    height: 5vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+
+    display: none;
+}
+
+.box-close p{
+    font-size: 1.5rem;
+}
+
+.traco{
+    margin-left: 3px;
+    margin-right: 10px;
+}
+
+.write-open{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.box-open p{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.form-filtro{
+    display: flex;
+    flex-direction: column;
+}
+
+.box-filtro{
+    display: flex;
+    align-items: center; /* Alinha checkbox e texto verticalmente */
+    height: auto;
+    gap: 0.5vw;
+    margin: 1vh 0;/* Espaço entre as linhas */
+    cursor: pointer;
+}
+
+.box-filtro p{
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0; /* Remove margens do texto */
+}
+
+.box-filtro input {
+    display: none; /* Esconde o checkbox original */
+  }
+  
+  .box-filtro span {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid black;
+    margin-right: 10px; /* Espaço entre o checkbox e o texto */
+    position: relative;
+}
+
+.box-filtro span:before {
+    content: ''; /* Necessário para exibir o pseudo-elemento */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent; /* Inicialmente transparente */
+    border-radius: 4px;
+}
+
+.box-filtro input:checked + span:before {
+    background-color: red; /* Muda a cor ao marcar */
+}
+
+
+-------------------------------------------------///-------------------------------------------------------
+
+
+-----------------//RESERVA CHECKBOX//------------------------------------------------
+{/* <div className="item-checkbox"  key={"analia"} onClick={() => toggleCheckbox(key)}>
+                                <div className="box-checkbox"></div>
+                                <p>EMFEI ANÁLIA</p>
+                            </div>
+                            <div className="item-checkbox">
+                                <div className="box-checkbox"></div>
+                                <p>OUTRA ESCOLA</p>
+                            </div>
+                            <div className="item-checkbox">
+                                <div className="box-checkbox"></div>
+                                <p>OUTRA ESCOLA</p>
+                            </div> */}
+
+
+--------------------//----------------------------
+    const toggleCheckbox = (key) =>{
+        const newCheckBoxState = {...checkboxState} //copia o estado atual
+        newCheckBoxState[key] = !newCheckBoxState[key] //altera o valor para o contrário do atual
+        setCheckboxState(newCheckBoxState)//atualiza o estado
+        console.log(checkboxState)
+    }

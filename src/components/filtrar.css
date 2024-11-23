@@ -1,0 +1,133 @@
+.filtro{
+    width: 100%;
+    height: 100%;
+    margin-left: 1.5%;
+
+    display: flex;
+}
+
+.filtros{
+    width: 40%;
+}
+
+/*SELECIONAR FILTROS*/
+.pesquisas{
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    width: 22vw;
+}
+
+.input-pesquisa{
+    height: 7vh;
+    width: 19vw;
+    font-size: 1.5rem;
+    margin-left: 5px;
+    border: none;
+}
+.input-pesquisa:focus{
+    outline: none;
+}
+
+.pesquisas i{
+    font-size: 1.8rem;
+    margin: 0 0.5vw;
+}
+
+/*CheckBox*/
+.dropdown-checkbox{
+    width: 20vw;
+    border: 3px solid black;
+}
+
+.filter-close{
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1vw 0 2vw;
+    cursor: pointer;
+}
+
+.filter-close p, i{
+    font-size: 1.5rem;
+}
+
+.filter-open{
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1vw 0 2.6vw;
+    cursor: pointer;
+}
+
+.filter-open p, i{
+    font-size: 1.5rem;
+}
+
+.item-checkbox{
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    padding: 0 1vw 0 0.5vw;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.box-checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+.item-checkbox p{
+    font-size: 1.5rem;
+}
+
+
+/*MOSTRAR FILTROS*/
+
+
+.mostrar-filtros{
+    height: 80vh;
+    width: 35vw;
+    border: 1px solid black;
+}
+
+.filtros-selecionados{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3vh;
+}
+
+.filtros-selecionados-p{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.itens-filtro{
+    font-weight: 800;
+    margin-left: 10px;
+}
+
+.exibir-filtro{
+    width: 90%;
+    height: 8vh;
+    border: 1px solid black;
+    margin-left: 10px;
+    margin-bottom: 1.3vh;
+}
+
+.filtro-selecionado{
+    display: inline-block;
+    padding: 0.2rem;
+    margin-right: 1.3vh;
+    border: 1px solid black;
+}
+  
