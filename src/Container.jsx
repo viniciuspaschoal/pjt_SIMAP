@@ -2,12 +2,14 @@ import '../src/container.css'
 import NavComands from './components/NavComands'
 import Header from './components/Header'
 import HeroHome from './components/HeroHome'
+import Geral from './components/Geral'
 import Filtrar from './components/Filtrar'
 import { useState } from 'react'
 
 function Container(){
     const [estadoMenu, setEstadoMenu] = useState('close')
     const [estadoHome, setEstadoHome] = useState('home')
+    const [filtrosAplicados, setFiltrosAplicados] = useState({})
     
 
     //função para abrir e fechar menu
@@ -73,6 +75,12 @@ function Container(){
     }
 
 
+    const handleApplyFilters = (filtros) => {
+        setFiltrosAplicados(filtros); // Atualiza o estado com os filtros aplicados
+        console.log('Filtros Aplicados:', filtros); // Verifica no console
+    }
+
+
     return(
         <>
             <Header estadoMenu={estadoMenu} clickMenu={clickMenu}/>
@@ -88,13 +96,13 @@ function Container(){
                         <Geral />
                     )}
                     {estadoHome === 'projeto' &&(
-                        <Geral />
+                        <Projeto />
                     )}
                     {estadoHome === 'busca' &&(
-                        <Filtrar />
+                        <Filtrar onApplyFilters={handleApplyFilters}/>
                     )}
                     {estadoHome === 'relatorio' &&(
-                        <Geral />
+                        <Relatorio />
                     )}
                     
                     
