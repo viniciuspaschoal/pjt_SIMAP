@@ -1,0 +1,71 @@
+{
+    "EMEFEI Anália": {
+      "1º Ano": {
+        "A": [
+          {
+            "ra": "001",
+            "nome": "João Silva",
+            "dataNascimento": "2015-03-15",
+            "escola": "EMEFEI Anália",
+            "serie": "1º Ano",
+            "turma": "A",
+            "mapaAlfabetizacao": {
+              "bimestre1": "AVAN",
+              "bimestre2": "INTE",
+              "bimestre3": "BASC",
+              "bimestre4": "AVAN"
+            },
+            "diagnosticos": {
+              "inicial": {
+                "leitura": "INTE",
+                "escrita": "BASC",
+                "matematica": "BASC"
+              },
+              "medial": {
+                "leitura": "AVAN",
+                "escrita": "INTE",
+                "matematica": "INTE"
+              },
+              "final": {
+                "leitura": "AVAN",
+                "escrita": "AVAN",
+                "matematica": "AVAN"
+              }
+            }
+          },
+          {
+            "ra": "002",
+            "nome": "Maria Oliveira",
+            "dataNascimento": "2015-06-20",
+            "escola": "EMEFEI Anália",
+            "serie": "1º Ano",
+            "turma": "A",
+            "mapaAlfabetizacao": {
+              "bimestre1": "INTE",
+              "bimestre2": "BASC",
+              "bimestre3": "AVAN",
+              "bimestre4": "INTE"
+            },
+            "diagnosticos": {
+              "inicial": {
+                "leitura": "BASC",
+                "escrita": "BASC",
+                "matematica": "BASC"
+              },
+              "medial": {
+                "leitura": "INTE",
+                "escrita": "INTE",
+                "matematica": "INTE"
+              },
+              "final": {
+                "leitura": "AVAN",
+                "escrita": "AVAN",
+                "matematica": "AVAN"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+  
