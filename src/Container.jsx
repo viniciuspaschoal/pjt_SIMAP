@@ -9,7 +9,8 @@ import { useState } from 'react'
 function Container(){
     const [estadoMenu, setEstadoMenu] = useState('close')
     const [estadoHome, setEstadoHome] = useState('home')
-    const [filtrosAplicados, setFiltrosAplicados] = useState({})
+    const [dataTable, setDataTable] = useState({})
+
     
 
     //função para abrir e fechar menu
@@ -76,9 +77,11 @@ function Container(){
 
 
     const handleApplyFilters = (filtros) => {
-        setFiltrosAplicados(filtros); // Atualiza o estado com os filtros aplicados
+        setDataTable(filtros); // Atualiza o estado com os filtros aplicados
+        setEstadoHome('geral')
         console.log('Filtros Aplicados:', filtros); // Verifica no console
     }
+
 
 
     return(
@@ -93,13 +96,13 @@ function Container(){
                         <HeroHome estadoHome={estadoHome} clickGauge={clickGauge} clickGeral={clickGeral} clickPJ={clickPJ} clickSearch={clickSearch}/>
                     )}
                     {estadoHome === 'geral' &&(
-                        <Geral />
+                        <Geral dados={dataTable} />
                     )}
                     {estadoHome === 'projeto' &&(
                         <Projeto />
                     )}
                     {estadoHome === 'busca' &&(
-                        <Filtrar onApplyFilters={handleApplyFilters}/>
+                        <Filtrar onApplyFilters={handleApplyFilters} />
                     )}
                     {estadoHome === 'relatorio' &&(
                         <Relatorio />
