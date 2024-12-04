@@ -1,0 +1,144 @@
+/* CONFIG GERAL DA TABELA */
+.tabela-estilizada {
+    display: flex;
+    border-collapse: collapse;
+    font-size: 14px;
+    
+    overflow: auto; /* Adiciona o scroll geral apenas na tabela */
+    border: 1px solid #01401f; /* Borda externa da tabela */
+    box-sizing: border-box; /* Inclui bordas dentro da largura total */
+}
+
+.colunas{
+    flex-shrink: 0; /* Evita encolhimento dos elementos */
+}
+
+/* ESTILO DOS CABEÇALHOS */
+.cabecalho {
+    background-color: #007D3C;
+    font-weight: bold;
+    color: #fff; /* Branco escuro para o texto */
+    border-left: 1px solid #01401f;
+    border-right: 1px solid #01401f;
+    border-top: 1px solid #01401f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ESTILO DAS LINHAS DE CONTEÚDO */
+
+.colun-principal {
+    padding: 0 15px;
+    height: 5vh;
+    font-size: 1rem;
+}
+
+.sub-colun {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribui os elementos */
+    height: 5vh;
+}
+
+.sub-colun p {
+    height: 100%;
+    background-color: #007D3C;
+    border-left: 1px solid #01401f;
+    border-right: 1px solid #01401f;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #fff; /* Branco escuro para o texto */
+    flex: 1; /* Faz os elementos terem tamanhos iguais */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.conteudo-row {
+    border: 1px solid #D8D8D8; /* Borda cinza claro */
+    height: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.conteudo-row p {
+    font-size: 1rem;
+    color: #333; /* Texto em cinza escuro */
+}
+
+.conteudo-name:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.conteudo-topicos {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribui os elementos */
+    height: 4vh;
+}
+
+.conteudo-topicos p {
+    border: 1px solid #D8D8D8; /* Borda cinza claro */
+    height: 100%;
+    flex: 1; /* Faz os elementos terem tamanhos iguais */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CONFIG PERSONALIZADA POR COLUNA */
+.coluna-ra, .coluna-ra-p {
+    width: 6vw;
+}
+
+.coluna-nome {
+    width: 25vw;
+}
+
+.coluna-nome, .coluna-ra, .coluna-ra-p {
+    height: 10vh;
+    font-size: 1.2rem; /* Tamanho de fonte do cabeçalho */
+}
+
+.coluna-mapa {
+    width: 30vw;
+}
+
+.coluna-diagnosticos {
+    width: 28vw;
+}
+
+.colun-principal{
+    border-bottom: 1px solid #01401f;
+}
+
+
+/* Estilo geral do scroll */
+.tabela-estilizada::-webkit-scrollbar {
+    width: 10px; /* Largura do scroll vertical */
+    height: 10px; /* Altura do scroll horizontal */
+}
+
+/* Cor de fundo do scroll */
+.tabela-estilizada::-webkit-scrollbar-track {
+    background: #e5ffe9; /* Cinza claro */
+    border-radius: 5px; /* Bordas arredondadas */
+}
+
+/* Cor e estilo do "polegar" (a parte que se move no scroll) */
+.tabela-estilizada::-webkit-scrollbar-thumb {
+    background-color: #008b43; /* Verde escuro */
+    border-radius: 5px; /* Bordas arredondadas */
+    border: 2px solid #e0e0e0; /* Espaçamento interno do polegar */
+}
+
+/* Cor ao passar o mouse sobre o polegar */
+.tabela-estilizada::-webkit-scrollbar-thumb:hover {
+    background-color: #006d31; /* Verde mais escuro */
+}
+
+
+

@@ -4,115 +4,154 @@ import Header from './components/Header'
 import HeroHome from './components/HeroHome'
 import Geral from './components/Geral'
 import Filtrar from './components/Filtrar'
+import dados from './db/db.json'
+import TableStudents from "./components/TableStudents"
 import { useState } from 'react'
 
-function Container(){
+function Container() {
     const [estadoMenu, setEstadoMenu] = useState('close')
     const [estadoHome, setEstadoHome] = useState('home')
-    const [dataTable, setDataTable] = useState({})
-
-    
+    const [filtrosAplicados, setFiltrosAplicados] = useState(true)
+    const [dadosFiltrados, setDadosFiltrados] = useState([])
+    const [filtrosAtuais, setFiltrosAtuais] = useState({}) // Novo estado para armazenar os filtros aplicados
 
     //função para abrir e fechar menu
     function clickMenu() {
-        if (estadoMenu === 'close') {
-            setEstadoMenu('open')
-            console.log('open')
-        } else {
-            setEstadoMenu('close')
-            console.log('close')
+        setEstadoMenu(estadoMenu === 'close' ? 'open' : 'close')
+    }
+
+    const handleNavigation = (navigateTo) => {
+        if (estadoHome === 'busca' && !filtrosAplicados) {
+            const confirmLeave = window.confirm(
+                "Você tem filtros não aplicados. Deseja sair mesmo assim?"
+            )
+            if (!confirmLeave) {
+                return; // Não muda de estado se o usuário cancelar
+            }
         }
+        setEstadoHome(navigateTo)
     }
 
-    //função gerar estados para itens da nav
-    function clickHome(){
-        if(estadoHome != 'home'){
-            setEstadoHome('home')
-            console.log(estadoHome)
-        }
+    function clickHome() {
+        handleNavigation('home')
     }
 
-    function clickBusca(){
-        setEstadoHome('busca')
-        console.log(estadoHome)
+    function clickBusca() {
+        handleNavigation('busca')
     }
 
-    function clickFilter(){
-        setEstadoHome('filtro')
-        console.log(estadoHome)
+    function clickFilter() {
+        handleNavigation('filtro')
     }
 
-    function clickGuide(){
-        setEstadoHome('guide')
-        console.log(estadoHome)
+    function clickGuide() {
+        handleNavigation('guide')
     }
 
-    function clickSettings(){
-        setEstadoHome('settings')
-        console.log(estadoHome)
+    function clickSettings() {
+        handleNavigation('settings')
     }
 
-    //função vai gerar estados para itens Home
-    function clickGeral(){
-        if(estadoHome != 'geral'){
-            setEstadoHome('geral')
-            console.log(estadoHome)
-        }
+    const handleFilterChange = (isApplied) => {
+        setFiltrosAplicados(isApplied)
     }
 
-    function clickPJ(){
-        setEstadoHome('projeto')
-        console.log(estadoHome)
-    }
-
-    function clickSearch(){
-        setEstadoHome('busca')
-        console.log(estadoHome)
-    }
-
-    function clickGauge(){
-        setEstadoHome('relatorio')
-        console.log(estadoHome)
-    }
-
-
-    const handleApplyFilters = (filtros) => {
-        setDataTable(filtros); // Atualiza o estado com os filtros aplicados
+    function clickGeral() {
         setEstadoHome('geral')
-        console.log('Filtros Aplicados:', filtros); // Verifica no console
     }
 
+    function clickPJ() {
+        setEstadoHome('projeto')
+    }
 
+    function clickSearch() {
+        setEstadoHome('busca')
+    }
 
-    return(
+    function clickGauge() {
+        setEstadoHome('relatorio')
+    }
+
+    // Atualiza os filtros aplicados e busca os dados
+    const handleApplyFilters = (filtros) => {
+        setFiltrosAtuais(filtros) // Salva os filtros aplicados
+        buscarDados(filtros) // Chama a função para filtrar os dados
+        setEstadoHome('geral') // Redireciona para a tela "geral"
+    }
+
+    const buscarDados = (filtros) => {
+        const { escolas, serie, turma, diagnostico_inicial, diagnostico_medial, diagnostico_final } = filtros;
+    
+        const resultados = [];
+    
+        escolas.forEach((escola) => {
+            if (dados[escola]) {
+                const series = dados[escola][serie];
+                if (series) {
+                    const turmas = series[turma];
+                    if (turmas) {
+                        const filtrados = turmas.filter((aluno) => {
+                            // Verifica diagnósticos apenas se os filtros foram aplicados
+                            const diagnosticoInicialValido =
+                                diagnostico_inicial.length === 0 ||
+                                diagnostico_inicial.some((filtro) => aluno.diagnosticos.inicial[filtro.toLowerCase()]);
+                            const diagnosticoMedialValido =
+                                diagnostico_medial.length === 0 ||
+                                diagnostico_medial.some((filtro) => aluno.diagnosticos.medial[filtro.toLowerCase()]);
+                            const diagnosticoFinalValido =
+                                diagnostico_final.length === 0 ||
+                                diagnostico_final.some((filtro) => aluno.diagnosticos.final[filtro.toLowerCase()]);
+    
+                            return diagnosticoInicialValido && diagnosticoMedialValido && diagnosticoFinalValido;
+                        });
+    
+                        resultados.push(...filtrados);
+                    }
+                }
+            }
+        });
+    
+        setDadosFiltrados(resultados);
+    }
+
+    return (
         <>
-            <Header estadoMenu={estadoMenu} clickMenu={clickMenu}/>
+            <Header estadoMenu={estadoMenu} clickMenu={clickMenu} />
 
             <div className='flex-conteudo'>
-                <NavComands estadoMenuLateral={estadoMenu} clickHome={clickHome} clickBusca={clickBusca} clickFilter={clickFilter} clickGuide={clickGuide} clickSettings={clickSettings}/>
-                
+                <NavComands
+                    estadoMenuLateral={estadoMenu}
+                    clickHome={clickHome}
+                    clickBusca={clickBusca}
+                    clickFilter={clickFilter}
+                    clickGuide={clickGuide}
+                    clickSettings={clickSettings}
+                />
+
                 <div className="conteudo-geral">
-                    {estadoHome === 'home' &&(
-                        <HeroHome estadoHome={estadoHome} clickGauge={clickGauge} clickGeral={clickGeral} clickPJ={clickPJ} clickSearch={clickSearch}/>
+                    {estadoHome === 'home' && (
+                        <HeroHome
+                            estadoHome={estadoHome}
+                            clickGauge={clickGauge}
+                            clickGeral={clickGeral}
+                            clickPJ={clickPJ}
+                            clickSearch={clickSearch}
+                        />
                     )}
-                    {estadoHome === 'geral' &&(
-                        <Geral dados={dataTable} />
+                    {estadoHome === 'geral' && (
+                        <TableStudents
+                            dados={dadosFiltrados}
+                            filtros={filtrosAtuais} // Passa os filtros para a tabela
+                        />
                     )}
-                    {estadoHome === 'projeto' &&(
-                        <Projeto />
+                    {estadoHome === 'busca' && (
+                        <Filtrar
+                            onApplyFilters={handleApplyFilters}
+                            onFilterChange={handleFilterChange}
+                        />
                     )}
-                    {estadoHome === 'busca' &&(
-                        <Filtrar onApplyFilters={handleApplyFilters} />
-                    )}
-                    {estadoHome === 'relatorio' &&(
-                        <Relatorio />
-                    )}
-                    
-                    
                 </div>
-                
             </div>
-            
         </>
     )
 }

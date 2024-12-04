@@ -1,0 +1,108 @@
+import './tableStudents.css'
+
+function TableStudents() {
+
+
+    return (
+        <>
+            <div className="tabela-estilizada">
+
+                <div className="colunas coluna-ra">
+                    <div className="coluna-ra-p cabecalho">
+                        <p>RA</p>
+                    </div>
+                    <div className="conteudo-row">
+                        <p>588585</p>
+                    </div>
+                </div>
+
+                <div className="colunas">
+                    <div className="coluna-nome cabecalho">
+                        <p>NOME</p>
+                    </div>
+                    <div className="conteudo-row">
+                        <p className="conteudo-name">Fabiana Cristina Cordeiro de Lima</p>
+                    </div>
+                </div>
+
+                <div className="colunas">
+                    <div className="coluna-mapa">
+                        <div className="colun-principal cabecalho">
+                            <p>MAPA DE ALFABETIZAÇÃO - HIPÓTESE DE ESCRITA</p>
+                        </div>
+                        <div className="sub-colun">
+                            <p>1ºBIMESTRE</p>
+                            <p>2ºBIMESTRE</p>
+                            <p>3ºBIMESTRE</p>
+                            <p>4ºBIMESTRE</p>
+                        </div>
+                        <div className="conteudo-topicos">
+                            <p>-</p>
+                            <p>-</p>
+                            <p>-</p>
+                            <p>-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="colunas">
+                    <div className="coluna-diagnosticos">
+                        <div className="colun-principal cabecalho">
+                            <p>DIAGNÓSTICO INICIAL - NÍVEIS DE PROFICIÊNCIA</p>
+                        </div>
+                        <div className="sub-colun">
+                            <p>LEITURA</p>
+                            <p>ESCRITA</p>
+                            <p>MATEMÁTICA</p>
+                        </div>
+                        <div className="conteudo-topicos">
+                            <p>-</p>
+                            <p>-</p>
+                            <p>-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="colunas">
+                    <div className="coluna-diagnosticos">
+                        <div className="colun-principal cabecalho">
+                            <p>DIAGNÓSTICO MEDIAL - NÍVEIS DE PROFICIÊNCIA</p>
+                        </div>
+                        <div className="sub-colun">
+                            <p>LEITURA</p>
+                            <p>ESCRITA</p>
+                            <p>MATEMÁTICA</p>
+                        </div>
+                        <div className="conteudo-topicos">
+                            <p>-</p>
+                            <p>-</p>
+                            <p>-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="colunas">
+                    <div className="coluna-diagnosticos">
+                        <div className="colun-principal cabecalho">
+                            <p>DIAGNÓSTICO FINAL - NÍVEIS DE PROFICIÊNCIA</p>
+                        </div>
+                        <div className="sub-colun">
+                            <p>LEITURA</p>
+                            <p>ESCRITA</p>
+                            <p>MATEMÁTICA</p>
+                        </div>
+                        <div className="conteudo-topicos">
+                            <p>-</p>
+                            <p>-</p>
+                            <p>-</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </>
+    )
+}
+
+export default TableStudents

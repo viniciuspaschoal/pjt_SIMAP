@@ -1,66 +1,18 @@
 import './filtrar.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-function Filtrar() {
+function Filtrar({ onApplyFilters, onFilterChange }) {
+    //estado para rastrear se os filtros estão aplicados ou não
+    const [filtrosAlterados, setFiltrosAlterados] = useState(false);
+
     //Objeto que verifica se os menus estão abertos ou fechados
     const [stdCheckBox, setStdCheckBox] = useState({
         stdMenu: false,
+        escolas: false,
+        serie: false,
+        turma: false,
+        inicial: false,
     })
-
-    //Lista de objetos para cada tipo de chackbox
-    const [checkboxEscola, setCheckboxEscola] = useState({
-        analia: { label: "EMEFEI Anália", selected: false },
-        outra1: { label: "Outra Escola 1", selected: false },
-        outra2: { label: "Outra Escola 2", selected: false },
-        outra3: { label: "Outra Escola 2", selected: false },
-        outra4: { label: "Outra Escola 2", selected: false },
-        outra5: { label: "Outra Escola 2", selected: false },
-        outra6: { label: "Outra Escola 2", selected: false },
-    });
-
-    const [checkboxSerie, setCheckboxSerie] = useState({
-        pri_ano: { label: "1º Ano", selected: false },
-        sec_ano: { label: "2º Ano", selected: false },
-        trc_ano: { label: "3º Ano", selected: false },
-        qrt_ano: { label: "4º Ano", selected: false },
-        qnt_ano: { label: "5º Ano", selected: false },
-    })
-
-    const [checkboxTurma, setCheckboxTurma] = useState({
-        ano_A: { label: "A", selected: false },
-        ano_B: { label: "B", selected: false },
-        ano_C: { label: "C", selected: false },
-        ano_D: { label: "D", selected: false },
-        ano_E: { label: "E", selected: false },
-    })
-
-    const [checkboxInicial, setCheckboxInicial] = useState({
-        inic_leitura: { label: "LEITURA", selected: false },
-        inic_escrita: { label: "ESCRITA", selected: false },
-        inic_matematica: { label: "MATEMÁTICA", selected: false },
-    })
-
-    const [checkboxMedial, setCheckboxMedial] = useState({
-        inic_leitura: { label: "LEITURA", selected: false },
-        inic_escrita: { label: "ESCRITA", selected: false },
-        inic_matematica: { label: "MATEMÁTICA", selected: false },
-    })
-
-    const [checkboxFinal, setCheckboxFinal] = useState({
-        inic_leitura: { label: "LEITURA", selected: false },
-        inic_escrita: { label: "ESCRITA", selected: false },
-        inic_matematica: { label: "MATEMÁTICA", selected: false },
-    })
-
-
-
-    // para modificar apenas o campo selected do checkbox correspondente, mantendo os outros valores (label) intactos
-    const toggleCheckbox = (setState, key) => {
-        setState((prevState) => ({
-            ...prevState,
-            [key]: { ...prevState[key], selected: !prevState[key].selected }
-        }))
-    }
 
     // Alternar o estado do menu de dropdown
     const toggleDropdown = (menuKey) => {
@@ -70,6 +22,214 @@ function Filtrar() {
         }))
         console.log(stdCheckBox);
     }
+
+    // Função para carregar do localStorage
+    const loadFromLocalStorage = (key, defaultValue) => {
+        const storedValue = localStorage.getItem(key);
+        return storedValue ? JSON.parse(storedValue) : defaultValue;
+    };
+
+    // Inicializa estados com valores carregados do localStorage
+    const [checkboxEscola, setCheckboxEscola] = useState(
+        loadFromLocalStorage('checkboxEscola', {
+            analia: { label: "EMEFEI Anália", selected: false },
+            outra1: { label: "Outra Escola 1", selected: false },
+            outra2: { label: "Outra Escola 2", selected: false },
+            outra3: { label: "Outra Escola 2", selected: false },
+            outra4: { label: "Outra Escola 2", selected: false },
+            outra5: { label: "Outra Escola 2", selected: false },
+            outra6: { label: "Outra Escola 2", selected: false },
+        })
+    );
+
+    const [checkboxSerie, setCheckboxSerie] = useState(
+        loadFromLocalStorage('checkboxSerie', {
+            pri_ano: { label: "1º Ano", selected: false },
+            sec_ano: { label: "2º Ano", selected: false },
+            trc_ano: { label: "3º Ano", selected: false },
+            qrt_ano: { label: "4º Ano", selected: false },
+            qnt_ano: { label: "5º Ano", selected: false },
+        })
+    );
+
+    const [checkboxTurma, setCheckboxTurma] = useState(
+        loadFromLocalStorage('checkboxTurma', {
+            ano_A: { label: "A", selected: false },
+            ano_B: { label: "B", selected: false },
+            ano_C: { label: "C", selected: false },
+            ano_D: { label: "D", selected: false },
+            ano_E: { label: "E", selected: false },
+        })
+    );
+
+    const [checkboxInicial, setCheckboxInicial] = useState(
+        loadFromLocalStorage('checkboxInicial', {
+            inic_leitura: { label: "LEITURA", selected: false },
+            inic_escrita: { label: "ESCRITA", selected: false },
+            inic_matematica: { label: "MATEMÁTICA", selected: false },
+        })
+    );
+
+    const [checkboxMedial, setCheckboxMedial] = useState(
+        loadFromLocalStorage('checkboxMedial', {
+            inic_leitura: { label: "LEITURA", selected: false },
+            inic_escrita: { label: "ESCRITA", selected: false },
+            inic_matematica: { label: "MATEMÁTICA", selected: false },
+        })
+    );
+
+    const [checkboxFinal, setCheckboxFinal] = useState(
+        loadFromLocalStorage('checkboxFinal', {
+            inic_leitura: { label: "LEITURA", selected: false },
+            inic_escrita: { label: "ESCRITA", selected: false },
+            inic_matematica: { label: "MATEMÁTICA", selected: false },
+        })
+    );
+
+    // Atualiza localStorage sempre que algum filtro muda
+    function atualizarStorage(){
+            localStorage.setItem('checkboxEscola', JSON.stringify(checkboxEscola));
+            localStorage.setItem('checkboxSerie', JSON.stringify(checkboxSerie));
+            localStorage.setItem('checkboxTurma', JSON.stringify(checkboxTurma));
+            localStorage.setItem('checkboxInicial', JSON.stringify(checkboxInicial));
+            localStorage.setItem('checkboxMedial', JSON.stringify(checkboxMedial));
+            localStorage.setItem('checkboxFinal', JSON.stringify(checkboxFinal));
+    }
+
+    // Função para alternar o estado dos checkboxes
+    const toggleCheckbox = (setState, key) => {
+        setState((prevState) => ({
+            ...prevState,
+            [key]: { ...prevState[key], selected: !prevState[key].selected },
+        }));
+    };
+
+    // Função para enviar os filtros selecionados
+    const aplicarFiltros = () => {
+        const filtrosSelecionados = {
+            escolas: Object.entries(checkboxEscola)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+            serie: Object.entries(checkboxSerie)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+            turma: Object.entries(checkboxTurma)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+            diagnostico_inicial: Object.entries(checkboxInicial)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+            diagnostico_medial: Object.entries(checkboxMedial)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+            diagnostico_final: Object.entries(checkboxFinal)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+        };
+    
+        localStorage.setItem('filtrosSelecionados', JSON.stringify(filtrosSelecionados));
+        setFiltrosAlterados(false);
+        onApplyFilters(filtrosSelecionados);
+    };
+
+    const limparFiltros = () => {
+        // Remove os itens do localStorage
+        localStorage.removeItem('checkboxEscola')
+        localStorage.removeItem('checkboxSerie')
+        localStorage.removeItem('checkboxTurma')
+        localStorage.removeItem('checkboxInicial')
+        localStorage.removeItem('checkboxMedial')
+        localStorage.removeItem('checkboxFinal')
+    
+        // Reseta os estados para os valores padrão
+        setCheckboxEscola({
+            analia: { label: "EMEFEI Anália", selected: false },
+            outra1: { label: "Outra Escola 1", selected: false },
+            outra2: { label: "Outra Escola 2", selected: false },
+            outra3: { label: "Outra Escola 2", selected: false },
+            outra4: { label: "Outra Escola 2", selected: false },
+            outra5: { label: "Outra Escola 2", selected: false },
+            outra6: { label: "Outra Escola 2", selected: false },
+        })
+    
+        setCheckboxSerie({
+            pri_ano: { label: "1º Ano", selected: false },
+            sec_ano: { label: "2º Ano", selected: false },
+            trc_ano: { label: "3º Ano", selected: false },
+            qrt_ano: { label: "4º Ano", selected: false },
+            qnt_ano: { label: "5º Ano", selected: false },
+        })
+    
+        setCheckboxTurma({
+            ano_A: { label: "A", selected: false },
+            ano_B: { label: "B", selected: false },
+            ano_C: { label: "C", selected: false },
+            ano_D: { label: "D", selected: false },
+            ano_E: { label: "E", selected: false },
+        })
+    
+        setCheckboxInicial({
+            inic_leitura: { label: "LEITURA", selected: false },
+            inic_escrita: { label: "ESCRITA", selected: false },
+            inic_matematica: { label: "MATEMÁTICA", selected: false },
+        })
+    
+        setCheckboxMedial({
+            inic_leitura: { label: "LEITURA", selected: false },
+            inic_escrita: { label: "ESCRITA", selected: false },
+            inic_matematica: { label: "MATEMÁTICA", selected: false },
+        })
+    
+        setCheckboxFinal({
+            inic_leitura: { label: "LEITURA", selected: false },
+            inic_escrita: { label: "ESCRITA", selected: false },
+            inic_matematica: { label: "MATEMÁTICA", selected: false },
+        })
+    
+        // Console log para debug
+        console.log('Filtros e Local Storage limpos');
+    }
+
+
+    useEffect(() => {
+        const filtrosAtuais = {
+            escolas: Object.entries(checkboxEscola)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+            serie: Object.entries(checkboxSerie)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+            turma: Object.entries(checkboxTurma)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+            diagnostico_inicial: Object.entries(checkboxInicial)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+            diagnostico_medial: Object.entries(checkboxMedial)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+            diagnostico_final: Object.entries(checkboxFinal)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.label),
+        };
+    
+        const filtrosSalvos = JSON.parse(localStorage.getItem('filtrosSelecionados')) || {};
+        const houveAlteracao = JSON.stringify(filtrosAtuais) !== JSON.stringify(filtrosSalvos);
+    
+        setFiltrosAlterados(houveAlteracao);
+    
+        if (onFilterChange) {
+            onFilterChange(!houveAlteracao);
+        }
+    }, [
+        checkboxEscola,
+        checkboxSerie,
+        checkboxTurma,
+        checkboxInicial,
+        checkboxMedial,
+        checkboxFinal,
+        onFilterChange,
+    ]);
 
 
     return (
@@ -96,10 +256,10 @@ function Filtrar() {
                                 ></i>
                             </div>
                             {/* *Recebe o objeto setado com as informações de confirmação de estado e nome de
-                             cada ítem;
-                             *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
-                             *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
-                             *Itera sobre os checkboxes dinamicamente */}
+                                cada ítem;
+                                *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
+                                *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
+                                *Itera sobre os checkboxes dinamicamente */}
                             {stdCheckBox.escolas && (
                                 Object.entries(checkboxEscola).map(([key, value], index) => (
                                     <div
@@ -129,10 +289,10 @@ function Filtrar() {
                                 ></i>
                             </div>
                             {/* *Recebe o objeto setado com as informações de confirmação de estado e nome de
-                             cada ítem;
-                             *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
-                             *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
-                             *Itera sobre os checkboxes dinamicamente */}
+                                cada ítem;
+                                *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
+                                *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
+                                *Itera sobre os checkboxes dinamicamente */}
                             {stdCheckBox.serie && (
                                 Object.entries(checkboxSerie).map(([key, value], index) => (
                                     <div
@@ -162,10 +322,10 @@ function Filtrar() {
                                 ></i>
                             </div>
                             {/* *Recebe o objeto setado com as informações de confirmação de estado e nome de
-                             cada ítem;
-                             *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
-                             *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
-                             *Itera sobre os checkboxes dinamicamente */}
+                                cada ítem;
+                                *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
+                                *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
+                                *Itera sobre os checkboxes dinamicamente */}
                             {stdCheckBox.turma && (
                                 Object.entries(checkboxTurma).map(([key, value], index) => (
                                     <div
@@ -195,10 +355,10 @@ function Filtrar() {
                                 ></i>
                             </div>
                             {/* *Recebe o objeto setado com as informações de confirmação de estado e nome de
-                             cada ítem;
-                             *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
-                             *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
-                             *Altera os checkboxes dinamicamente */}
+                                cada ítem;
+                                *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
+                                *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
+                                *Altera os checkboxes dinamicamente */}
                             {stdCheckBox.inicial && (
                                 Object.entries(checkboxInicial).map(([key, value], index) => (
                                     <div
@@ -229,10 +389,10 @@ function Filtrar() {
                                 ></i>
                             </div>
                             {/* *Recebe o objeto setado com as informações de confirmação de estado e nome de
-                             cada ítem;
-                             *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
-                             *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
-                             *Altera os checkboxes dinamicamente */}
+                                cada ítem;
+                                *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
+                                *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
+                                *Altera os checkboxes dinamicamente */}
                             {stdCheckBox.medial && (
                                 Object.entries(checkboxMedial).map(([key, value], index) => (
                                     <div
@@ -255,17 +415,17 @@ function Filtrar() {
                                 className="filter-close"
                                 onClick={() => toggleDropdown("final")} // Alterna o menu ao clicar
                             >
-                                <p>DIAGNÓSTICO INICIAL</p>
+                                <p>DIAGNÓSTICO FINAL</p>
                                 <i
                                     className={`fa-solid ${stdCheckBox.final ? "fa-chevron-up" : "fa-chevron-down"
                                         }`}
                                 ></i>
                             </div>
                             {/* *Recebe o objeto setado com as informações de confirmação de estado e nome de
-                             cada ítem;
-                             *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
-                             *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
-                             *Altera os checkboxes dinamicamente */}
+                                cada ítem;
+                                *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
+                                *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
+                                *Altera os checkboxes dinamicamente */}
                             {stdCheckBox.final && (
                                 Object.entries(checkboxFinal).map(([key, value], index) => (
                                     <div
@@ -284,15 +444,17 @@ function Filtrar() {
 
                     </div>
 
-                    <div className="bot-aplicar">
-                        <p>APLICAR FILTROS</p>
+                    <div className="botoes-filtros">
+                        <div className="bot-aplicar" onClick={() => {aplicarFiltros(), atualizarStorage()}}>
+                            <p>APLICAR FILTROS</p>
+                        </div>
+
+                        <div className="bot-limpar" onClick={limparFiltros}>
+                            <i class="fa-solid fa-trash"></i>
+                        </div>
                     </div>
 
                 </div>
-
-
-
-
 
 
                 <div className="mostrar">
