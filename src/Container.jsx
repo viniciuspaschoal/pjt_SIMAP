@@ -82,37 +82,57 @@ function Container() {
     const buscarDados = (filtros) => {
         const { escolas, serie, turma, diagnostico_inicial, diagnostico_medial, diagnostico_final } = filtros;
     
-        const resultados = [];
+        // Inicializa um array para armazenar os resultados
+        let resultados = [];
     
-        escolas.forEach((escola) => {
-            if (dados[escola]) {
-                const series = dados[escola][serie];
-                if (series) {
-                    const turmas = series[turma];
-                    if (turmas) {
-                        const filtrados = turmas.filter((aluno) => {
-                            // Verifica diagnósticos apenas se os filtros foram aplicados
-                            const diagnosticoInicialValido =
-                                diagnostico_inicial.length === 0 ||
-                                diagnostico_inicial.some((filtro) => aluno.diagnosticos.inicial[filtro.toLowerCase()]);
-                            const diagnosticoMedialValido =
-                                diagnostico_medial.length === 0 ||
-                                diagnostico_medial.some((filtro) => aluno.diagnosticos.medial[filtro.toLowerCase()]);
-                            const diagnosticoFinalValido =
-                                diagnostico_final.length === 0 ||
-                                diagnostico_final.some((filtro) => aluno.diagnosticos.final[filtro.toLowerCase()]);
+        // Itera sobre as escolas selecionadas
+        escolas.forEach((escolaSelecionada) => {
+            const escolaData = dados[escolaSelecionada]; // Obtém os dados da escola
+            if (!escolaData) return; // Pula se a escola não tiver dados
     
-                            return diagnosticoInicialValido && diagnosticoMedialValido && diagnosticoFinalValido;
-                        });
+            // Itera sobre as séries selecionadas
+            serie.forEach((serieSelecionada) => {
+                const serieData = escolaData[serieSelecionada]; // Obtém os dados da série
+                if (!serieData) return; // Pula se a série não existir
     
-                        resultados.push(...filtrados);
-                    }
-                }
-            }
+                // Itera sobre as turmas selecionadas
+                turma.forEach((turmaSelecionada) => {
+                    const turmaData = serieData[turmaSelecionada]; // Obtém os dados da turma
+                    if (!turmaData) return; // Pula se a turma não existir
+    
+                    // Filtra os alunos com base nos diagnósticos
+                    const alunosFiltrados = turmaData.filter((aluno) => {
+                        const diagnosticoInicialValido =
+                            diagnostico_inicial.length === 0 ||
+                            diagnostico_inicial.some((filtro) =>
+                                filtro.toLowerCase() in aluno.diagnosticos.inicial
+                            );
+                        const diagnosticoMedialValido =
+                            diagnostico_medial.length === 0 ||
+                            diagnostico_medial.some((filtro) =>
+                                filtro.toLowerCase() in aluno.diagnosticos.medial
+                            );
+                        const diagnosticoFinalValido =
+                            diagnostico_final.length === 0 ||
+                            diagnostico_final.some((filtro) =>
+                                filtro.toLowerCase() in aluno.diagnosticos.final
+                            );
+    
+                        // Retorna apenas os alunos que atendem a todos os critérios
+                        return diagnosticoInicialValido && diagnosticoMedialValido && diagnosticoFinalValido;
+                    });
+    
+                    // Adiciona os alunos filtrados ao resultado
+                    resultados = [...resultados, ...alunosFiltrados];
+                });
+            });
         });
     
+        // Atualiza o estado com os dados filtrados
         setDadosFiltrados(resultados);
-    }
+    };
+    
+    
 
     return (
         <>

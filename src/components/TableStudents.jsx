@@ -12,7 +12,7 @@ function TableStudents({ dados, filtros }) {
                     </div>
                     {dados.map((aluno) => (
                         <div key={aluno.ra} className="linha-ra">
-                            <div className="conteudo-row">
+                            <div className="conteudo-topicos">
                                 <p>{aluno.ra}</p>
                             </div>
                         </div>
@@ -26,7 +26,7 @@ function TableStudents({ dados, filtros }) {
                     </div>
                     {dados.map((aluno) => (
                         <div key={aluno.ra} className="linha-ra">
-                            <div className="conteudo-row">
+                            <div className="conteudo-topicos">
                                 <p className="conteudo-name">{aluno.nome}</p>
                             </div>
                         </div>

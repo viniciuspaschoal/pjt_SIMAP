@@ -81,6 +81,7 @@
 }
 
 .conteudo-topicos p {
+    font-size: 1rem;
     border: 1px solid #D8D8D8; /* Borda cinza claro */
     height: 100%;
     flex: 1; /* Faz os elementos terem tamanhos iguais */
@@ -115,6 +116,10 @@
     border-bottom: 1px solid #01401f;
 }
 
+.coluna-ra-p, .coluna-nome{
+    border-bottom: 1px solid #01401f;
+}
+
 
 /* Estilo geral do scroll */
 .tabela-estilizada::-webkit-scrollbar {
@@ -139,6 +144,3 @@
 .tabela-estilizada::-webkit-scrollbar-thumb:hover {
     background-color: #006d31; /* Verde mais escuro */
 }
-
-
-
