@@ -1,6 +1,6 @@
 import './tableStudents.css';
 
-function TableStudents({ dados, filtros }) {
+function TableStudents({ dados, filtros, onAlunoClick }) {
     return (
         <>
             <div className="tabela-estilizada">
@@ -11,7 +11,7 @@ function TableStudents({ dados, filtros }) {
                         <p>RA</p>
                     </div>
                     {dados.map((aluno) => (
-                        <div key={aluno.ra} className="linha-ra">
+                        <div key={aluno.ra} className="linha-ra" onClick={() => onAlunoClick(aluno)}>
                             <div className="conteudo-topicos">
                                 <p>{aluno.ra}</p>
                             </div>
@@ -25,7 +25,7 @@ function TableStudents({ dados, filtros }) {
                         <p>NOME</p>
                     </div>
                     {dados.map((aluno) => (
-                        <div key={aluno.ra} className="linha-ra">
+                        <div key={aluno.ra} className="linha-ra" onClick={() => onAlunoClick(aluno)}>
                             <div className="conteudo-topicos">
                                 <p className="conteudo-name">{aluno.nome}</p>
                             </div>

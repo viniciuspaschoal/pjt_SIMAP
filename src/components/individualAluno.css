@@ -1,0 +1,182 @@
+.container-user {
+    width: 97%; /* Define a largura como 95% da tela */
+    max-height: 86vh; /* Limita a altura do componente */
+    margin: 0 auto; /* Centraliza o componente horizontalmente */
+    border-radius: 10px; /* Arredonda os cantos */
+    color: #000; /* Define a cor do texto */
+    overflow-x: auto; /* Ativa o scroll horizontal */
+    overflow-y: auto; /* Ativa o scroll vertical */
+    scrollbar-width: thin; /* Para navegadores como Firefox */
+    scrollbar-color: #0EB860 #f0f0f0; /* Cores do scrollbar */
+    margin-right: 1vw;
+}
+
+/* Personalização do scrollbar para navegadores Webkit */
+.container-user::-webkit-scrollbar {
+    width: 10px; /* Largura do scrollbar vertical */
+    height: 10px; /* Altura do scrollbar horizontal */
+}
+
+.container-user::-webkit-scrollbar-thumb {
+    background: #0EB860; /* Cor da barra de rolagem */
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+.container-user::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Fundo do track do scrollbar */
+}
+
+.voltar-button{
+    height: 6vh;
+    width: 6vw;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #000;
+    background-color: #0EB860;
+    border:1px solid #004a24;
+    cursor: pointer;
+    transition: 0.3s;
+
+    margin-bottom: 21vh;
+}
+
+.voltar-button:hover{
+    background-color: #007438;
+    color: #fff;
+}
+
+.voltar-button p{
+    font-size: 1.1rem;
+}
+
+.voltar-button i{
+    font-size: 1.1rem;
+}
+
+.userHeader {
+    display: flex; /* Alinha os itens do cabeçalho em um layout flexível */
+    align-items: center; /* Centraliza verticalmente os itens no eixo do flexbox */
+    gap: 2rem; /* Adiciona um espaçamento de 2rem entre os itens */
+    margin-bottom: 12vh; /* Adiciona uma margem inferior ao cabeçalho */
+    margin-top: 5vh;
+}
+
+.user-page {
+    border: 2px solid #000; /* Define uma borda preta de 2px ao redor do elemento */
+    border-radius: 8px; /* Arredonda os cantos do elemento */
+    display: flex; /* Alinha o conteúdo interno em um layout flexível */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    width: 200px; /* Define a largura como 100px */
+    height: 150px; /* Define a altura como 100px */
+    background-color: #e6e6e6; /* Define uma cor de fundo cinza claro */
+    margin-left: 5vw;
+    margin-bottom: 4vh;
+}
+
+.user-page i {
+    font-size: 6rem; /* Define o tamanho do ícone dentro do elemento */
+    color: #000; /* Define a cor do ícone como cinza */
+}
+
+.userDetails{
+    margin-bottom: 5vh;
+}
+
+.userDetails h1 {
+    font-size: 2.8rem; /* Define o tamanho da fonte do título do usuário */
+    margin-bottom: 2vh; /* Adiciona um espaçamento inferior ao título */
+    color: #000; /* Define a cor do texto como preto */
+}
+
+
+.userInfos {
+    display: flex; /* Alinha os itens das informações em um layout flexível */
+    gap: 3rem; /* Adiciona um espaçamento de 1rem entre os itens */
+    font-size: 1rem; /* Define o tamanho da fonte do texto das informações */
+    color: #666; /* Define a cor do texto como cinza */
+    font-weight: 500;
+}
+
+.userInfos span{
+    text-decoration: underline;
+}
+
+.userAttributes {
+    display: flex; /* Alinha os atributos do usuário em um layout flexível */
+    justify-content: space-between; /* Distribui os itens igualmente com espaço entre eles */
+    align-items: center; /* Centraliza os itens verticalmente */
+    margin-top: 3vh; /* Adiciona uma margem superior de 1rem */
+}
+
+.userSchool p {
+    font-size: 1.2rem; /* Define o tamanho da fonte do texto da escola */
+    font-weight: bold; /* Define o texto como negrito */
+    margin: 0; /* Remove qualquer margem ao redor do texto */
+}
+
+.btProjeto {
+    width: 17rem;
+    height: 3.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 39px;
+    border: 1px solid #326D4F;
+    background: rgba(0, 163, 35, 0.37);
+    margin-top: 0.3rem;
+    margin-left: 30vw;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 1.5rem; /* Define o tamanho da fonte dos títulos */
+    color: #000; /* Define a cor do texto como preto */
+    margin-bottom: 1rem; /* Adiciona um espaçamento inferior ao título */
+}
+
+table {
+    width: 100%; /* Define a largura da tabela como 100% do elemento pai */
+    border-collapse: collapse; /* Remove os espaços entre as bordas da tabela */
+    margin-bottom: 2rem; /* Adiciona uma margem inferior de 2rem */
+}
+
+table th, table td {
+    border: 1px solid #ddd; /* Define uma borda cinza clara ao redor das células */
+    text-align: center; /* Centraliza o texto horizontalmente */
+    padding: 0.5rem; /* Adiciona um espaçamento interno de 0.5rem */
+}
+
+table th {
+    background-color: #326d4f; /* Define a cor de fundo do cabeçalho da tabela como verde */
+    color: #fff; /* Define a cor do texto como branco */
+    font-weight: bold; /* Define o texto como negrito */
+}
+
+table td {
+    background-color: #fff; /* Define a cor de fundo das células como branco */
+    color: #666; /* Define a cor do texto como cinza */
+}
+
+table td:first-child, table th:first-child {
+    border-left: none; /* Remove a borda esquerda da primeira célula */
+}
+
+table td:last-child, table th:last-child {
+    border-right: none; /* Remove a borda direita da última célula */
+}
+
+.table-container-scroll {
+    max-height: 80vh; /* Limita a altura da div para caber na tela */
+    overflow-y: auto; /* Habilita scroll vertical */
+    overflow-x: auto; /* Habilita scroll horizontal */
+    scrollbar-width: thin; /* Para navegadores como Firefox */
+    scrollbar-color: #0EB860 #f0f0f0; /* Cores da barra de rolagem */
+}
+
+
+

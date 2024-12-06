@@ -6,6 +6,7 @@ import Geral from './components/Geral'
 import Filtrar from './components/Filtrar'
 import dados from './db/db.json'
 import TableStudents from "./components/TableStudents"
+import AlunoDetalhes from './components/IndividualAluno'
 import { useState } from 'react'
 
 function Container() {
@@ -14,6 +15,7 @@ function Container() {
     const [filtrosAplicados, setFiltrosAplicados] = useState(true)
     const [dadosFiltrados, setDadosFiltrados] = useState([])
     const [filtrosAtuais, setFiltrosAtuais] = useState({}) // Novo estado para armazenar os filtros aplicados
+    const [alunoSelecionado, setAlunoSelecionado] = useState(null); // Novo estado
 
     //função para abrir e fechar menu
     function clickMenu() {
@@ -77,6 +79,16 @@ function Container() {
         setFiltrosAtuais(filtros) // Salva os filtros aplicados
         buscarDados(filtros) // Chama a função para filtrar os dados
         setEstadoHome('geral') // Redireciona para a tela "geral"
+    }
+
+    const handleAlunoClick = (aluno) => {
+        setAlunoSelecionado(aluno);
+        setEstadoHome('detalhes');
+    }
+
+    const voltarParaLista = () => {
+        setAlunoSelecionado(null);
+        setEstadoHome('geral');
     }
 
     const buscarDados = (filtros) => {
@@ -162,6 +174,7 @@ function Container() {
                         <TableStudents
                             dados={dadosFiltrados}
                             filtros={filtrosAtuais} // Passa os filtros para a tabela
+                            onAlunoClick={handleAlunoClick}
                         />
                     )}
                     {estadoHome === 'busca' && (
@@ -170,6 +183,11 @@ function Container() {
                             onFilterChange={handleFilterChange}
                         />
                     )}
+
+                    {estadoHome === 'detalhes' && alunoSelecionado && (
+                        <AlunoDetalhes aluno={alunoSelecionado} onVoltar={voltarParaLista} />
+                    )}
+
                 </div>
             </div>
         </>
