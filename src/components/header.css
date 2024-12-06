@@ -49,3 +49,67 @@ padding-left: 36px;
     height: 50px;
     margin-left: 24px;
 }
+
+
+/* Ícone do usuário no canto direito */
+.local-user {
+    position: relative;
+    margin-left: 15vw;
+    
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #000; /* Cor preta para combinar com o cabeçalho */
+    font-size: 1.6rem;
+}
+
+.user-i{
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 2.5vh 1.2vw;
+    margin-right: 0.5vw;
+}
+
+.user i {
+    margin-left: 5px;
+}
+
+.seta{
+    color: #fff;
+}
+
+/* Dropdown do menu do usuário */
+.user-menu {
+    margin-top: 1vh;
+    position: absolute;
+    top: 100%; /* Alinha logo abaixo do ícone */
+    right: 0; /* Alinha à direita */
+    background-color: #fff; /* Fundo branco */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    width: 150px;
+    z-index: 100;
+    border: 1px solid #cecece;
+}
+
+.user-menu p {
+    margin: 10px 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.user-menu p:hover {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+.sair-icon{
+    font-size: 1rem;
+    margin-left: 1vw;
+}
