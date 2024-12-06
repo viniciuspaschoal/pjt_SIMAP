@@ -3,10 +3,11 @@
     display: flex;
     border-collapse: collapse;
     font-size: 14px;
-    
     overflow: auto; /* Adiciona o scroll geral apenas na tabela */
+    overflow-x: auto; /* Adiciona o scroll lateral */
+    max-height: calc(100vh - 100px); /* Define a altura máxima (ajuste conforme o layout) */
     border: 1px solid #01401f; /* Borda externa da tabela */
-    box-sizing: border-box; /* Inclui bordas dentro da largura total */
+    box-sizing: border-box; /* Inclui bordas dentro da largura */
 }
 
 .colunas{
