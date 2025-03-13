@@ -27,7 +27,7 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
     const loadFromLocalStorage = (key, defaultValue) => {
         const storedValue = localStorage.getItem(key);
         return storedValue ? JSON.parse(storedValue) : defaultValue;
-    };
+    }
 
     // Inicializa estados com valores carregados do localStorage
     const [checkboxEscola, setCheckboxEscola] = useState(
