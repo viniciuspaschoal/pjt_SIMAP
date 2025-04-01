@@ -8,6 +8,7 @@ import dados from './db/db.json'
 import TableStudents from "./components/TableStudents"
 import AlunoDetalhes from './components/IndividualAluno'
 import { useState } from 'react'
+import TableActualTail from './components/TableActualTail'
 
 function Container() {
     const [estadoMenu, setEstadoMenu] = useState('close')
@@ -171,11 +172,12 @@ function Container() {
                         />
                     )}
                     {estadoHome === 'geral' && (
-                        <TableStudents
-                            dados={dadosFiltrados}
-                            filtros={filtrosAtuais} // Passa os filtros para a tabela
-                            onAlunoClick={handleAlunoClick}
-                        />
+                        // <TableStudents
+                        //     dados={dadosFiltrados}
+                        //     filtros={filtrosAtuais} // Passa os filtros para a tabela
+                        //     onAlunoClick={handleAlunoClick}
+                        // />
+                        <TableActualTail/>
                     )}
                     {estadoHome === 'busca' && (
                         <Filtrar
