@@ -63,10 +63,11 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
     );
 
     const [checkboxInicial, setCheckboxInicial] = useState(
-        loadFromLocalStorage('checkboxInicial', {
-            inic_leitura: { label: "LEITURA", selected: false },
-            inic_escrita: { label: "ESCRITA", selected: false },
-            inic_matematica: { label: "MATEMÁTICA", selected: false },
+        loadFromLocalStorage('checkboxBimestre', {
+            inic_priBim: { label: "1º BIMESTRE", selected: false },
+            inic_segBim: { label: "2º BIMESTRE", selected: false },
+            inic_terBim: { label: "3º BIMESTRE", selected: false },
+            inic_quarBim: { label: "4º BIMESTRE", selected: false },
         })
     );
 
@@ -342,13 +343,13 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                             )}
                         </div>
 
-                        {/*DIAGNÓSTICO INICIAL*/}
+                        {/*PERÍODO BIMESTRAL*/}
                         <div className="dropdown-checkbox">
                             <div
                                 className="filter-close"
                                 onClick={() => toggleDropdown("inicial")} // Alterna o menu ao clicar
                             >
-                                <p>DIAGNÓSTICO INICIAL</p>
+                                <p>PERÍODO BIMESTRAL</p>
                                 <i
                                     className={`fa-solid ${stdCheckBox.inicial ? "fa-chevron-up" : "fa-chevron-down"
                                         }`}
@@ -376,13 +377,13 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                         </div>
 
 
-                        {/*DIAGNÓSTICO MEDIAL*/}
+                        {/*NIVEL DE ALFABETIZAÇÃO*/}
                         <div className="dropdown-checkbox">
                             <div
                                 className="filter-close"
                                 onClick={() => toggleDropdown("medial")} // Alterna o menu ao clicar
                             >
-                                <p>DIAGNÓSTICO MEDIAL</p>
+                                <p>ALFABETIZAÇÃO</p>
                                 <i
                                     className={`fa-solid ${stdCheckBox.medial ? "fa-chevron-up" : "fa-chevron-down"
                                         }`}
@@ -409,39 +410,6 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                             )}
                         </div>
 
-                        {/*DIAGNÓSTICO FINAL*/}
-                        <div className="dropdown-checkbox">
-                            <div
-                                className="filter-close"
-                                onClick={() => toggleDropdown("final")} // Alterna o menu ao clicar
-                            >
-                                <p>DIAGNÓSTICO FINAL</p>
-                                <i
-                                    className={`fa-solid ${stdCheckBox.final ? "fa-chevron-up" : "fa-chevron-down"
-                                        }`}
-                                ></i>
-                            </div>
-                            {/* *Recebe o objeto setado com as informações de confirmação de estado e nome de
-                                cada ítem;
-                                *Ao ser clicado, a função identifica se o ítem estava aberto ou fechado fazendo com que a mesma altere o estado da variável do objeto(true ou false); 
-                                *A quantidade de ítens no objeto vão determinar o tamanho dessta secção com os filtros;
-                                *Altera os checkboxes dinamicamente */}
-                            {stdCheckBox.final && (
-                                Object.entries(checkboxFinal).map(([key, value], index) => (
-                                    <div
-                                        key={index}
-                                        className="item-checkbox"
-                                        onClick={() => toggleCheckbox(setCheckboxFinal, key)}> {/* Alterna ao clicar*/}
-
-                                        <div className="box-checkbox">
-                                            {value.selected && <i className="fa-solid fa-check"></i>}
-                                        </div>
-                                        <p>{value.label}</p>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-
                     </div>
 
                     <div className="botoes-filtros">
@@ -456,7 +424,7 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
 
                 </div>
 
-
+                {/*MOSTRAR FILTROS SELECIONADOS*/}
                 <div className="mostrar">
                     <div className="mostrar-filtros">
                         <div className='filtros-selecionados'><p className='filtros-selecionados-p'>FILTROS SELECIONADOS</p></div>
@@ -520,17 +488,6 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                                 ))}
                         </div>
 
-
-                        <p className='itens-filtro'>DIAGNÓSTICOS FINAL:</p>
-                        <div className="exibir-filtro">
-                            {Object.entries(checkboxFinal)
-                                .filter(([_, value]) => value.selected)
-                                .map(([key, value]) => (
-                                    <p key={key} className='filtro-selecionado'>
-                                        {value.label}
-                                    </p>
-                                ))}
-                        </div>
                     </div>
                 </div>
             </div>
