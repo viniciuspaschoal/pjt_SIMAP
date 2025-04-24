@@ -177,7 +177,11 @@ function Container() {
                         //     filtros={filtrosAtuais} // Passa os filtros para a tabela
                         //     onAlunoClick={handleAlunoClick}
                         // />
-                        <TableActualTail/>
+                        <TableActualTail
+                            dados={dadosFiltrados}
+                            filtros={filtrosAtuais} // Passa os filtros para a tabela
+                            onAlunoClick={handleAlunoClick}
+                        />
                     )}
                     {estadoHome === 'busca' && (
                         <Filtrar

@@ -1,0 +1,40 @@
+export default function TableActualTail({ dados, filtros, onAlunoClick }) {
+    return (
+      <div className="overflow-x-auto max-w-full ml-10">
+        <div className="flex flex-wrap">
+          {/* Cabeçalhos */}
+          <div className="w-full flex flex-wrap">
+            <div className="w-1/6 p-2 border border-gray-300">N</div>
+            <div className="w-1/6 p-2 border border-gray-300">R.A.</div>
+            <div className="w-1/6 p-2 border border-gray-300">NOME COMPLETO</div>
+            <div className="w-1/6 p-2 border border-gray-300">ESCOLA</div>
+            <div className="w-1/6 p-2 border border-gray-300">Turma</div>
+            <div className="w-1/6 p-2 border border-gray-300">Declaração</div>
+            <div className="w-1/6 p-2 border border-gray-300">Inicial</div>
+            <div className="w-1/6 p-2 border border-gray-300">1º Bimestre</div>
+            <div className="w-1/6 p-2 border border-gray-300">2º Bimestre</div>
+            <div className="w-1/6 p-2 border border-gray-300">3º Bimestre</div>
+            <div className="w-1/6 p-2 border border-gray-300">4º Bimestre</div>
+          </div>
+  
+          {/* Dados */}
+          {dados.map((aluno) => (
+            <div key={aluno.ra} className="w-full flex flex-wrap border-b border-gray-300">
+              <div className="w-1/6 p-2">{aluno.n}</div>
+              <div className="w-1/6 p-2">{aluno.ra}</div>
+              <div className="w-1/6 p-2">{aluno.nome}</div>
+              <div className="w-1/6 p-2">{aluno.escola}</div>
+              <div className="w-1/6 p-2">{aluno.turma}</div>
+              <div className="w-1/6 p-2">{aluno.declaracao}</div>
+              <div className="w-1/6 p-2">{aluno.inicial}</div>
+              <div className="w-1/6 p-2">{aluno.bimestres[0]}</div>
+              <div className="w-1/6 p-2">{aluno.bimestres[1]}</div>
+              <div className="w-1/6 p-2">{aluno.bimestres[2]}</div>
+              <div className="w-1/6 p-2">{aluno.bimestres[3]}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  

@@ -6,7 +6,6 @@
     overflow: auto; /* Adiciona o scroll geral apenas na tabela */
     overflow-x: auto; /* Adiciona o scroll lateral */
     max-height: calc(100vh - 100px); /* Define a altura máxima (ajuste conforme o layout) */
-    border: 1px solid #01401f; /* Borda externa da tabela */
     box-sizing: border-box; /* Inclui bordas dentro da largura */
 }
 
@@ -27,9 +26,27 @@
     align-items: center;
 }
 
+.inicialHipotese{
+    background-color: #007D3C;
+    font-weight: bold;
+    color: #fff; /* Branco escuro para o texto */
+    border-left: 1px solid #01401f;
+    border-right: 1px solid #01401f;
+    border-top: 1px solid #01401f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* ESTILO DAS LINHAS DE CONTEÚDO */
 
 .colun-principal {
+    padding: 0 15px;
+    height: 5vh;
+    font-size: 1rem;
+}
+
+.colun-hipotese{
     padding: 0 15px;
     height: 5vh;
     font-size: 1rem;
@@ -100,7 +117,11 @@
     width: 25vw;
 }
 
-.coluna-nome, .coluna-ra, .coluna-ra-p {
+.coluna-declaracao{
+    width: 10vw;
+}
+
+.coluna-nome, .coluna-ra, .coluna-ra-p, .coluna-declaracao {
     height: 10vh;
     font-size: 1.2rem; /* Tamanho de fonte do cabeçalho */
 }
@@ -113,7 +134,7 @@
     width: 28vw;
 }
 
-.colun-principal{
+.colun-principal, .colun-hipotese{
     border-bottom: 1px solid #01401f;
 }
 
