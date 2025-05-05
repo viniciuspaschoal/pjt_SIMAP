@@ -77,29 +77,30 @@ function Container() {
 
     // Atualiza os filtros aplicados e busca os dados
     const handleApplyFilters = (filtros) => {
-        const mapDiagnostico = {
-            "1º BIMESTRE": "diagnostico_priBim",
-            "2º BIMESTRE": "diagnostico_segBim",
-            "3º BIMESTRE": "diagnostico_terBim",
-            "4º BIMESTRE": "diagnostico_quarBim"
+        // Mapeia os nomes dos bimestres para suas chaves
+        const mapChave = {
+            "1º BIMESTRE": "priBim",
+            "2º BIMESTRE": "segBim",
+            "3º BIMESTRE": "terBim",
+            "4º BIMESTRE": "quarBim"
         };
     
-        // Monta um novo objeto com os filtros + os diagnósticos de cada bimestre aplicados
-        const filtrosComDiagnostico = {
-            ...filtros,
-        };
+        // Cria um novo objeto de filtros, copiando os anteriores
+        const filtrosComDiagnosticos = { ...filtros };
     
-        filtros.periodo_bimestral.forEach(bim => {
-            const chave = mapDiagnostico[bim];
+        // Para cada bimestre selecionado, adiciona um array com os campos a serem exibidos
+        filtros.periodo_bimestral.forEach((bimestre) => {
+            const chave = mapChave[bimestre];
             if (chave) {
-                filtrosComDiagnostico[chave] = ["Hipótese"]; // ou adicionar outros campos como "Faltas", "P.R.A."
+                filtrosComDiagnosticos[`diagnostico_${chave}`] = ["Hipótese", "Faltas", "P.R.A."];
             }
         });
     
-        setFiltrosAtuais(filtrosComDiagnostico);
-        buscarDados(filtros); // essa busca usa o objeto original
+        setFiltrosAtuais(filtrosComDiagnosticos);
+        buscarDados(filtros); // a função de filtragem continua recebendo o original
         setEstadoHome('geral');
     };
+    
 
     const handleAlunoClick = (aluno) => {
         setAlunoSelecionado(aluno);

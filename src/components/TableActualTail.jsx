@@ -130,7 +130,9 @@ const HipoteseInicial = ({ dados }) => (
     </div>
 );
 
-const Diagnostico = ({ titulo, dados, tipoDiagnostico }) => {
+const Diagnostico = ({ titulo, dados, tipoDiagnostico, filtros }) => {
+    if (!filtros || filtros.length === 0) return null;
+
     return (
         <div className="colunas">
             <div className="coluna-diagnosticos">
@@ -138,17 +140,18 @@ const Diagnostico = ({ titulo, dados, tipoDiagnostico }) => {
                     <p>{titulo}</p>
                 </div>
                 <div className="sub-colun">
-                    <p>Hipótese</p>
-                    <p>Faltas</p>
-                    <p>P.R.A.</p>
+                    {filtros.includes("Hipótese") && <p>Hipótese</p>}
+                    {filtros.includes("Faltas") && <p>Faltas</p>}
+                    {filtros.includes("P.R.A.") && <p>P.R.A.</p>}
                 </div>
+
                 {dados.map((aluno) => {
                     const diag = aluno.diagnosticos?.[tipoDiagnostico] || {};
                     return (
                         <div key={aluno.ra} className="conteudo-topicos">
-                            <p>{diag.alfabetizacao || "-"}</p>
-                            <p>{diag.frequencia || "-"}</p>
-                            <p>{diag.projeto || "-"}</p>
+                            {filtros.includes("Hipótese") && <p>{diag.alfabetizacao || "-"}</p>}
+                            {filtros.includes("Faltas") && <p>{diag.frequencia ?? "-"}</p>}
+                            {filtros.includes("P.R.A.") && <p>{diag.projeto || "-"}</p>}
                         </div>
                     );
                 })}

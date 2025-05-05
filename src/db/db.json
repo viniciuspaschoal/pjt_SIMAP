@@ -12,16 +12,16 @@
           },
           "diagnosticos": {
             "priBim": {
-              "alfabetizacao": "SSVS"
+              "alfabetizacao": "PS"
             },
             "segBim": {
-              "alfabetizacao": "SCVS"
+              "alfabetizacao": "PS"
             },
             "terBim": {
-              "alfabetizacao": "SA"
+              "alfabetizacao": "PS"
             },
             "quarBim": {
-              "alfabetizacao": "ALF"
+              "alfabetizacao": "PS"
             }
           }
         },
@@ -35,19 +35,17 @@
           },
           "diagnosticos": {
             "priBim": {
-              "alfabetizacao": "PS"
+              "alfabetizacao": "PS",
+              "frequencia": "4",
+              "projeto": "ALF"
             },
             "segBim": {
-              "alfabetizacao": "SSVS"
-            },
-            "terBim": {
-              "alfabetizacao": "SSVS"
-            },
-            "quarBim": {
-              "alfabetizacao": "SA"
+              "alfabetizacao": "SSVS",
+              "frequencia": "1",
+              "projeto": "MAT1"
             }
           }
-        }
+        }        
       ]
     }
   }
