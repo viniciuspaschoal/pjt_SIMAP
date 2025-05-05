@@ -77,10 +77,29 @@ function Container() {
 
     // Atualiza os filtros aplicados e busca os dados
     const handleApplyFilters = (filtros) => {
-        setFiltrosAtuais(filtros) // Salva os filtros aplicados
-        buscarDados(filtros) // Chama a função para filtrar os dados
-        setEstadoHome('geral') // Redireciona para a tela "geral"
-    }
+        const mapDiagnostico = {
+            "1º BIMESTRE": "diagnostico_priBim",
+            "2º BIMESTRE": "diagnostico_segBim",
+            "3º BIMESTRE": "diagnostico_terBim",
+            "4º BIMESTRE": "diagnostico_quarBim"
+        };
+    
+        // Monta um novo objeto com os filtros + os diagnósticos de cada bimestre aplicados
+        const filtrosComDiagnostico = {
+            ...filtros,
+        };
+    
+        filtros.periodo_bimestral.forEach(bim => {
+            const chave = mapDiagnostico[bim];
+            if (chave) {
+                filtrosComDiagnostico[chave] = ["Hipótese"]; // ou adicionar outros campos como "Faltas", "P.R.A."
+            }
+        });
+    
+        setFiltrosAtuais(filtrosComDiagnostico);
+        buscarDados(filtros); // essa busca usa o objeto original
+        setEstadoHome('geral');
+    };
 
     const handleAlunoClick = (aluno) => {
         setAlunoSelecionado(aluno);
@@ -93,59 +112,54 @@ function Container() {
     }
 
     const buscarDados = (filtros) => {
-        const { escolas, serie, turma, diagnostico_inicial, diagnostico_medial, diagnostico_final } = filtros;
-    
-        // Inicializa um array para armazenar os resultados
+        const { escolas, serie, turma, periodo_bimestral, alfabetizacao } = filtros;
+
+        const mapChave = {
+            "1º BIMESTRE": "priBim",
+            "2º BIMESTRE": "segBim",
+            "3º BIMESTRE": "terBim",
+            "4º BIMESTRE": "quarBim"
+        };
+
         let resultados = [];
-    
-        // Itera sobre as escolas selecionadas
+
         escolas.forEach((escolaSelecionada) => {
-            const escolaData = dados[escolaSelecionada]; // Obtém os dados da escola
-            if (!escolaData) return; // Pula se a escola não tiver dados
-    
-            // Itera sobre as séries selecionadas
+            const escolaData = dados[escolaSelecionada];
+            if (!escolaData) return;
+
             serie.forEach((serieSelecionada) => {
-                const serieData = escolaData[serieSelecionada]; // Obtém os dados da série
-                if (!serieData) return; // Pula se a série não existir
-    
-                // Itera sobre as turmas selecionadas
+                const serieData = escolaData[serieSelecionada];
+                if (!serieData) return;
+
                 turma.forEach((turmaSelecionada) => {
-                    const turmaData = serieData[turmaSelecionada]; // Obtém os dados da turma
-                    if (!turmaData) return; // Pula se a turma não existir
-    
-                    // Filtra os alunos com base nos diagnósticos
+                    const turmaData = serieData[turmaSelecionada];
+                    if (!turmaData) return;
+
                     const alunosFiltrados = turmaData.filter((aluno) => {
-                        const diagnosticoInicialValido =
-                            diagnostico_inicial.length === 0 ||
-                            diagnostico_inicial.some((filtro) =>
-                                filtro.toLowerCase() in aluno.diagnosticos.inicial
-                            );
-                        const diagnosticoMedialValido =
-                            diagnostico_medial.length === 0 ||
-                            diagnostico_medial.some((filtro) =>
-                                filtro.toLowerCase() in aluno.diagnosticos.medial
-                            );
-                        const diagnosticoFinalValido =
-                            diagnostico_final.length === 0 ||
-                            diagnostico_final.some((filtro) =>
-                                filtro.toLowerCase() in aluno.diagnosticos.final
-                            );
-    
-                        // Retorna apenas os alunos que atendem a todos os critérios
-                        return diagnosticoInicialValido && diagnosticoMedialValido && diagnosticoFinalValido;
+                        // Se não houver filtro, retorna todos
+                        if (periodo_bimestral.length === 0 && alfabetizacao.length === 0) {
+                            return true;
+                        }
+                    
+                        return periodo_bimestral.every((filtro) => {
+                            const chave = mapChave[filtro];
+                            const nivel = aluno.diagnosticos?.[chave]?.alfabetizacao;
+                            return nivel && alfabetizacao.includes(nivel);
+                        });
                     });
-    
-                    // Adiciona os alunos filtrados ao resultado
+                    
+
                     resultados = [...resultados, ...alunosFiltrados];
                 });
             });
         });
-    
-        // Atualiza o estado com os dados filtrados
+
+        console.log("Alunos encontrados com os filtros aplicados:", resultados);
         setDadosFiltrados(resultados);
     };
-    
-    
+
+
+
 
     return (
         <>

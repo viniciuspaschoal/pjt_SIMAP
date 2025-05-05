@@ -65,33 +65,43 @@ function TableActualTail({ dados, filtros, onAlunoClick }) {
                 <HipoteseInicial dados={dados}/>
                 
 
-                {/* Diagnóstico Inicial */}
-                {filtros.diagnostico_inicial?.length > 0 && (
+                {/* 1ºBimestre */}
+                {filtros.diagnostico_priBim?.length > 0 && (
                     <Diagnostico
                         titulo="1ºBimestre"
                         dados={dados}
-                        tipoDiagnostico="inicial"
-                        filtros={filtros.diagnostico_inicial}
+                        tipoDiagnostico="priBim"
+                        filtros={filtros.diagnostico_priBim}
                     />
                 )}
 
-                {/* Diagnóstico Medial */}
-                {filtros.diagnostico_medial?.length > 0 && (
+                {/* 2ºBimestre */}
+                {filtros.diagnostico_segBim?.length > 0 && (
                     <Diagnostico
-                        titulo="DIAGNÓSTICO MEDIAL - NÍVEIS DE PROFICIÊNCIA"
+                        titulo="2ºBimestre"
                         dados={dados}
-                        tipoDiagnostico="medial"
-                        filtros={filtros.diagnostico_medial}
+                        tipoDiagnostico="segBim"
+                        filtros={filtros.diagnostico_segBim}
+                    />
+                )}
+
+                {/* 3ºBimestre */}
+                {filtros.diagnostico_terBim?.length > 0 && (
+                    <Diagnostico
+                        titulo="3ºBimestre"
+                        dados={dados}
+                        tipoDiagnostico="terBim"
+                        filtros={filtros.diagnostico_terBim}
                     />
                 )}
 
                 {/* Diagnóstico Final */}
-                {filtros.diagnostico_final?.length > 0 && (
+                {filtros.diagnostico_quarBim?.length > 0 && (
                     <Diagnostico
-                        titulo="DIAGNÓSTICO FINAL - NÍVEIS DE PROFICIÊNCIA"
+                        titulo="4ºBimestre"
                         dados={dados}
-                        tipoDiagnostico="final"
-                        filtros={filtros.diagnostico_final}
+                        tipoDiagnostico="quarBim"
+                        filtros={filtros.diagnostico_quarBim}
                     />
                 )}
             </div>
@@ -120,10 +130,7 @@ const HipoteseInicial = ({ dados }) => (
     </div>
 );
 
-const Diagnostico = ({ titulo, dados, tipoDiagnostico, filtros }) => {
-    // Não renderiza a coluna se nenhum filtro foi aplicado
-    if (!filtros || filtros.length === 0) return null;
-
+const Diagnostico = ({ titulo, dados, tipoDiagnostico }) => {
     return (
         <div className="colunas">
             <div className="coluna-diagnosticos">
@@ -131,17 +138,20 @@ const Diagnostico = ({ titulo, dados, tipoDiagnostico, filtros }) => {
                     <p>{titulo}</p>
                 </div>
                 <div className="sub-colun">
-                    {filtros.includes("Hipótese") && <p>Hipótese</p>}
-                    {filtros.includes("Faltas") && <p>Faltas</p>}
-                    {filtros.includes("P.R.A.") && <p>P.R.A.</p>}
+                    <p>Hipótese</p>
+                    <p>Faltas</p>
+                    <p>P.R.A.</p>
                 </div>
-                {dados.map((aluno) => (
-                    <div key={aluno.ra} className="conteudo-topicos">
-                        {filtros.includes("Hipótese") && <p>{aluno.diagnosticos[tipoDiagnostico].hipotese}</p>}
-                        {filtros.includes("Faltas") && <p>{aluno.diagnosticos[tipoDiagnostico].frequencia}</p>}
-                        {filtros.includes("P.R.A.") && <p>{aluno.diagnosticos[tipoDiagnostico].projeto}</p>}
-                    </div>
-                ))}
+                {dados.map((aluno) => {
+                    const diag = aluno.diagnosticos?.[tipoDiagnostico] || {};
+                    return (
+                        <div key={aluno.ra} className="conteudo-topicos">
+                            <p>{diag.alfabetizacao || "-"}</p>
+                            <p>{diag.frequencia || "-"}</p>
+                            <p>{diag.projeto || "-"}</p>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
