@@ -1,51 +1,39 @@
 {
-  "EMEFEI Anália": {
-    "1º Ano": {
-      "A": [
+  "analia": {
+    "pri_ano": {
+      "ano_A": [
         {
           "n": 1,
           "nome": "João Silva",
           "ra": "12345",
+          "escola": "EMFEI Anália",
           "declaracao": "Branco",
           "mapaAlfabetizacao": {
             "inicial": "PS"
           },
           "diagnosticos": {
             "priBim": {
-              "alfabetizacao": "PS"
+              "alfabetizacao": "PS",
+              "frequencia": "7",
+              "projeto": "NÃO"            
             },
             "segBim": {
-              "alfabetizacao": "PS"
+              "alfabetizacao": "ps",
+              "frequencia": "7",
+              "projeto": "NÃO" 
             },
             "terBim": {
-              "alfabetizacao": "PS"
+              "alfabetizacao": "ps",
+              "frequencia": "7",
+              "projeto": "NÃO" 
             },
             "quarBim": {
-              "alfabetizacao": "PS"
+              "alfabetizacao": "ps",
+              "frequencia": "7",
+              "projeto": "NÃO" 
             }
           }
-        },
-        {
-          "n": 2,
-          "nome": "Maria Souza",
-          "ra": "67890",
-          "declaracao": "Parda",
-          "mapaAlfabetizacao": {
-            "inicial": "SCVS"
-          },
-          "diagnosticos": {
-            "priBim": {
-              "alfabetizacao": "PS",
-              "frequencia": "4",
-              "projeto": "ALF"
-            },
-            "segBim": {
-              "alfabetizacao": "SSVS",
-              "frequencia": "1",
-              "projeto": "MAT1"
-            }
-          }
-        }        
+        }
       ]
     }
   }

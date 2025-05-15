@@ -75,32 +75,36 @@ function Container() {
         setEstadoHome('relatorio')
     }
 
-    // Atualiza os filtros aplicados e busca os dados
+
     const handleApplyFilters = (filtros) => {
-        // Mapeia os nomes dos bimestres para suas chaves
-        const mapChave = {
-            "1º BIMESTRE": "priBim",
-            "2º BIMESTRE": "segBim",
-            "3º BIMESTRE": "terBim",
-            "4º BIMESTRE": "quarBim"
-        };
-    
-        // Cria um novo objeto de filtros, copiando os anteriores
+        console.log("Filtros recebidos no Container:", filtros);
+
+        // Copia o objeto de filtros
         const filtrosComDiagnosticos = { ...filtros };
-    
-        // Para cada bimestre selecionado, adiciona um array com os campos a serem exibidos
-        filtros.periodo_bimestral.forEach((bimestre) => {
-            const chave = mapChave[bimestre];
-            if (chave) {
-                filtrosComDiagnosticos[`diagnostico_${chave}`] = ["Hipótese", "Faltas", "P.R.A."];
+
+        // Confirma que cada filtro de diagnóstico é um array, se não, inicializa vazio
+        const diagnosticos = [
+            "diagnostico_priBim",
+            "diagnostico_segBim",
+            "diagnostico_terBim",
+            "diagnostico_quarBim"
+        ];
+
+        diagnosticos.forEach((diagnostico) => {
+            if (!Array.isArray(filtrosComDiagnosticos[diagnostico])) {
+                filtrosComDiagnosticos[diagnostico] = [];
             }
         });
-    
+
+        console.log("Filtros processados:", filtrosComDiagnosticos);
+
         setFiltrosAtuais(filtrosComDiagnosticos);
-        buscarDados(filtros); // a função de filtragem continua recebendo o original
+
+        buscarDados(filtrosComDiagnosticos);
+
         setEstadoHome('geral');
     };
-    
+
 
     const handleAlunoClick = (aluno) => {
         setAlunoSelecionado(aluno);
@@ -113,52 +117,84 @@ function Container() {
     }
 
     const buscarDados = (filtros) => {
-        const { escolas, serie, turma, periodo_bimestral, alfabetizacao } = filtros;
+        console.log("Filtros recebidos na busca:", filtros);
 
-        const mapChave = {
-            "1º BIMESTRE": "priBim",
-            "2º BIMESTRE": "segBim",
-            "3º BIMESTRE": "terBim",
-            "4º BIMESTRE": "quarBim"
-        };
+        const {
+            escolas,
+            serie,
+            turma,
+            diagnostico_priBim = [],
+            diagnostico_segBim = [],
+            diagnostico_terBim = [],
+            diagnostico_quarBim = []
+        } = filtros;
 
         let resultados = [];
 
-        escolas.forEach((escolaSelecionada) => {
+        escolas.forEach(escolaSelecionada => {
             const escolaData = dados[escolaSelecionada];
-            if (!escolaData) return;
+            if (!escolaData) {
+                console.log(`Escola não encontrada: ${escolaSelecionada}`);
+                return;
+            }
+            console.log(`Escola selecionada: ${escolaSelecionada} Dados da escola:`, escolaData);
 
-            serie.forEach((serieSelecionada) => {
+            serie.forEach(serieSelecionada => {
                 const serieData = escolaData[serieSelecionada];
-                if (!serieData) return;
+                if (!serieData) {
+                    console.log(`Série não encontrada: ${serieSelecionada}`);
+                    return;
+                }
+                console.log(`Série selecionada: ${serieSelecionada} Dados da série:`, serieData);
 
-                turma.forEach((turmaSelecionada) => {
+                turma.forEach(turmaSelecionada => {
                     const turmaData = serieData[turmaSelecionada];
-                    if (!turmaData) return;
+                    if (!turmaData) {
+                        console.log(`Turma não encontrada: ${turmaSelecionada}`);
+                        return;
+                    }
+                    console.log(`Turma selecionada: ${turmaSelecionada} Dados da turma:`, turmaData);
 
                     const alunosFiltrados = turmaData.filter((aluno) => {
-                        // Se não houver filtro, retorna todos
-                        if (periodo_bimestral.length === 0 && alfabetizacao.length === 0) {
-                            return true;
-                        }
-                    
-                        return periodo_bimestral.every((filtro) => {
-                            const chave = mapChave[filtro];
-                            const nivel = aluno.diagnosticos?.[chave]?.alfabetizacao;
-                            return nivel && alfabetizacao.includes(nivel);
-                        });
-                    });
-                    
+                        const diagnosticoPriBimValido =
+                          diagnostico_priBim.length === 0 ||
+                          diagnostico_priBim.some((filtro) =>
+                            aluno.diagnosticos?.priBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
+                          );
+                        const diagnosticoSegBimValido =
+                          diagnostico_segBim.length === 0 ||
+                          diagnostico_segBim.some((filtro) =>
+                            aluno.diagnosticos?.segBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
+                          );
+                        const diagnosticoTerBimValido =
+                          diagnostico_terBim.length === 0 ||
+                          diagnostico_terBim.some((filtro) =>
+                            aluno.diagnosticos?.terBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
+                          );
+                        const diagnosticoQuarBimValido =
+                          diagnostico_quarBim.length === 0 ||
+                          diagnostico_quarBim.some((filtro) =>
+                            aluno.diagnosticos?.quarBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
+                          );
+                      
+                        return (
+                          diagnosticoPriBimValido &&
+                          diagnosticoSegBimValido &&
+                          diagnosticoTerBimValido &&
+                          diagnosticoQuarBimValido
+                        );
+                      });                      
+
+                    console.log(`Alunos filtrados para a turma ${turmaSelecionada}:`, alunosFiltrados);
 
                     resultados = [...resultados, ...alunosFiltrados];
                 });
             });
         });
 
-        console.log("Alunos encontrados com os filtros aplicados:", resultados);
+        console.log("Resultado final dos dados filtrados:", resultados);
         setDadosFiltrados(resultados);
     };
-
 
 
 
@@ -187,16 +223,12 @@ function Container() {
                         />
                     )}
                     {estadoHome === 'geral' && (
-                        // <TableStudents
-                        //     dados={dadosFiltrados}
-                        //     filtros={filtrosAtuais} // Passa os filtros para a tabela
-                        //     onAlunoClick={handleAlunoClick}
-                        // />
                         <TableActualTail
                             dados={dadosFiltrados}
-                            filtros={filtrosAtuais} // Passa os filtros para a tabela
+                            filtros={filtrosAtuais}
                             onAlunoClick={handleAlunoClick}
                         />
+
                     )}
                     {estadoHome === 'busca' && (
                         <Filtrar
