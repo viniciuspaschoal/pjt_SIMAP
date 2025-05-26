@@ -117,58 +117,118 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
 
     const aplicarFiltros = () => {
         const filtrosSelecionados = {
-          escolas: Object.entries(checkboxEscola)
-            .filter(([_, value]) => value.selected)
-            .map(([key]) => key),  
-      
-          serie: Object.entries(checkboxSerie)
-            .filter(([_, value]) => value.selected)
-            .map(([key]) => key),
-      
-          turma: Object.entries(checkboxTurma)
-            .filter(([_, value]) => value.selected)
-            .map(([key]) => key),
-      
-          diagnostico_priBim: Object.entries(checkboxBimestres.priBim)
-            .filter(([_, value]) => value.selected)
-            .map(([key]) => key),
-      
-          diagnostico_segBim: Object.entries(checkboxBimestres.segBim)
-            .filter(([_, value]) => value.selected)
-            .map(([key]) => key),
-      
-          diagnostico_terBim: Object.entries(checkboxBimestres.terBim)
-            .filter(([_, value]) => value.selected)
-            .map(([key]) => key),
-      
-          diagnostico_quarBim: Object.entries(checkboxBimestres.quarBim)
-            .filter(([_, value]) => value.selected)
-            .map(([key]) => key),
-      
-          periodo_bimestral: [
-            ...(stdCheckBox.priBim ? ["1º BIMESTRE"] : []),
-            ...(stdCheckBox.segBim ? ["2º BIMESTRE"] : []),
-            ...(stdCheckBox.terBim ? ["3º BIMESTRE"] : []),
-            ...(stdCheckBox.quarBim ? ["4º BIMESTRE"] : [])
-          ]
+            escolas: Object.entries(checkboxEscola)
+                .filter(([_, value]) => value.selected)
+                .map(([key]) => key),
+
+            serie: Object.entries(checkboxSerie)
+                .filter(([_, value]) => value.selected)
+                .map(([key]) => key),
+
+            turma: Object.entries(checkboxTurma)
+                .filter(([_, value]) => value.selected)
+                .map(([key]) => key),
+
+            diagnostico_priBim: Object.entries(checkboxBimestres.priBim)
+                .filter(([_, value]) => value.selected)
+                .map(([key]) => key),
+
+            diagnostico_segBim: Object.entries(checkboxBimestres.segBim)
+                .filter(([_, value]) => value.selected)
+                .map(([key]) => key),
+
+            diagnostico_terBim: Object.entries(checkboxBimestres.terBim)
+                .filter(([_, value]) => value.selected)
+                .map(([key]) => key),
+
+            diagnostico_quarBim: Object.entries(checkboxBimestres.quarBim)
+                .filter(([_, value]) => value.selected)
+                .map(([key]) => key),
+
+            periodo_bimestral: [
+                ...(stdCheckBox.priBim ? ["1º BIMESTRE"] : []),
+                ...(stdCheckBox.segBim ? ["2º BIMESTRE"] : []),
+                ...(stdCheckBox.terBim ? ["3º BIMESTRE"] : []),
+                ...(stdCheckBox.quarBim ? ["4º BIMESTRE"] : [])
+            ]
         };
-      
+
         console.log("Filtros aplicados:", filtrosSelecionados);
-      
+
         localStorage.setItem('filtrosSelecionados', JSON.stringify(filtrosSelecionados));
         setFiltrosAlterados(false);
         onApplyFilters(filtrosSelecionados);
-      };
+    };
 
-      
+
     const limparFiltros = () => {
-        localStorage.clear();
-        setCheckboxEscola({/* Reset default values */ });
-        setCheckboxSerie({/* Reset default values */ });
-        setCheckboxTurma({/* Reset default values */ });
-        setCheckboxBimestres({/* Reset default values */ });
+        // Remove apenas os itens relacionados ao filtro do localStorage
+        localStorage.removeItem('checkboxEscola');
+        localStorage.removeItem('checkboxSerie');
+        localStorage.removeItem('checkboxTurma');
+        localStorage.removeItem('checkboxBimestres');
+        localStorage.removeItem('filtrosSelecionados');
+
+        // Reseta os estados para os valores padrão
+        setCheckboxEscola({
+            analia: { label: "EMEFEI Anália", selected: false },
+            outra1: { label: "Outra Escola 1", selected: false },
+            outra2: { label: "Outra Escola 2", selected: false },
+            outra3: { label: "Outra Escola 2", selected: false },
+            outra4: { label: "Outra Escola 2", selected: false },
+            outra5: { label: "Outra Escola 2", selected: false },
+            outra6: { label: "Outra Escola 2", selected: false },
+        });
+
+        setCheckboxSerie({
+            pri_ano: { label: "1º Ano", selected: false },
+            sec_ano: { label: "2º Ano", selected: false },
+            trc_ano: { label: "3º Ano", selected: false },
+            qrt_ano: { label: "4º Ano", selected: false },
+            qnt_ano: { label: "5º Ano", selected: false },
+        });
+
+        setCheckboxTurma({
+            ano_A: { label: "A", selected: false },
+            ano_B: { label: "B", selected: false },
+            ano_C: { label: "C", selected: false },
+            ano_D: { label: "D", selected: false },
+            ano_E: { label: "E", selected: false },
+        });
+
+        setCheckboxBimestres({
+            priBim: {
+                ps: { selected: false },
+                ssvs: { selected: false },
+                scvs: { selected: false },
+                sa: { selected: false },
+                alf: { selected: false },
+            },
+            segBim: {
+                ps: { selected: false },
+                ssvs: { selected: false },
+                scvs: { selected: false },
+                sa: { selected: false },
+                alf: { selected: false },
+            },
+            terBim: {
+                ps: { selected: false },
+                ssvs: { selected: false },
+                scvs: { selected: false },
+                sa: { selected: false },
+                alf: { selected: false },
+            },
+            quarBim: {
+                ps: { selected: false },
+                ssvs: { selected: false },
+                scvs: { selected: false },
+                sa: { selected: false },
+                alf: { selected: false },
+            }
+        });
         console.log('Filtros e Local Storage limpos');
     };
+
 
     useEffect(() => {
         const filtrosAtuais = {
