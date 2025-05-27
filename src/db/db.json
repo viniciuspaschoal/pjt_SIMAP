@@ -6,8 +6,11 @@
           "n": 1,
           "nome": "João Silva",
           "ra": "12345",
-          "escola": "EMFEI Anália",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "3",
+          "turma": "A",
           "declaracao": "Branco",
+          "dataNascimento": "02/08/2017",
           "mapaAlfabetizacao": {
             "inicial": "PS"
           },
@@ -18,17 +21,17 @@
               "projeto": "NÃO"            
             },
             "segBim": {
-              "alfabetizacao": "ps",
+              "alfabetizacao": "PS",
               "frequencia": "7",
               "projeto": "NÃO" 
             },
             "terBim": {
-              "alfabetizacao": "ps",
+              "alfabetizacao": "PS",
               "frequencia": "7",
               "projeto": "NÃO" 
             },
             "quarBim": {
-              "alfabetizacao": "ps",
+              "alfabetizacao": "PS",
               "frequencia": "7",
               "projeto": "NÃO" 
             }

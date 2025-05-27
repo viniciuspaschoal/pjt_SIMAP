@@ -8,7 +8,6 @@ function Geral({ dadosFiltrados }){
         <>
             <div className="area-geral h-full w-full">
 
-            {/* <TableStudents dados={dadosFiltrados} /> */}
             <TableActualTail/>
             </div>
         </>

@@ -26,10 +26,15 @@
     background: #f0f0f0; /* Fundo do track do scrollbar */
 }
 
+/*BOTAO VOLTAR*/
+
 .voltar-button{
+    margin-top: 2vh;
+
     height: 6vh;
     width: 6vw;
     border-radius: 5px;
+    box-shadow: 4px 2px 5px rgba(0, 0, 0, 0.3);
 
     display: flex;
     justify-content: center;
@@ -41,7 +46,9 @@
     cursor: pointer;
     transition: 0.3s;
 
-    margin-bottom: 21vh;
+    margin-bottom: 5vh;
+
+    position: fixed; 
 }
 
 .voltar-button:hover{
@@ -57,39 +64,43 @@
     font-size: 1.1rem;
 }
 
-.userHeader {
-    display: flex; /* Alinha os itens do cabeçalho em um layout flexível */
-    align-items: center; /* Centraliza verticalmente os itens no eixo do flexbox */
-    gap: 2rem; /* Adiciona um espaçamento de 2rem entre os itens */
-    margin-bottom: 12vh; /* Adiciona uma margem inferior ao cabeçalho */
-    margin-top: 5vh;
+/*INFORMAÇÕES DE USUÁRIO*/
+
+.info-user{
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 5vh;
 }
 
-.user-page {
-    border: 2px solid #000; /* Define uma borda preta de 2px ao redor do elemento */
-    border-radius: 8px; /* Arredonda os cantos do elemento */
-    display: flex; /* Alinha o conteúdo interno em um layout flexível */
-    justify-content: center; /* Centraliza o conteúdo horizontalmente */
-    align-items: center; /* Centraliza o conteúdo verticalmente */
-    width: 200px; /* Define a largura como 100px */
-    height: 150px; /* Define a altura como 100px */
-    background-color: #e6e6e6; /* Define uma cor de fundo cinza claro */
-    margin-left: 5vw;
-    margin-bottom: 4vh;
+.user-icon {
+    width: 12vw;           /* Largura fixa da imagem */
+    height: 22vh;          /* Altura fixa da imagem */
+    background-color: #e6e6e6; /* Cor de fundo cinza claro */
+    border: 2px solid #000; /* Borda preta */
+    border-radius: 8px;     /* Cantos arredondados */
+    display: flex;          /* Flex para centralizar o ícone dentro */
+    justify-content: center;/* Centraliza horizontalmente */
+    align-items: center;    /* Centraliza verticalmente */
 }
 
-.user-page i {
+.user-icon i {
     font-size: 6rem; /* Define o tamanho do ícone dentro do elemento */
     color: #000; /* Define a cor do ícone como cinza */
 }
 
+
+/*Escritas informações pessoais*/
 .userDetails{
-    margin-bottom: 5vh;
+    height: 22vh;          /* Mesma altura da imagem para alinhar */
+    display: flex;          /* Usa flexbox para organizar conteúdo em coluna */
+    flex-direction: column; /* Coloca os elementos um abaixo do outro */
+    margin-left: 2vw;       /* Espaço entre a foto e os detalhes */
+    overflow: hidden;       /* Impede que conteúdo ultrapasse a altura fixa */
 }
 
-.userDetails h1 {
+.userName {
     font-size: 2.8rem; /* Define o tamanho da fonte do título do usuário */
-    margin-bottom: 2vh; /* Adiciona um espaçamento inferior ao título */
+    
     color: #000; /* Define a cor do texto como preto */
 }
 
@@ -100,6 +111,8 @@
     font-size: 1rem; /* Define o tamanho da fonte do texto das informações */
     color: #666; /* Define a cor do texto como cinza */
     font-weight: 500;
+    margin-top: auto;
+
 }
 
 .userInfos span{
@@ -110,13 +123,13 @@
     display: flex; /* Alinha os atributos do usuário em um layout flexível */
     justify-content: space-between; /* Distribui os itens igualmente com espaço entre eles */
     align-items: center; /* Centraliza os itens verticalmente */
-    margin-top: 3vh; /* Adiciona uma margem superior de 1rem */
 }
 
-.userSchool p {
+.userSchool{
     font-size: 1.2rem; /* Define o tamanho da fonte do texto da escola */
     font-weight: bold; /* Define o texto como negrito */
-    margin: 0; /* Remove qualquer margem ao redor do texto */
+
+    line-height: 1;
 }
 
 .btProjeto {
@@ -131,6 +144,14 @@
     margin-top: 0.3rem;
     margin-left: 30vw;
     font-weight: 600;
+}
+
+
+/*ESTILIZAÇÃO TABELA*/
+
+/*tabela hipotese inicial*/
+.table-hipoteseInicial{
+    width: 33.33%;
 }
 
 h2 {
@@ -177,6 +198,12 @@ table td:last-child, table th:last-child {
     scrollbar-width: thin; /* Para navegadores como Firefox */
     scrollbar-color: #0EB860 #f0f0f0; /* Cores da barra de rolagem */
 }
+
+.individual-bimestres th,
+.individual-bimestres td {
+    width: 33.33%; /* Divide igualmente entre 3 colunas */
+}
+
 
 
 

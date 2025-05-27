@@ -1,114 +1,142 @@
 import './individualAluno.css';
 
 function AlunoDetalhes({ aluno, onVoltar }) {
+
+    const anoAtual = new Date().getFullYear(); //Buscar ano atual caso não venha no json do DB
+
     return (
         <div className="container-user">
 
-            {/* Informações Gerais do Aluno */}
-            <div className="userHeader">
+            <div className='header-user'>
+                <div>
                     {/* Botão para voltar */}
-                <button onClick={onVoltar} className="voltar-button">
-                    <p>Voltar</p>
-                    <i class="fa-solid fa-rotate-left"></i>
-                </button>
-
-                <div className="user-page">
-                    <i className="fa-solid fa-user"></i>
+                    <button onClick={onVoltar} className="voltar-button">
+                        <p>Voltar</p>
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                    <div style={{ height: '15vh'}}></div>
                 </div>
-                <div className="userDetails">
-                    <h1 className="userName">{aluno.nome}</h1>
-                    <div className="userInfos">
-                        <p>RA: <span>{aluno.ra}</span></p>
-                        <p>Nascimento: <span>{aluno.dataNascimento}</span></p>
-                        <p>Ano Letivo: <span>{aluno.anoLetivo || "2024"}</span></p>
+
+                <div className='info-user'>
+                    <div className="user-icon">
+                        <i className="fa-solid fa-user"></i>
                     </div>
-                    <div className="userAttributes">
-                        <div className="userSchool">
-                            <p>{aluno.escola}</p>
-                            <p>{aluno.serie} - {aluno.turma}</p>
+                    <div className="userDetails">
+                        <div className="userAttributes">
+                            <div className="userSchool">
+                                <p>{aluno.escola}</p>
+                            </div>
+                        </div>
+                        <h1 className="userName">{aluno.nome}</h1>
+                        <div className="userAttributes">
+                            <div className="userSchool">
+                                <p>{aluno.serie + "º"} - {aluno.turma}</p>
+                            </div>
+                        </div>
+
+                        <div className="userInfos">
+                            <p>RA: <span>{aluno.ra}</span></p>
+                            <p>Nascimento: <span>{aluno.dataNascimento || "-"}</span></p>
+                            <p>Declaração: <span>{aluno.declaracao || "-"}</span></p>
+                            <p>Ano Letivo: <span>{aluno.anoLetivo || anoAtual}</span></p>
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            {/* Mapa de Alfabetização */}
-            <h2>MAPA DE ALFABETIZAÇÃO - HIPÓTESE DE ESCRITA</h2>
-            <table>
+            {/* Hipótese Inicial */ }
+            <h2>HIPÓTESE INICIAL</h2>
+            <table className='table-hipoteseInicial'>
                 <thead>
                     <tr>
-                        <th>1º BIMESTRE</th>
-                        <th>2º BIMESTRE</th>
-                        <th>3º BIMESTRE</th>
-                        <th>4º BIMESTRE</th>
+                        <th>HIPÓTESE</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{aluno.mapaAlfabetizacao.bimestre1 || '-'}</td>
-                        <td>{aluno.mapaAlfabetizacao.bimestre2 || '-'}</td>
-                        <td>{aluno.mapaAlfabetizacao.bimestre3 || '-'}</td>
-                        <td>{aluno.mapaAlfabetizacao.bimestre4 || '-'}</td>
+                        <td>{'-'}</td>
                     </tr>
                 </tbody>
             </table>
 
-            {/* Diagnósticos Iniciais */}
-            <h2>DIAGNÓSTICOS INICIAIS - NÍVEIS DE PROFICIÊNCIA</h2>
-            <table>
+    {/* MAPA 1º BIMESTRE */ }
+            <h2>MAPA 1º BIMESTRE</h2>
+            <table className='individual-bimestres'>
                 <thead>
                     <tr>
-                        <th>LEITURA</th>
-                        <th>ESCRITA</th>
-                        <th>MATEMÁTICA</th>
+                        <th>ALFABETIZAÇÃO</th>
+                        <th>FREQUÊNCIA</th>
+                        <th>P.R.A</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{aluno.diagnosticos.inicial.leitura || '-'}</td>
-                        <td>{aluno.diagnosticos.inicial.escrita || '-'}</td>
-                        <td>{aluno.diagnosticos.inicial.matematica || '-'}</td>
+                        <td>{aluno.diagnosticos.priBim.alfabetizacao || '-'}</td>
+                        <td>{aluno.diagnosticos.priBim.frequencia || '-'}</td>
+                        <td>{aluno.diagnosticos.priBim.projeto || '-'}</td>
                     </tr>
                 </tbody>
             </table>
 
-            {/* Diagnósticos Medial */}
-            <h2>DIAGNÓSTICOS MEDIAL - NÍVEIS DE PROFICIÊNCIA</h2>
-            <table>
+    {/* MAPA 2º BIMESTRE */ }
+            <h2>MAPA 2º BIMESTRE</h2>
+            <table className='individual-bimestres'>
                 <thead>
                     <tr>
-                        <th>LEITURA</th>
-                        <th>ESCRITA</th>
-                        <th>MATEMÁTICA</th>
+                        <th>ALFABETIZAÇÃO</th>
+                        <th>FREQUÊNCIA</th>
+                        <th>P.R.A</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{aluno.diagnosticos.medial.leitura || '-'}</td>
-                        <td>{aluno.diagnosticos.medial.escrita || '-'}</td>
-                        <td>{aluno.diagnosticos.medial.matematica || '-'}</td>
+                        <td>{aluno.diagnosticos.segBim.alfabetizacao || '-'}</td>
+                        <td>{aluno.diagnosticos.segBim.frequencia || '-'}</td>
+                        <td>{aluno.diagnosticos.segBim.projeto || '-'}</td>
                     </tr>
                 </tbody>
             </table>
 
-            {/* Diagnósticos Final */}
-            <h2>DIAGNÓSTICOS FINAL - NÍVEIS DE PROFICIÊNCIA</h2>
-            <table>
+    {/* MAPA 3º BIMESTRE */ }
+            <h2>MAPA 3º BIMESTRE</h2>
+            <table className='individual-bimestres'>
                 <thead>
                     <tr>
-                        <th>LEITURA</th>
-                        <th>ESCRITA</th>
-                        <th>MATEMÁTICA</th>
+                        <th>ALFABETIZAÇÃO</th>
+                        <th>FREQUÊNCIA</th>
+                        <th>P.R.A</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{aluno.diagnosticos.final.leitura || '-'}</td>
-                        <td>{aluno.diagnosticos.final.escrita || '-'}</td>
-                        <td>{aluno.diagnosticos.final.matematica || '-'}</td>
+                        <td>{aluno.diagnosticos.terBim.alfabetizacao || '-'}</td>
+                        <td>{aluno.diagnosticos.terBim.frequencia || '-'}</td>
+                        <td>{aluno.diagnosticos.terBim.projeto || '-'}</td>
                     </tr>
                 </tbody>
             </table>
-        </div>
+
+    {/* MAPA 4º BIMESTRE */ }
+            <h2>MAPA 4º BIMESTRE</h2>
+            <table className='individual-bimestres'>
+                <thead>
+                    <tr>
+                        <th>ALFABETIZAÇÃO</th>
+                        <th>FREQUÊNCIA</th>
+                        <th>P.R.A</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{aluno.diagnosticos.quarBim.alfabetizacao || '-'}</td>
+                        <td>{aluno.diagnosticos.quarBim.frequencia || '-'}</td>
+                        <td>{aluno.diagnosticos.quarBim.projeto || '-'}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div >
     );
 }
 
