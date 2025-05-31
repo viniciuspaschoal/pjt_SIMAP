@@ -1,250 +1,190 @@
-import '../src/container.css'
-import NavComands from './components/NavComands'
-import Header from './components/Header'
-import HeroHome from './components/HeroHome'
-import Geral from './components/Geral'
-import Filtrar from './components/Filtrar'
-import dados from './db/db.json'
-import TableStudents from "./components/TableStudents"
-import AlunoDetalhes from './components/IndividualAluno'
-import { useState } from 'react'
-import TableActualTail from './components/TableActualTail'
+import '../src/container.css';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+
+import NavComands from './components/NavComands';
+import Header from './components/Header';
+import HeroHome from './components/HeroHome';
+import Geral from './components/Geral';
+import Filtrar from './components/Filtrar';
+import dados from './db/db.json';
+import AlunoDetalhes from './components/IndividualAluno';
+import TableActualTail from './components/TableActualTail';
 
 function Container() {
-    const [estadoMenu, setEstadoMenu] = useState('close')
-    const [estadoHome, setEstadoHome] = useState('home')
-    const [filtrosAplicados, setFiltrosAplicados] = useState(true)
-    const [dadosFiltrados, setDadosFiltrados] = useState([])
-    const [filtrosAtuais, setFiltrosAtuais] = useState({}) // Novo estado para armazenar os filtros aplicados
-    const [alunoSelecionado, setAlunoSelecionado] = useState(null); // Novo estado
+  const [estadoMenu, setEstadoMenu] = useState('close');
+  const [filtrosAplicados, setFiltrosAplicados] = useState(true);
+  const [dadosFiltrados, setDadosFiltrados] = useState([]);
+  const [filtrosAtuais, setFiltrosAtuais] = useState({});
 
-    //função para abrir e fechar menu
-    function clickMenu() {
-        setEstadoMenu(estadoMenu === 'close' ? 'open' : 'close')
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Função para abrir e fechar menu lateral
+  function clickMenu() {
+    setEstadoMenu(estadoMenu === 'close' ? 'open' : 'close');
+  }
+
+  // Função de navegação com confirmação para filtros não aplicados
+  function goTo(route) {
+    if (location.pathname === '/busca' && !filtrosAplicados) {
+      if (!window.confirm('Você tem filtros não aplicados. Deseja sair mesmo assim?')) return;
     }
+    navigate(route);
+  }
 
-    const handleNavigation = (navigateTo) => {
-        if (estadoHome === 'busca' && !filtrosAplicados) {
-            const confirmLeave = window.confirm(
-                "Você tem filtros não aplicados. Deseja sair mesmo assim?"
-            )
-            if (!confirmLeave) {
-                return; // Não muda de estado se o usuário cancelar
-            }
-        }
-        setEstadoHome(navigateTo)
-    }
+  // Funções de navegação para botões/menu, usadas em HeroHome e NavComands
+  function clickHome() { goTo('/home'); }
+  function clickBusca() { goTo('/busca'); }
+  function clickFilter() { goTo('/filtro'); }
+  function clickGuide() { goTo('/guide'); }
+  function clickSettings() { goTo('/settings'); }
+  function clickGeral() { goTo('/geral'); }
+  function clickPJ() { goTo('/projeto'); }
+  function clickSearch() { goTo('/busca'); }
+  function clickGauge() { goTo('/relatorio'); }
 
-    function clickHome() {
-        handleNavigation('home')
-    }
+  // Aplica filtros e navega para geral
+  const handleApplyFilters = (filtros) => {
+    const filtrosComDiagnosticos = { ...filtros };
+    ['diagnostico_priBim', 'diagnostico_segBim', 'diagnostico_terBim', 'diagnostico_quarBim']
+      .forEach(diag => {
+        if (!Array.isArray(filtrosComDiagnosticos[diag])) filtrosComDiagnosticos[diag] = [];
+      });
+    setFiltrosAtuais(filtrosComDiagnosticos);
+    buscarDados(filtrosComDiagnosticos);
+    navigate('/geral');
+  };
 
-    function clickBusca() {
-        handleNavigation('busca')
-    }
+  // Navega para detalhes do aluno via id
+  const handleAlunoClick = (aluno) => {
+    navigate(`/detalhes/${aluno.cod_aluno}`);
+  };
 
-    function clickFilter() {
-        handleNavigation('filtro')
-    }
+  // Voltar para lista geral
+  const voltarParaLista = () => {
+    navigate('/geral');
+  };
 
-    function clickGuide() {
-        handleNavigation('guide')
-    }
+  // Função para buscar dados conforme filtros (mantém sua lógica original)
+  const buscarDados = (filtros) => {
+    const {
+      escolas,
+      serie,
+      turma,
+      diagnostico_priBim = [],
+      diagnostico_segBim = [],
+      diagnostico_terBim = [],
+      diagnostico_quarBim = []
+    } = filtros;
 
-    function clickSettings() {
-        handleNavigation('settings')
-    }
+    let resultados = [];
 
-    const handleFilterChange = (isApplied) => {
-        setFiltrosAplicados(isApplied)
-    }
+    escolas.forEach(escolaSelecionada => {
+      const escolaData = dados[escolaSelecionada];
+      if (!escolaData) return;
 
-    function clickGeral() {
-        setEstadoHome('geral')
-    }
+      serie.forEach(serieSelecionada => {
+        const serieData = escolaData[serieSelecionada];
+        if (!serieData) return;
 
-    function clickPJ() {
-        setEstadoHome('projeto')
-    }
+        turma.forEach(turmaSelecionada => {
+          const turmaData = serieData[turmaSelecionada];
+          if (!turmaData) return;
 
-    function clickSearch() {
-        setEstadoHome('busca')
-    }
+          const alunosFiltrados = turmaData.filter(aluno => {
+            const diagnosticoPriBimValido = diagnostico_priBim.length === 0 ||
+              diagnostico_priBim.some(filtro =>
+                aluno.diagnosticos?.priBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
+              );
+            const diagnosticoSegBimValido = diagnostico_segBim.length === 0 ||
+              diagnostico_segBim.some(filtro =>
+                aluno.diagnosticos?.segBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
+              );
+            const diagnosticoTerBimValido = diagnostico_terBim.length === 0 ||
+              diagnostico_terBim.some(filtro =>
+                aluno.diagnosticos?.terBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
+              );
+            const diagnosticoQuarBimValido = diagnostico_quarBim.length === 0 ||
+              diagnostico_quarBim.some(filtro =>
+                aluno.diagnosticos?.quarBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
+              );
 
-    function clickGauge() {
-        setEstadoHome('relatorio')
-    }
+            return diagnosticoPriBimValido && diagnosticoSegBimValido && diagnosticoTerBimValido && diagnosticoQuarBimValido;
+          });
 
-
-    const handleApplyFilters = (filtros) => {
-        console.log("Filtros recebidos no Container:", filtros);
-
-        // Copia o objeto de filtros
-        const filtrosComDiagnosticos = { ...filtros };
-
-        // Confirma que cada filtro de diagnóstico é um array, se não, inicializa vazio
-        const diagnosticos = [
-            "diagnostico_priBim",
-            "diagnostico_segBim",
-            "diagnostico_terBim",
-            "diagnostico_quarBim"
-        ];
-
-        diagnosticos.forEach((diagnostico) => {
-            if (!Array.isArray(filtrosComDiagnosticos[diagnostico])) {
-                filtrosComDiagnosticos[diagnostico] = [];
-            }
+          resultados = [...resultados, ...alunosFiltrados];
         });
+      });
+    });
 
-        console.log("Filtros processados:", filtrosComDiagnosticos);
+    setDadosFiltrados(resultados);
+  };
 
-        setFiltrosAtuais(filtrosComDiagnosticos);
+  return (
+    <>
+      <Header estadoMenu={estadoMenu} clickMenu={clickMenu} />
 
-        buscarDados(filtrosComDiagnosticos);
+      <div className='flex-conteudo'>
+        <NavComands
+          estadoMenuLateral={estadoMenu}
+          clickHome={clickHome}
+          clickBusca={clickBusca}
+          clickFilter={clickFilter}
+          clickGuide={clickGuide}
+          clickSettings={clickSettings}
+        />
 
-        setEstadoHome('geral');
-    };
-
-
-    const handleAlunoClick = (aluno) => {
-        setAlunoSelecionado(aluno);
-        setEstadoHome('detalhes');
-    }
-
-    const voltarParaLista = () => {
-        setAlunoSelecionado(null);
-        setEstadoHome('geral');
-    }
-
-    const buscarDados = (filtros) => {
-        console.log("Filtros recebidos na busca:", filtros);
-
-        const {
-            escolas,
-            serie,
-            turma,
-            diagnostico_priBim = [],
-            diagnostico_segBim = [],
-            diagnostico_terBim = [],
-            diagnostico_quarBim = []
-        } = filtros;
-
-        let resultados = [];
-
-        escolas.forEach(escolaSelecionada => {
-            const escolaData = dados[escolaSelecionada];
-            if (!escolaData) {
-                console.log(`Escola não encontrada: ${escolaSelecionada}`);
-                return;
-            }
-            console.log(`Escola selecionada: ${escolaSelecionada} Dados da escola:`, escolaData);
-
-            serie.forEach(serieSelecionada => {
-                const serieData = escolaData[serieSelecionada];
-                if (!serieData) {
-                    console.log(`Série não encontrada: ${serieSelecionada}`);
-                    return;
-                }
-                console.log(`Série selecionada: ${serieSelecionada} Dados da série:`, serieData);
-
-                turma.forEach(turmaSelecionada => {
-                    const turmaData = serieData[turmaSelecionada];
-                    if (!turmaData) {
-                        console.log(`Turma não encontrada: ${turmaSelecionada}`);
-                        return;
-                    }
-                    console.log(`Turma selecionada: ${turmaSelecionada} Dados da turma:`, turmaData);
-
-                    const alunosFiltrados = turmaData.filter((aluno) => {
-                        const diagnosticoPriBimValido =
-                          diagnostico_priBim.length === 0 ||
-                          diagnostico_priBim.some((filtro) =>
-                            aluno.diagnosticos?.priBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
-                          );
-                        const diagnosticoSegBimValido =
-                          diagnostico_segBim.length === 0 ||
-                          diagnostico_segBim.some((filtro) =>
-                            aluno.diagnosticos?.segBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
-                          );
-                        const diagnosticoTerBimValido =
-                          diagnostico_terBim.length === 0 ||
-                          diagnostico_terBim.some((filtro) =>
-                            aluno.diagnosticos?.terBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
-                          );
-                        const diagnosticoQuarBimValido =
-                          diagnostico_quarBim.length === 0 ||
-                          diagnostico_quarBim.some((filtro) =>
-                            aluno.diagnosticos?.quarBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
-                          );
-                      
-                        return (
-                          diagnosticoPriBimValido &&
-                          diagnosticoSegBimValido &&
-                          diagnosticoTerBimValido &&
-                          diagnosticoQuarBimValido
-                        );
-                      });                      
-
-                    console.log(`Alunos filtrados para a turma ${turmaSelecionada}:`, alunosFiltrados);
-
-                    resultados = [...resultados, ...alunosFiltrados];
-                });
-            });
-        });
-
-        console.log("Resultado final dos dados filtrados:", resultados);
-        setDadosFiltrados(resultados);
-    };
-
-
-
-    return (
-        <>
-            <Header estadoMenu={estadoMenu} clickMenu={clickMenu} />
-
-            <div className='flex-conteudo'>
-                <NavComands
-                    estadoMenuLateral={estadoMenu}
-                    clickHome={clickHome}
-                    clickBusca={clickBusca}
-                    clickFilter={clickFilter}
-                    clickGuide={clickGuide}
-                    clickSettings={clickSettings}
+        <div className="conteudo-geral">
+          <Routes>
+            <Route
+              path="/home"
+              element={
+                <HeroHome
+                  clickGeral={clickGeral}
+                  clickPJ={clickPJ}
+                  clickSearch={clickSearch}
+                  clickGauge={clickGauge}
                 />
-
-                <div className="conteudo-geral">
-                    {estadoHome === 'home' && (
-                        <HeroHome
-                            estadoHome={estadoHome}
-                            clickGauge={clickGauge}
-                            clickGeral={clickGeral}
-                            clickPJ={clickPJ}
-                            clickSearch={clickSearch}
-                        />
-                    )}
-                    {estadoHome === 'geral' && (
-                        <TableActualTail
-                            dados={dadosFiltrados}
-                            filtros={filtrosAtuais}
-                            onAlunoClick={handleAlunoClick}
-                        />
-
-                    )}
-                    {estadoHome === 'busca' && (
-                        <Filtrar
-                            onApplyFilters={handleApplyFilters}
-                            onFilterChange={handleFilterChange}
-                        />
-                    )}
-
-                    {estadoHome === 'detalhes' && alunoSelecionado && (
-                        <AlunoDetalhes aluno={alunoSelecionado} onVoltar={voltarParaLista} />
-                    )}
-
-                </div>
-            </div>
-        </>
-    )
+              }
+            />
+            <Route
+              path="/busca"
+              element={
+                <Filtrar
+                  onApplyFilters={handleApplyFilters}
+                  onFilterChange={setFiltrosAplicados}
+                />
+              }
+            />
+            <Route
+              path="/geral"
+              element={
+                <TableActualTail
+                  dados={dadosFiltrados}
+                  filtros={filtrosAtuais}
+                  onAlunoClick={handleAlunoClick}
+                />
+              }
+            />
+            <Route
+              path="/detalhes/:id"
+              element={<AlunoDetalhes onVoltar={voltarParaLista} />}
+            />
+            {/* Rota padrão para rotas não definidas */}
+            <Route path="*" element={
+              <HeroHome
+                clickGeral={clickGeral}
+                clickPJ={clickPJ}
+                clickSearch={clickSearch}
+                clickGauge={clickGauge}
+              />
+            } />
+          </Routes>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Container

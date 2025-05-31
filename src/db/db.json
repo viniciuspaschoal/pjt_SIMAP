@@ -3,38 +3,318 @@
     "pri_ano": {
       "ano_A": [
         {
+          "cod_aluno": 1856985,
           "n": 1,
           "nome": "João Silva",
           "ra": "12345",
           "escola": "EMEFEI Anália de Lucca Furlam",
           "serie": "3",
           "turma": "A",
+          "turno": "Manhã",
           "declaracao": "Branco",
           "dataNascimento": "02/08/2017",
           "mapaAlfabetizacao": {
             "inicial": "PS"
           },
           "diagnosticos": {
-            "priBim": {
-              "alfabetizacao": "PS",
-              "frequencia": "7",
-              "projeto": "NÃO"            
-            },
-            "segBim": {
-              "alfabetizacao": "PS",
-              "frequencia": "7",
-              "projeto": "NÃO" 
-            },
-            "terBim": {
-              "alfabetizacao": "PS",
-              "frequencia": "7",
-              "projeto": "NÃO" 
-            },
-            "quarBim": {
-              "alfabetizacao": "PS",
-              "frequencia": "7",
-              "projeto": "NÃO" 
-            }
+            "priBim": { "alfabetizacao": "PS", "frequencia": "7", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "SSVS", "frequencia": "7", "projeto": "ALF" },
+            "terBim": { "alfabetizacao": "SCVS", "frequencia": "8", "projeto": "MAT1" },
+            "quarBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "ALF/MAT1" }
+          }
+        },
+        {
+          "cod_aluno": 1856986,
+          "n": 2,
+          "nome": "Maria Oliveira",
+          "ra": "12346",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "3",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Parda",
+          "dataNascimento": "15/03/2017",
+          "mapaAlfabetizacao": { "inicial": "SCVS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SCVS", "frequencia": "8", "projeto": "MAT1" },
+            "segBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "ALF" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "ALF/MAT1" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "NÃO" }
+          }
+        },
+        {
+          "cod_aluno": 1856987,
+          "n": 3,
+          "nome": "Carlos Mendes",
+          "ra": "12347",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "3",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Negro",
+          "dataNascimento": "30/11/2016",
+          "mapaAlfabetizacao": { "inicial": "SSVS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SSVS", "frequencia": "6", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "SCVS", "frequencia": "6", "projeto": "MAT2" },
+            "terBim": { "alfabetizacao": "SA", "frequencia": "7", "projeto": "LP2" },
+            "quarBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "LP2/MAT2" }
+          }
+        },
+        {
+          "cod_aluno": 1856988,
+          "n": 4,
+          "nome": "Ana Costa",
+          "ra": "12348",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "3",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Indígena",
+          "dataNascimento": "09/09/2017",
+          "mapaAlfabetizacao": { "inicial": "PS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "PS", "frequencia": "8", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "SSVS", "frequencia": "8", "projeto": "ALF" },
+            "terBim": { "alfabetizacao": "SCVS", "frequencia": "9", "projeto": "LP2" },
+            "quarBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "LP2/MAT2" }
+          }
+        },
+        {
+          "cod_aluno": 1856989,
+          "n": 5,
+          "nome": "Lucas Pereira",
+          "ra": "12349",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "3",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Amarelo",
+          "dataNascimento": "21/05/2017",
+          "mapaAlfabetizacao": { "inicial": "S" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SCVS", "frequencia": "7", "projeto": "ALF" },
+            "segBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "ALF/MAT1" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "MAT2" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "NÃO" }
+          }
+        }
+      ]
+    },
+    "ter_ano": {
+      "ano_A": [
+        {
+          "cod_aluno": 2856981,
+          "n": 1,
+          "nome": "Beatriz Lima",
+          "ra": "22345",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "3",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Parda",
+          "dataNascimento": "12/04/2015",
+          "mapaAlfabetizacao": {
+            "inicial": "SCVS"
+          },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SCVS", "frequencia": "7", "projeto": "ALF" },
+            "segBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "MAT1" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "ALF/MAT1" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "NÃO" }
+          }
+        },
+        {
+          "cod_aluno": 2856982,
+          "n": 2,
+          "nome": "Rafael Gomes",
+          "ra": "22346",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "3",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Branco",
+          "dataNascimento": "05/01/2015",
+          "mapaAlfabetizacao": {
+            "inicial": "SA"
+          },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "ALF/MAT1" },
+            "segBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "LP2" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "MAT2" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "LP2/MAT2" }
+          }
+        },
+        {
+          "cod_aluno": 2856983,
+          "n": 3,
+          "nome": "Juliana Rocha",
+          "ra": "22347",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "3",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Negra",
+          "dataNascimento": "23/10/2015",
+          "mapaAlfabetizacao": {
+            "inicial": "SSVS"
+          },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SSVS", "frequencia": "7", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "SCVS", "frequencia": "8", "projeto": "MAT1" },
+            "terBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "ALF" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "ALF/MAT1" }
+          }
+        },
+        {
+          "cod_aluno": 2856984,
+          "n": 4,
+          "nome": "Felipe Martins",
+          "ra": "22348",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "3",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Amarelo",
+          "dataNascimento": "07/06/2015",
+          "mapaAlfabetizacao": {
+            "inicial": "SCVS"
+          },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SCVS", "frequencia": "6", "projeto": "LP2" },
+            "segBim": { "alfabetizacao": "SA", "frequencia": "7", "projeto": "LP2/MAT2" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "MAT2" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "NÃO" }
+          }
+        },
+        {
+          "cod_aluno": 2856985,
+          "n": 5,
+          "nome": "Larissa Souza",
+          "ra": "22349",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "3",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Indígena",
+          "dataNascimento": "18/12/2015",
+          "mapaAlfabetizacao": {
+            "inicial": "PS"
+          },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "PS", "frequencia": "6", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "SSVS", "frequencia": "7", "projeto": "ALF" },
+            "terBim": { "alfabetizacao": "SCVS", "frequencia": "8", "projeto": "ALF/MAT1" },
+            "quarBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "LP2" }
+          }
+        }
+      ]
+    },
+    "quin_ano": {
+      "ano_A": [
+        {
+          "cod_aluno": 3856981,
+          "n": 1,
+          "nome": "Gabriel Tavares",
+          "ra": "32345",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "5",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Branco",
+          "dataNascimento": "20/07/2013",
+          "mapaAlfabetizacao": {
+            "inicial": "SA"
+          },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "MAT2" },
+            "segBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "LP2/MAT2" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "MAT2" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "NÃO" }
+          }
+        },
+        {
+          "cod_aluno": 3856982,
+          "n": 2,
+          "nome": "Helena Ribeiro",
+          "ra": "32346",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "5",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Negra",
+          "dataNascimento": "01/02/2013",
+          "mapaAlfabetizacao": {
+            "inicial": "ALF"
+          },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "ALF", "frequencia": "8", "projeto": "LP2" },
+            "segBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "LP2/MAT2" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "NÃO" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "MAT2" }
+          }
+        },
+        {
+          "cod_aluno": 3856983,
+          "n": 3,
+          "nome": "Bruno Andrade",
+          "ra": "32347",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "5",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Pardo",
+          "dataNascimento": "13/09/2013",
+          "mapaAlfabetizacao": {
+            "inicial": "SA"
+          },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SA", "frequencia": "7", "projeto": "MAT1" },
+            "segBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "ALF/MAT1" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "LP2" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "LP2/MAT2" }
+          }
+        },
+        {
+          "cod_aluno": 3856984,
+          "n": 4,
+          "nome": "Isabela Ferreira",
+          "ra": "32348",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "5",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Indígena",
+          "dataNascimento": "29/04/2013",
+          "mapaAlfabetizacao": {
+            "inicial": "ALF"
+          },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "LP2" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "MAT2" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "NÃO" }
+          }
+        },
+        {
+          "cod_aluno": 3856985,
+          "n": 5,
+          "nome": "Diego Santana",
+          "ra": "32349",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "5",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Amarelo",
+          "dataNascimento": "17/06/2013",
+          "mapaAlfabetizacao": {
+            "inicial": "SA"
+          },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "MAT1" },
+            "segBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "ALF" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "LP2/MAT2" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "MAT2" }
           }
         }
       ]
