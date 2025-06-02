@@ -22,7 +22,7 @@
     flex-direction: column;
     align-items: center;
     width: 16vw;
-    height: 45vh;
+    height: 48vh;
     margin: 0;
     padding: 0;
     cursor: pointer;
@@ -37,7 +37,7 @@
     align-items: center;
     justify-content: center;
     background-color: #fff; /* Cor de fundo */
-    position: relative;
+    
 }
 
 .title-itens {
@@ -46,7 +46,6 @@
     text-align: center;
 }
 
-
 /*Estilizando os icons*/
 
 .icon-home{
@@ -54,16 +53,3 @@
     position: absolute;
     /* transition: transform 0.3s; */
 }
-/* 
-.div-icons:hover .icon-home {
-    animation: rotate 2s linear infinite;
-}
-
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg) translateX(40px) rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg) translateX(40px) rotate(-360deg);
-    }
-} */
