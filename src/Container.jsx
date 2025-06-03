@@ -10,6 +10,7 @@ import Filtrar from './components/Filtrar';
 import dados from './db/db.json';
 import AlunoDetalhes from './components/IndividualAluno';
 import TableActualTail from './components/TableActualTail';
+import Pagina404 from './components/Pagina404';
 
 function Container() {
   const [estadoMenu, setEstadoMenu] = useState('close');
@@ -172,7 +173,7 @@ function Container() {
               element={<AlunoDetalhes onVoltar={voltarParaLista} />}
             />
             {/* Rota padrão para rotas não definidas */}
-            <Route path="*" element={
+            <Route path="" element={
               <HeroHome
                 clickGeral={clickGeral}
                 clickPJ={clickPJ}
@@ -180,6 +181,8 @@ function Container() {
                 clickGauge={clickGauge}
               />
             } />
+
+            <Route path="*" element={<Pagina404 />} />
           </Routes>
         </div>
       </div>
