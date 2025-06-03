@@ -79,7 +79,7 @@ function AlunoDetalhes({ onVoltar }) {
         </thead>
         <tbody>
           <tr>
-            <td>{'-'}</td>
+            <td>{aluno.mapaAlfabetizacao.inicial || '-'}</td>
           </tr>
         </tbody>
       </table>
