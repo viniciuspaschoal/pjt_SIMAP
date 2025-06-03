@@ -180,7 +180,8 @@ table th {
 
 table td {
     background-color: #fff; /* Define a cor de fundo das células como branco */
-    color: #666; /* Define a cor do texto como cinza */
+    color: #252525; /* Define a cor do texto como cinza */
+    font-weight: 500;
 }
 
 table td:first-child, table th:first-child {
