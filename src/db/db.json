@@ -101,6 +101,105 @@
         }
       ]
     },
+    "seg_ano": {
+      "ano_A": [
+        {
+          "cod_aluno": 1856990,
+          "n": 1,
+          "nome": "Ana Paula",
+          "ra": "12350",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "2",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Branco",
+          "dataNascimento": "10/07/2018",
+          "mapaAlfabetizacao": { "inicial": "PS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "PS", "frequencia": "7", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "SSVS", "frequencia": "7", "projeto": "ALF" },
+            "terBim": { "alfabetizacao": "SCVS", "frequencia": "8", "projeto": "MAT1" },
+            "quarBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "ALF/MAT1" }
+          }
+        },
+        {
+          "cod_aluno": 1856991,
+          "n": 2,
+          "nome": "Bruna Santos",
+          "ra": "12351",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "2",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Parda",
+          "dataNascimento": "22/11/2018",
+          "mapaAlfabetizacao": { "inicial": "SCVS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SCVS", "frequencia": "8", "projeto": "ALF" },
+            "segBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "MAT1" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "ALF/MAT1" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "NÃO" }
+          }
+        },
+        {
+          "cod_aluno": 1856992,
+          "n": 3,
+          "nome": "Carlos Souza",
+          "ra": "12352",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "2",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Negro",
+          "dataNascimento": "05/05/2018",
+          "mapaAlfabetizacao": { "inicial": "SSVS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SSVS", "frequencia": "6", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "SCVS", "frequencia": "6", "projeto": "MAT2" },
+            "terBim": { "alfabetizacao": "SA", "frequencia": "7", "projeto": "LP2" },
+            "quarBim": { "alfabetizacao": "SA", "frequencia": "7", "projeto": "LP2/MAT2" }
+          }
+        },
+        {
+          "cod_aluno": 1856993,
+          "n": 4,
+          "nome": "Daniela Ribeiro",
+          "ra": "12353",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "2",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Indígena",
+          "dataNascimento": "14/08/2018",
+          "mapaAlfabetizacao": { "inicial": "PS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "PS", "frequencia": "8", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "SSVS", "frequencia": "8", "projeto": "ALF" },
+            "terBim": { "alfabetizacao": "SCVS", "frequencia": "9", "projeto": "LP2" },
+            "quarBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "LP2/MAT2" }
+          }
+        },
+        {
+          "cod_aluno": 1856994,
+          "n": 5,
+          "nome": "Eduardo Lima",
+          "ra": "12354",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "2",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Amarelo",
+          "dataNascimento": "27/10/2018",
+          "mapaAlfabetizacao": { "inicial": "S" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SCVS", "frequencia": "7", "projeto": "ALF" },
+            "segBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "ALF/MAT1" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "MAT2" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "NÃO" }
+          }
+        }
+      ]
+    },
     "ter_ano": {
       "ano_A": [
         {
@@ -206,6 +305,105 @@
             "segBim": { "alfabetizacao": "SSVS", "frequencia": "7", "projeto": "ALF" },
             "terBim": { "alfabetizacao": "SCVS", "frequencia": "8", "projeto": "ALF/MAT1" },
             "quarBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "LP2" }
+          }
+        }
+      ]
+    },
+     "quar_ano": {
+      "ano_A": [
+        {
+          "cod_aluno": 2856990,
+          "n": 1,
+          "nome": "Bruno Silva",
+          "ra": "22350",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "4",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Pardo",
+          "dataNascimento": "11/06/2016",
+          "mapaAlfabetizacao": { "inicial": "SCVS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SCVS", "frequencia": "7", "projeto": "ALF" },
+            "segBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "MAT1" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "ALF/MAT1" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "NÃO" }
+          }
+        },
+        {
+          "cod_aluno": 2856991,
+          "n": 2,
+          "nome": "Carla Mendes",
+          "ra": "22351",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "4",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Branco",
+          "dataNascimento": "19/02/2016",
+          "mapaAlfabetizacao": { "inicial": "SA" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "ALF/MAT1" },
+            "segBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "LP2" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "MAT2" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "LP2/MAT2" }
+          }
+        },
+        {
+          "cod_aluno": 2856992,
+          "n": 3,
+          "nome": "Daniel Silva",
+          "ra": "22352",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "4",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Negro",
+          "dataNascimento": "30/07/2016",
+          "mapaAlfabetizacao": { "inicial": "SSVS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SSVS", "frequencia": "7", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "SCVS", "frequencia": "8", "projeto": "MAT1" },
+            "terBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "ALF" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "ALF/MAT1" }
+          }
+        },
+        {
+          "cod_aluno": 2856993,
+          "n": 4,
+          "nome": "Elaine Costa",
+          "ra": "22353",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "4",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Indígena",
+          "dataNascimento": "13/10/2016",
+          "mapaAlfabetizacao": { "inicial": "PS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "PS", "frequencia": "8", "projeto": "NÃO" },
+            "segBim": { "alfabetizacao": "SSVS", "frequencia": "8", "projeto": "ALF" },
+            "terBim": { "alfabetizacao": "SCVS", "frequencia": "9", "projeto": "LP2" },
+            "quarBim": { "alfabetizacao": "SA", "frequencia": "9", "projeto": "LP2/MAT2" }
+          }
+        },
+        {
+          "cod_aluno": 2856994,
+          "n": 5,
+          "nome": "Fabio Rocha",
+          "ra": "22354",
+          "escola": "EMEFEI Anália de Lucca Furlam",
+          "serie": "4",
+          "turma": "A",
+          "turno": "Manhã",
+          "declaracao": "Amarelo",
+          "dataNascimento": "28/12/2016",
+          "mapaAlfabetizacao": { "inicial": "PS" },
+          "diagnosticos": {
+            "priBim": { "alfabetizacao": "SCVS", "frequencia": "7", "projeto": "ALF" },
+            "segBim": { "alfabetizacao": "SA", "frequencia": "8", "projeto": "ALF/MAT1" },
+            "terBim": { "alfabetizacao": "ALF", "frequencia": "9", "projeto": "MAT2" },
+            "quarBim": { "alfabetizacao": "ALF", "frequencia": "10", "projeto": "NÃO" }
           }
         }
       ]

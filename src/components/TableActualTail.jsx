@@ -1,20 +1,29 @@
 import './tableStudents.css';
 
 function TableActualTail({ dados, filtros, onAlunoClick }) {
-    console.log("Dados recebidos tabela:", dados); 
-    console.log("Filtros aplicados tabela:", filtros);  
-    
+    console.log("Dados recebidos tabela:", dados);
+    console.log("Filtros aplicados tabela:", filtros);
+
+    // Função para limitar o texto a um número máximo de palavras
+    const limitarPalavras = (texto, limite) => {
+        if (!texto) return "-";
+        const palavras = texto.split(" ");
+        if (palavras.length <= limite) return texto;
+        return palavras.slice(0, limite).join(" ") + "...";
+    };
+
     return (
         <div className="tabela-estilizada">
+
             {/* Coluna fixa: N */}
             <div className="colunas coluna-ra">
                 <div className="coluna-ra-p cabecalho">
                     <p>N</p>
                 </div>
                 {dados.map((aluno) => (
-                    <div key={aluno.n} className="linha-ra">
+                    <div key={aluno.n} className="linha-ra" onClick={() => onAlunoClick(aluno)}>
                         <div className="conteudo-topicos">
-                            <p>{aluno.n}</p>
+                            <p className='conteudo-clicavel'>{aluno.n}</p>
                         </div>
                     </div>
                 ))}
@@ -27,7 +36,7 @@ function TableActualTail({ dados, filtros, onAlunoClick }) {
                 </div>
                 {dados.map((aluno) => (
                     <div key={aluno.ra} className="linha-ra" onClick={() => onAlunoClick(aluno)}>
-                        <div className="conteudo-topicos">
+                        <div className="conteudo-topicos conteudo-clicavel">
                             <p>{aluno.ra}</p>
                         </div>
                     </div>
@@ -48,6 +57,38 @@ function TableActualTail({ dados, filtros, onAlunoClick }) {
                 ))}
             </div>
 
+            {/* Coluna fixa: Turma */}
+            <div className="colunas coluna-turma coluna-ra">
+                <div className="coluna-turma cabecalho">
+                    <p>Turma</p>
+                </div>
+                {dados.map((aluno) => (
+                    <div key={aluno.ra} className="linha-ra" onClick={() => onAlunoClick(aluno)}>
+                        <div className="conteudo-topicos">
+                            <p className='conteudo-clicavel'>
+                                {aluno.serie + "º" + " " + aluno.turma || "-"}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Coluna fixa: Escola */}
+            <div className="colunas">
+                <div className="coluna-escola cabecalho">
+                    <p>Escola</p>
+                </div>
+                {dados.map((aluno) => (
+                    <div key={aluno.ra + '-escola'} className="linha-ra" onClick={() => onAlunoClick(aluno)}>
+                        <div className="conteudo-topicos">
+                            <p className='conteudo-clicavel'>
+                                {limitarPalavras(aluno.escola, 2)}
+                            </p> {/* limita a 3 palavras */}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
             {/* Coluna fixa: Declaração */}
             <div className="colunas">
                 <div className="coluna-declaracao cabecalho">
@@ -56,7 +97,7 @@ function TableActualTail({ dados, filtros, onAlunoClick }) {
                 {dados.map((aluno) => (
                     <div key={aluno.ra} className="linha-ra" onClick={() => onAlunoClick(aluno)}>
                         <div className="conteudo-topicos">
-                            <p className="conteudo-name">{aluno.declaracao}</p>
+                            <p className="conteudo-clicavel">{aluno.declaracao}</p>
                         </div>
                     </div>
                 ))}
@@ -104,6 +145,7 @@ function TableActualTail({ dados, filtros, onAlunoClick }) {
                     filtros={filtros.diagnostico_quarBim}
                 />
             )}
+
         </div>
     );
 }

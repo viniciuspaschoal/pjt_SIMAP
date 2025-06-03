@@ -91,6 +91,10 @@
     text-decoration: underline;
 }
 
+.conteudo-clicavel:hover {
+    cursor: pointer;
+}
+
 .conteudo-topicos {
     display: flex;
     align-items: center;
@@ -117,11 +121,19 @@
     width: 25vw;
 }
 
+.coluna-escola{
+    width: 15vw;
+}
+
+.coluna-turma{
+    width: 8vw;
+}
+
 .coluna-declaracao{
     width: 10vw;
 }
 
-.coluna-nome, .coluna-ra, .coluna-ra-p, .coluna-declaracao {
+.coluna-nome, .coluna-ra, .coluna-ra-p, .coluna-declaracao, .coluna-escola, .coluna-turma {
     height: 10vh;
     font-size: 1.2rem; /* Tamanho de fonte do cabeçalho */
 }
