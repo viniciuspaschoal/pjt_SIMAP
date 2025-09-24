@@ -2,31 +2,37 @@ import './individualAluno.css';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import dados from '../db/db.json'; // ajuste o caminho conforme seu projeto
+import api from '../services/api';
 
 function AlunoDetalhes({ onVoltar }) {
-  const { id } = useParams();
+  const { ra } = useParams();
   const [aluno, setAluno] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const anoAtual = new Date().getFullYear();
 
   useEffect(() => {
-    function buscarAlunoPorId(idAluno) {
-      for (const escola in dados) {
-        for (const serie in dados[escola]) {
-          for (const turma in dados[escola][serie]) {
-            const listaAlunos = dados[escola][serie][turma];
-            const encontrado = listaAlunos.find(a => a.cod_aluno === Number(idAluno));
-            if (encontrado) return encontrado;
-          }
-        }
+    const fetchAluno = async () => {
+      try {
+        //Requisição get para buscar o aluno pelo RA
+        const response = await api.get(`/aluno/ra/${ra}`); 
+
+        console.log(response.data); //Loga os dados recebidos
+        setAluno(response.data); //Seta o aluno com os dados recebidos
+      } catch(err) {
+        setError('Erro ao buscar dados do aluno.'); //Seta a mensagem de erro
+      } finally {
+        setLoading(false); //Finaliza o loading
       }
-      return null;
     }
 
-    const alunoEncontrado = buscarAlunoPorId(id);
-    setAluno(alunoEncontrado);
-  }, [id]);
+    fetchAluno(); //Chama a função de busca
+  }, [ra]);
 
-  if (!aluno) return <p>Carregando ou aluno não encontrado...</p>;
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p>{error}</p>;
+  if (!aluno) return <p>Aluno não encontrado.</p>;
+
 
   return (
     <div className="container-user">
@@ -51,7 +57,7 @@ function AlunoDetalhes({ onVoltar }) {
                 <p>{aluno.escola}</p>
               </div>
             </div>
-            <h1 className="userName">{aluno.nome}</h1>
+            <h1 className="userName">{aluno.nomeAluno}</h1>
             <div className="userAttributes">
               <div className="userSchool">
                 <p>{aluno.serie + "º Ano"} - {aluno.turma} - {aluno.turno}</p>
@@ -96,9 +102,9 @@ function AlunoDetalhes({ onVoltar }) {
         </thead>
         <tbody>
           <tr>
-            <td>{aluno.diagnosticos.priBim.alfabetizacao || '-'}</td>
-            <td>{aluno.diagnosticos.priBim.frequencia || '-'}</td>
-            <td>{aluno.diagnosticos.priBim.projeto || '-'}</td>
+            <td>{aluno.diagnosticos.primeiroBimestre.alfabetizacao || '-'}</td>
+            <td>{aluno.diagnosticos.primeiroBimestre.frequencia || '-'}</td>
+            <td>{aluno.diagnosticos.primeiroBimestre.projeto || '-'}</td>
           </tr>
         </tbody>
       </table>
@@ -115,9 +121,9 @@ function AlunoDetalhes({ onVoltar }) {
         </thead>
         <tbody>
           <tr>
-            <td>{aluno.diagnosticos.segBim.alfabetizacao || '-'}</td>
-            <td>{aluno.diagnosticos.segBim.frequencia || '-'}</td>
-            <td>{aluno.diagnosticos.segBim.projeto || '-'}</td>
+            <td>{aluno.diagnosticos.segundoBimestre.alfabetizacao || '-'}</td>
+            <td>{aluno.diagnosticos.segundoBimestre.frequencia || '-'}</td>
+            <td>{aluno.diagnosticos.segundoBimestre.projeto || '-'}</td>
           </tr>
         </tbody>
       </table>
@@ -134,9 +140,9 @@ function AlunoDetalhes({ onVoltar }) {
         </thead>
         <tbody>
           <tr>
-            <td>{aluno.diagnosticos.terBim.alfabetizacao || '-'}</td>
-            <td>{aluno.diagnosticos.terBim.frequencia || '-'}</td>
-            <td>{aluno.diagnosticos.terBim.projeto || '-'}</td>
+            <td>{aluno.diagnosticos.terceiroBimestre.alfabetizacao || '-'}</td>
+            <td>{aluno.diagnosticos.terceiroBimestre.frequencia || '-'}</td>
+            <td>{aluno.diagnosticos.terceiroBimestre.projeto || '-'}</td>
           </tr>
         </tbody>
       </table>
@@ -153,9 +159,9 @@ function AlunoDetalhes({ onVoltar }) {
         </thead>
         <tbody>
           <tr>
-            <td>{aluno.diagnosticos.quarBim.alfabetizacao || '-'}</td>
-            <td>{aluno.diagnosticos.quarBim.frequencia || '-'}</td>
-            <td>{aluno.diagnosticos.quarBim.projeto || '-'}</td>
+            <td>{aluno.diagnosticos.quartoBimestre.alfabetizacao || '-'}</td>
+            <td>{aluno.diagnosticos.quartoBimestre.frequencia || '-'}</td>
+            <td>{aluno.diagnosticos.quartoBimestre.projeto || '-'}</td>
           </tr>
         </tbody>
       </table>

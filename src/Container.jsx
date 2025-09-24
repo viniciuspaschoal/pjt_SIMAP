@@ -169,7 +169,7 @@ function Container() {
               }
             />
             <Route
-              path="/detalhes/:id"
+              path="/detalhes/:ra"
               element={<AlunoDetalhes onVoltar={voltarParaLista} />}
             />
             {/* Rota padrão para rotas não definidas */}
