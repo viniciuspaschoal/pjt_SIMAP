@@ -5,12 +5,11 @@ import { useState } from 'react';
 import NavComands from './components/NavComands';
 import Header from './components/Header';
 import HeroHome from './components/HeroHome';
-import Geral from './components/Geral';
 import Filtrar from './components/Filtrar';
-import dados from './db/db.json';
 import AlunoDetalhes from './components/IndividualAluno';
 import TableActualTail from './components/TableActualTail';
 import Pagina404 from './components/Pagina404';
+import { aplicarFiltros } from './services/alunoService';
 
 function Container() {
   const [estadoMenu, setEstadoMenu] = useState('close');
@@ -46,81 +45,32 @@ function Container() {
   function clickGauge() { goTo('/relatorio'); }
 
   // Aplica filtros e navega para geral
-  const handleApplyFilters = (filtros) => {
-    const filtrosComDiagnosticos = { ...filtros };
-    ['diagnostico_priBim', 'diagnostico_segBim', 'diagnostico_terBim', 'diagnostico_quarBim']
-      .forEach(diag => {
-        if (!Array.isArray(filtrosComDiagnosticos[diag])) filtrosComDiagnosticos[diag] = [];
-      });
-    setFiltrosAtuais(filtrosComDiagnosticos);
-    buscarDados(filtrosComDiagnosticos);
-    navigate('/geral');
+  const handleApplyFilters = async (filtrosSelecionados) => {
+    setFiltrosAtuais(filtrosSelecionados)
+
+    try {
+      //busca no backend
+      const response = await aplicarFiltros(filtrosSelecionados)
+      console.log("✅ Resposta recebida do backend:", response.data)
+      setDadosFiltrados(response.data)
+
+      navigate('/geral')
+    } catch (error) {
+      console.error("Erro ao aplicar filtros:", error)
+    }
+
   };
 
-  // Navega para detalhes do aluno via id
-  const handleAlunoClick = (aluno) => {
-    navigate(`/detalhes/${aluno.cod_aluno}`);
-  };
+  // // Navega para detalhes do aluno via id
+  // const handleAlunoClick = (aluno) => {
+  //   navigate(`/detalhes/${aluno.cod_aluno}`);
+  // };
 
   // Voltar para lista geral
   const voltarParaLista = () => {
     navigate('/geral');
   };
 
-  // Função para buscar dados conforme filtros (mantém sua lógica original)
-  const buscarDados = (filtros) => {
-    const {
-      escolas,
-      serie,
-      turma,
-      diagnostico_priBim = [],
-      diagnostico_segBim = [],
-      diagnostico_terBim = [],
-      diagnostico_quarBim = []
-    } = filtros;
-
-    let resultados = [];
-
-    escolas.forEach(escolaSelecionada => {
-      const escolaData = dados[escolaSelecionada];
-      if (!escolaData) return;
-
-      serie.forEach(serieSelecionada => {
-        const serieData = escolaData[serieSelecionada];
-        if (!serieData) return;
-
-        turma.forEach(turmaSelecionada => {
-          const turmaData = serieData[turmaSelecionada];
-          if (!turmaData) return;
-
-          const alunosFiltrados = turmaData.filter(aluno => {
-            const diagnosticoPriBimValido = diagnostico_priBim.length === 0 ||
-              diagnostico_priBim.some(filtro =>
-                aluno.diagnosticos?.priBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
-              );
-            const diagnosticoSegBimValido = diagnostico_segBim.length === 0 ||
-              diagnostico_segBim.some(filtro =>
-                aluno.diagnosticos?.segBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
-              );
-            const diagnosticoTerBimValido = diagnostico_terBim.length === 0 ||
-              diagnostico_terBim.some(filtro =>
-                aluno.diagnosticos?.terBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
-              );
-            const diagnosticoQuarBimValido = diagnostico_quarBim.length === 0 ||
-              diagnostico_quarBim.some(filtro =>
-                aluno.diagnosticos?.quarBim?.alfabetizacao?.toLowerCase() === filtro.toLowerCase()
-              );
-
-            return diagnosticoPriBimValido && diagnosticoSegBimValido && diagnosticoTerBimValido && diagnosticoQuarBimValido;
-          });
-
-          resultados = [...resultados, ...alunosFiltrados];
-        });
-      });
-    });
-
-    setDadosFiltrados(resultados);
-  };
 
   return (
     <>
@@ -164,7 +114,7 @@ function Container() {
                 <TableActualTail
                   dados={dadosFiltrados}
                   filtros={filtrosAtuais}
-                  onAlunoClick={handleAlunoClick}
+                  // onAlunoClick={handleAlunoClick}
                 />
               }
             />
