@@ -1,7 +1,6 @@
 import './individualAluno.css';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import dados from '../db/db.json'; // ajuste o caminho conforme seu projeto
 import api from '../services/api';
 
 function AlunoDetalhes({ onVoltar }) {
