@@ -44,7 +44,7 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
 
     const [checkboxEscola, setCheckboxEscola] = useState(
         loadFromLocalStorage('checkboxEscola', {
-            analia: { label: "EMEFEI Anália", selected: false },
+            analia: { label: "EMEFEI ANÁLIA", value: "EMEFEI ANÁLIA DE LUCCA FURLAN", selected: false },
             outra1: { label: "Outra Escola 1", selected: false },
             outra2: { label: "Outra Escola 2", selected: false },
             outra3: { label: "Outra Escola 2", selected: false },
@@ -56,11 +56,11 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
 
     const [checkboxSerie, setCheckboxSerie] = useState(
         loadFromLocalStorage('checkboxSerie', {
-            pri_ano: { label: "1º Ano", selected: false },
-            seg_ano: { label: "2º Ano", selected: false },
-            ter_ano: { label: "3º Ano", selected: false },
-            quar_ano: { label: "4º Ano", selected: false },
-            quin_ano: { label: "5º Ano", selected: false },
+            pri_ano: { label: "1º Ano", value: "1", selected: false },
+            seg_ano: { label: "2º Ano", value: "2", selected: false },
+            ter_ano: { label: "3º Ano", value: "3", selected: false },
+            quar_ano: { label: "4º Ano", value: "4", selected: false },
+            quin_ano: { label: "5º Ano", value: "5", selected: false },
         })
     );
 
@@ -76,10 +76,34 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
 
     const [checkboxBimestres, setCheckboxBimestres] = useState(
         loadFromLocalStorage('checkboxBimestres', {
-            priBim: { ps: { selected: false }, ssvs: { selected: false }, scvs: { selected: false }, sa: { selected: false }, alf: { selected: false } },
-            segBim: { ps: { selected: false }, ssvs: { selected: false }, scvs: { selected: false }, sa: { selected: false }, alf: { selected: false } },
-            terBim: { ps: { selected: false }, ssvs: { selected: false }, scvs: { selected: false }, sa: { selected: false }, alf: { selected: false } },
-            quarBim: { ps: { selected: false }, ssvs: { selected: false }, scvs: { selected: false }, sa: { selected: false }, alf: { selected: false } }
+            priBim: {
+                ps: { selected: false },
+                ssvs: { selected: false },
+                scvs: { selected: false },
+                sa: { selected: false },
+                alf: { selected: false }
+            },
+            segBim: {
+                ps: { selected: false },
+                ssvs: { selected: false },
+                scvs: { selected: false },
+                sa: { selected: false },
+                alf: { selected: false }
+            },
+            terBim: {
+                ps: { selected: false },
+                ssvs: { selected: false },
+                scvs: { selected: false },
+                sa: { selected: false },
+                alf: { selected: false }
+            },
+            quarBim: {
+                ps: { selected: false },
+                ssvs: { selected: false },
+                scvs: { selected: false },
+                sa: { selected: false },
+                alf: { selected: false }
+            }
         })
     );
 
@@ -133,50 +157,42 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
         return Object.values(filterState).some((value) => value.selected);
     };
 
-    const aplicarFiltros = () => {
+    const aplicarFiltros = async () => {
         const filtrosSelecionados = {
             escolas: Object.entries(checkboxEscola)
                 .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
+                .map(([_, value]) => value.value || value.label),
 
-            serie: Object.entries(checkboxSerie)
+            series: Object.entries(checkboxSerie)
                 .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
+                .map(([_, value]) => value.value || value.label),
 
-            turma: Object.entries(checkboxTurma)
+            turmas: Object.entries(checkboxTurma)
                 .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
+                .map(([_, value]) => value.label),
 
-            diagnostico_priBim: Object.entries(checkboxBimestres.priBim)
-                .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
-
-            diagnostico_segBim: Object.entries(checkboxBimestres.segBim)
-                .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
-
-            diagnostico_terBim: Object.entries(checkboxBimestres.terBim)
-                .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
-
-            diagnostico_quarBim: Object.entries(checkboxBimestres.quarBim)
-                .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
-
-            periodo_bimestral: [
-                ...(stdCheckBox.priBim ? ["1º BIMESTRE"] : []),
-                ...(stdCheckBox.segBim ? ["2º BIMESTRE"] : []),
-                ...(stdCheckBox.terBim ? ["3º BIMESTRE"] : []),
-                ...(stdCheckBox.quarBim ? ["4º BIMESTRE"] : [])
-            ]
+            //Diagnosticos apenas com bimestres com seleção
+            diagnosticos: Object.fromEntries(
+                Object.entries({
+                    "1": checkboxBimestres.priBim,
+                    "2": checkboxBimestres.segBim,
+                    "3": checkboxBimestres.terBim,
+                    "4": checkboxBimestres.quarBim
+                }).map(([bim, opcoes]) => {
+                    const selecionados = Object.entries(opcoes)
+                        .filter(([_, value]) => value.selected)
+                        .map(([key]) => key);
+                    return [bim, selecionados];
+                }).filter(([_, arr]) => arr.length > 0)
+            )
         };
+        console.log("JSON de filtros gerado:", filtrosSelecionados);
 
-        console.log("Filtros aplicados:", filtrosSelecionados);
-
-        localStorage.setItem('filtrosSelecionados', JSON.stringify(filtrosSelecionados));
-        setFiltrosAlterados(false);
+        // Passa para o Container
         onApplyFilters(filtrosSelecionados);
+        setFiltrosAlterados(false);
     };
+
 
     const limparFiltros = () => {
         localStorage.removeItem('checkboxEscola');
@@ -186,13 +202,9 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
         localStorage.removeItem('filtrosSelecionados');
 
         setCheckboxEscola({
-            analia: { label: "EMEFEI Anália", selected: false },
-            outra1: { label: "Outra Escola 1", selected: false },
-            outra2: { label: "Outra Escola 2", selected: false },
-            outra3: { label: "Outra Escola 2", selected: false },
-            outra4: { label: "Outra Escola 2", selected: false },
-            outra5: { label: "Outra Escola 2", selected: false },
-            outra6: { label: "Outra Escola 2", selected: false },
+            analia: { label: "EMEFEI ANÁLIA", value: "EMEFEI ANÁLIA DE LUCCA FURLAN", selected: false },
+            outra1: { label: "Outra Escola 1", value: "EMEFEI CENTRO", selected: false },
+            outra2: { label: "Outra Escola 2", value: "EMEFEI BAIRRO NOVO", selected: false },
         });
 
         setCheckboxSerie({
@@ -225,35 +237,37 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
         const filtrosAtuais = {
             escolas: Object.entries(checkboxEscola)
                 .filter(([_, value]) => value.selected)
-                .map(([_, value]) => value.label),
-            serie: Object.entries(checkboxSerie)
+                .map(([_, value]) => value.value || value.label),
+
+            series: Object.entries(checkboxSerie)
+                .filter(([_, value]) => value.selected)
+                .map(([_, value]) => value.value || value.label),
+
+            turmas: Object.entries(checkboxTurma)
                 .filter(([_, value]) => value.selected)
                 .map(([_, value]) => value.label),
-            turma: Object.entries(checkboxTurma)
-                .filter(([_, value]) => value.selected)
-                .map(([_, value]) => value.label),
-            diagnostico_priBim: Object.entries(checkboxBimestres.priBim)
-                .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
-            diagnostico_segBim: Object.entries(checkboxBimestres.segBim)
-                .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
-            diagnostico_terBim: Object.entries(checkboxBimestres.terBim)
-                .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
-            diagnostico_quarBim: Object.entries(checkboxBimestres.quarBim)
-                .filter(([_, value]) => value.selected)
-                .map(([key]) => key),
+
+            diagnosticos: Object.fromEntries(
+                Object.entries({
+                    "1": checkboxBimestres.priBim,
+                    "2": checkboxBimestres.segBim,
+                    "3": checkboxBimestres.terBim,
+                    "4": checkboxBimestres.quarBim
+                })
+                    .map(([bim, opcoes]) => {
+                        const selecionados = Object.entries(opcoes)
+                            .filter(([_, value]) => value.selected)
+                            .map(([key]) => key);
+                        return [bim, selecionados];
+                    })
+                    .filter(([_, arr]) => arr.length > 0)
+            )
         };
 
-        const filtrosSalvos = JSON.parse(localStorage.getItem('filtrosSelecionados')) || {};
-    }, [
-        checkboxEscola,
-        checkboxSerie,
-        checkboxTurma,
-        checkboxBimestres,
-        onFilterChange,
-    ]);
+        onFilterChange(filtrosAtuais);
+    }, [checkboxEscola, checkboxSerie, checkboxTurma, checkboxBimestres, onFilterChange]);
+
+
 
     // ALERTA AO SAIR DA PÁGINA SE FILTROS ALTERADOS
     useEffect(() => {
@@ -430,7 +444,11 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                     </div>
 
                     <div className="botoes-filtros">
-                        <div className="bot-aplicar" onClick={() => { aplicarFiltros(); atualizarStorage(); }}>
+                        <div className="bot-aplicar" onClick={() => {
+                            aplicarFiltros();
+                            atualizarStorage();
+                            console.log('Filtros',);
+                        }}>
                             <p>APLICAR FILTROS</p>
                         </div>
 
