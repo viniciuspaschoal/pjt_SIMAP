@@ -208,11 +208,11 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
         });
 
         setCheckboxSerie({
-            pri_ano: { label: "1º Ano", selected: false },
-            seg_ano: { label: "2º Ano", selected: false },
-            ter_ano: { label: "3º Ano", selected: false },
-            quar_ano: { label: "4º Ano", selected: false },
-            quin_ano: { label: "5º Ano", selected: false },
+            pri_ano: { label: "1º Ano", value: "1", selected: false },
+            seg_ano: { label: "2º Ano", value: "2", selected: false },
+            ter_ano: { label: "3º Ano", value: "3", selected: false },
+            quar_ano: { label: "4º Ano", value: "4", selected: false },
+            quin_ano: { label: "5º Ano", value: "5", selected: false },
         });
 
         setCheckboxTurma({
