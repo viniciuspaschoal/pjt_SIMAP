@@ -2,12 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
     padding: 0;
     margin: 0;
     font-family: "Arimo", sans-serif;
 }
 
-body, html, #root{
+body,
+html,
+#root {
     height: 100%;
+}
+
+@layer components {
+
+    /* Células de dados */
+    .celula-tabela {
+        @apply py-3 px-4 text-center text-gray-700 bg-white;
+    }
+
+    /* Cabeçalhos principais (linha 1) */
+    .cabecalho-tabela {
+        @apply py-3 px-4 font-semibold text-lg text-white bg-green-800 border-r border-green-700 text-center h-[3.25rem] justify-center;
+    }
+
+    /* Subcabeçalhos (linha 2) */
+    .cabecalho-sub {
+        @apply py-2 px-3 font-medium text-sm text-white bg-green-700 border-r border-green-600 text-center h-[2.5rem];
+    }
+
+    /* Efeito hover nas linhas de dados */
+    .linha-hover {
+        @apply hover:bg-green-50 transition-colors border-b border-gray-200;
+    }
+
+    /* Container da tabela com rolagem */
+    .tabela-container {
+        @apply overflow-auto h-[calc(118vh-220px)] bg-white shadow-md;
+    }
+
+    /* Tabela base com separação de bordas */
+    .tabela-base {
+        @apply min-w-full text-sm border-separate border-spacing-0;
+    }
+
+    /* Linha 1 do cabeçalho sticky */
+    .tr-sticky-row1 {
+        @apply sticky top-0 z-30;
+    }
+
+    /* Linha 2 do cabeçalho sticky (abaixo da linha 1) */
+    .tr-sticky-row2 {
+        @apply sticky top-[3.35rem] z-20;
+    }
+
+    /* Fix para cabeçalhos com rowSpan=2 (alinhamento e altura) */
+    .th-rowspan-fix {
+        @apply h-[5.75rem] pt-3;
+    }
 }
