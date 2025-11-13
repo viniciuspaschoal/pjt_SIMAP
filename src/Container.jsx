@@ -86,7 +86,12 @@ function Container() {
           clickSettings={clickSettings}
         />
 
-        <div className="conteudo-geral">
+        <div
+          className={`transition-all duration-300 h-[88%] ${estadoMenu === 'open'
+              ? 'ml-64 w-[calc(100%-16rem)]'
+              : 'ml-16 w-[calc(100%-4rem)]'
+            }`}
+        >
           <Routes>
             <Route
               path="/home"
@@ -114,7 +119,7 @@ function Container() {
                 <TableActualTail
                   dados={dadosFiltrados}
                   filtros={filtrosAtuais}
-                  // onAlunoClick={handleAlunoClick}
+                // onAlunoClick={handleAlunoClick}
                 />
               }
             />
