@@ -38,7 +38,7 @@ export default function TableActualTail({ dados, filtros, onAlunoClick }) {
 
                 <div className="tabela-container pr-2">
 
-                    <table className="tabela-base border-2 border-gray-300">
+                    <table className="tabela-base border-l-2 border-r-2 border-gray-300">
 
                         <thead>
 
