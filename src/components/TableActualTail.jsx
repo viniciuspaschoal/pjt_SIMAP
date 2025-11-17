@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { use } from "react";
+import { useNavigate } from 'react-router-dom';
 
 /**
  * Renderiza uma tabela dinâmica de alunos com colunas fixas (RA, Nome, Escola, etc.)
@@ -20,6 +20,7 @@ import { use } from "react";
 
 export default function TableActualTail({ dados, filtros, onAlunoClick }) {
     const [dadosSalvos, setDadosSalvos] = useState([]);
+    const navigate = useNavigate(); // Hook de navegação para React Router v6
 
     // Identifica os bimestres que possuem diagnósticos selecionados no filtro (ex: ["1", "4"])
     const bimestresAtivos = Object.keys(filtros?.diagnosticos || {}).sort(); // Usa filtros para determinar os bimestres ativos
@@ -55,6 +56,57 @@ export default function TableActualTail({ dados, filtros, onAlunoClick }) {
             sessionStorage.setItem('dados', JSON.stringify(dadosSalvos));
         }
     }, [dadosSalvos]); // Atualiza o sessionStorage quando os dados salvos mudarem
+
+
+    const handleBackToSearch = () => {
+        navigate('/busca'); // Altere para a rota de busca da sua aplicação
+    };
+
+    if (!dados || dados.length === 0) {
+        return (
+            <div className="flex justify-center items-center bg-gray-100 h-[90vh]">
+                <div className="flex flex-col items-center justify-center text-center bg-white p-10 rounded-xl shadow-lg max-w-md mx-auto">
+
+                    {/* 1. Ícone Visual (Aviso, não erro crítico) */}
+                    <div className="flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 mb-6">
+                        {/* Ícone de Aviso (Heroicons) */}
+                        <svg
+                            className="h-8 w-8 text-yellow-600"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.008v.008H12v-.008z"
+                            />
+                        </svg>
+                    </div>
+
+                    {/* 2. Texto focado no problema (dados perdidos) */}
+                    <h2 className="text-2xl font-bold text-gray-900 mb-3">
+                        Dados da busca não encontrados
+                    </h2>
+                    <p className="text-gray-600 mb-8">
+                        Parece que sua sessão anterior expirou ou os dados da tabela foram perdidos. Mas não se preocupe! Por favor, filtre novamente para ver os resultados.
+                    </p>
+
+                    {/* 3. Ação Única e Clara */}
+                    <div className="flex flex-col w-full">
+                        <button
+                            onClick={handleBackToSearch}
+                            className="w-full px-6 py-3 rounded-lg bg-green-600 text-white font-semibold shadow-md hover:bg-green-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                        >
+                            Voltar e Fazer Nova Busca
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
 
     return (
