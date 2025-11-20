@@ -67,7 +67,7 @@ function Container() {
       setDadosFiltrados(response.data);
 
       setFiltrosSalvos(true); // filtros aplicados → pode navegar
-      navigate('/geral');
+      navigate('/tabela-resultados');
 
     } catch (error) {
       console.error(error);
@@ -120,7 +120,7 @@ function Container() {
               />
             } />
 
-            <Route path="/geral" element={
+            <Route path="/tabela-resultados" element={
               <TableActualTail dados={dadosFiltrados} filtros={filtrosAtuais} />
             } />
 
