@@ -1,23 +1,10 @@
 import './filtrar.css'
-import { useState, useEffect } from 'react'
+import { useState } from 'react';
 
 function Filtrar({ onApplyFilters, onFilterChange }) {
+
+    // Estado que indica se o usuário alterou algo
     const [filtrosAlterados, setFiltrosAlterados] = useState(false);
-
-    useEffect(() => {
-        const handleBeforeUnload = (event) => {
-            if (filtrosAlterados) {
-                event.preventDefault();
-                event.returnValue = ''; // necessário para Chrome mostrar o alerta
-            }
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [filtrosAlterados]);
 
     const [stdCheckBox, setStdCheckBox] = useState({
         stdMenu: false,
@@ -114,41 +101,62 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
         localStorage.setItem('checkboxBimestres', JSON.stringify(checkboxBimestres));
     };
 
+    // FUNÇÃO CENTRAL DE ALTERAÇÃO DE CHECKBOX
     const toggleCheckbox = (filterKey, key) => {
+        console.log(">> toggleCheckbox acionado:", filterKey, key);
+
+        setFiltrosAlterados(true);
+        onFilterChange(false);
+        console.log(">> onFilterChange(false) enviado");
+
         if (filterKey === "escolas") {
             setCheckboxEscola((prevState) => {
-                setFiltrosAlterados(true);
-                return {
+                console.log(">> Antes:", prevState);
+                const novo = {
                     ...prevState,
                     [key]: { ...prevState[key], selected: !prevState[key].selected },
                 };
+                console.log(">> Depois:", novo);
+                return novo;
             });
-        } else if (filterKey === "serie") {
+        }
+
+        else if (filterKey === "serie") {
             setCheckboxSerie((prevState) => {
-                setFiltrosAlterados(true);
-                return {
+                console.log(">> Antes:", prevState);
+                const novo = {
                     ...prevState,
                     [key]: { ...prevState[key], selected: !prevState[key].selected },
                 };
+                console.log(">> Depois:", novo);
+                return novo;
             });
-        } else if (filterKey === "turma") {
+        }
+
+        else if (filterKey === "turma") {
             setCheckboxTurma((prevState) => {
-                setFiltrosAlterados(true);
-                return {
+                console.log(">> Antes:", prevState);
+                const novo = {
                     ...prevState,
                     [key]: { ...prevState[key], selected: !prevState[key].selected },
                 };
+                console.log(">> Depois:", novo);
+                return novo;
             });
-        } else if (["priBim", "segBim", "terBim", "quarBim"].includes(filterKey)) {
+        }
+
+        else if (["priBim", "segBim", "terBim", "quarBim"].includes(filterKey)) {
             setCheckboxBimestres((prevState) => {
-                setFiltrosAlterados(true);
-                return {
+                console.log(">> Antes:", prevState[filterKey]);
+                const novo = {
                     ...prevState,
                     [filterKey]: {
                         ...prevState[filterKey],
                         [key]: { selected: !prevState[filterKey][key].selected },
                     },
                 };
+                console.log(">> Depois:", novo[filterKey]);
+                return novo;
             });
         }
     };
@@ -158,6 +166,7 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
     };
 
     const aplicarFiltros = async () => {
+
         const filtrosSelecionados = {
             escolas: Object.entries(checkboxEscola)
                 .filter(([_, value]) => value.selected)
@@ -171,7 +180,6 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                 .filter(([_, value]) => value.selected)
                 .map(([_, value]) => value.label),
 
-            //Diagnosticos apenas com bimestres com seleção
             diagnosticos: Object.fromEntries(
                 Object.entries({
                     "1": checkboxBimestres.priBim,
@@ -186,20 +194,23 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                 }).filter(([_, arr]) => arr.length > 0)
             )
         };
-        console.log("JSON de filtros gerado:", filtrosSelecionados);
 
-        // Passa para o Container
+        console.log(">> aplicarFiltros → JSON gerado:", filtrosSelecionados);
+
         onApplyFilters(filtrosSelecionados);
         setFiltrosAlterados(false);
+
+        // marca como salvo
+        onFilterChange(true);
     };
 
-
     const limparFiltros = () => {
+        console.log(">> limparFiltros acionado → filtrosSalvos TRUE");
+
         localStorage.removeItem('checkboxEscola');
         localStorage.removeItem('checkboxSerie');
         localStorage.removeItem('checkboxTurma');
         localStorage.removeItem('checkboxBimestres');
-        localStorage.removeItem('filtrosSelecionados');
 
         setCheckboxEscola({
             analia: { label: "EMEFEI ANÁLIA", value: "EMEFEI ANÁLIA DE LUCCA FURLAN", selected: false },
@@ -230,86 +241,34 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
             quarBim: { ps: { selected: false }, ssvs: { selected: false }, scvs: { selected: false }, sa: { selected: false }, alf: { selected: false } }
         });
 
-        console.log('Filtros e Local Storage limpos');
+        // filtros considerados salvos
+        onFilterChange(true);
     };
 
-    useEffect(() => {
-        const filtrosAtuais = {
-            escolas: Object.entries(checkboxEscola)
-                .filter(([_, value]) => value.selected)
-                .map(([_, value]) => value.value || value.label),
-
-            series: Object.entries(checkboxSerie)
-                .filter(([_, value]) => value.selected)
-                .map(([_, value]) => value.value || value.label),
-
-            turmas: Object.entries(checkboxTurma)
-                .filter(([_, value]) => value.selected)
-                .map(([_, value]) => value.label),
-
-            diagnosticos: Object.fromEntries(
-                Object.entries({
-                    "1": checkboxBimestres.priBim,
-                    "2": checkboxBimestres.segBim,
-                    "3": checkboxBimestres.terBim,
-                    "4": checkboxBimestres.quarBim
-                })
-                    .map(([bim, opcoes]) => {
-                        const selecionados = Object.entries(opcoes)
-                            .filter(([_, value]) => value.selected)
-                            .map(([key]) => key);
-                        return [bim, selecionados];
-                    })
-                    .filter(([_, arr]) => arr.length > 0)
-            )
-        };
-
-        onFilterChange(filtrosAtuais);
-    }, [checkboxEscola, checkboxSerie, checkboxTurma, checkboxBimestres, onFilterChange]);
-
-
-
-    // ALERTA AO SAIR DA PÁGINA SE FILTROS ALTERADOS
-    useEffect(() => {
-        const handleBeforeUnload = (event) => {
-            if (filtrosAlterados) {
-                event.preventDefault();
-                event.returnValue = ''; // necessário para alertar no Chrome
-            }
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [filtrosAlterados]);
-
+    
     return (
         <>
             <div className="filtro">
                 <div className="filtros">
+
+                    {/* PESQUISA */}
                     <div className="pesquisas">
                         <input type="text" className='input-pesquisa' placeholder='Pesquisa por nome e RA' />
                         <i className="fa-solid fa-magnifying-glass"></i>
                     </div>
 
+                    {/* SCROLL DOS FILTROS */}
                     <div className="scroll-filtros">
 
                         {/* ESCOLAS */}
                         <div className="dropdown-checkbox">
-                            <div
-                                className="filter-close"
-                                onClick={() => toggleDropdown("escolas")}
-                            >
+                            <div className="filter-close" onClick={() => toggleDropdown("escolas")}>
                                 <p>ESCOLAS</p>
                                 <i className={`fa-solid ${stdCheckBox.escolas ? "fa-chevron-up" : "fa-chevron-down"}`}></i>
                             </div>
                             {stdCheckBox.escolas && (
                                 Object.entries(checkboxEscola).map(([key, value], index) => (
-                                    <div
-                                        key={index}
-                                        className="item-checkbox"
-                                        onClick={() => toggleCheckbox("escolas", key)}
-                                    >
+                                    <div key={index} className="item-checkbox" onClick={() => toggleCheckbox("escolas", key)}>
                                         <div className="box-checkbox">
                                             {value.selected && <i className="fa-solid fa-check"></i>}
                                         </div>
@@ -321,20 +280,13 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
 
                         {/* SÉRIE */}
                         <div className="dropdown-checkbox">
-                            <div
-                                className="filter-close"
-                                onClick={() => toggleDropdown("serie")}
-                            >
+                            <div className="filter-close" onClick={() => toggleDropdown("serie")}>
                                 <p>SÉRIE</p>
                                 <i className={`fa-solid ${stdCheckBox.serie ? "fa-chevron-up" : "fa-chevron-down"}`}></i>
                             </div>
                             {stdCheckBox.serie && (
                                 Object.entries(checkboxSerie).map(([key, value], index) => (
-                                    <div
-                                        key={index}
-                                        className="item-checkbox"
-                                        onClick={() => toggleCheckbox("serie", key)}
-                                    >
+                                    <div key={index} className="item-checkbox" onClick={() => toggleCheckbox("serie", key)}>
                                         <div className="box-checkbox">
                                             {value.selected && <i className="fa-solid fa-check"></i>}
                                         </div>
@@ -346,20 +298,13 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
 
                         {/* TURMA */}
                         <div className="dropdown-checkbox">
-                            <div
-                                className="filter-close"
-                                onClick={() => toggleDropdown("turma")}
-                            >
+                            <div className="filter-close" onClick={() => toggleDropdown("turma")}>
                                 <p>TURMA</p>
                                 <i className={`fa-solid ${stdCheckBox.turma ? "fa-chevron-up" : "fa-chevron-down"}`}></i>
                             </div>
                             {stdCheckBox.turma && (
                                 Object.entries(checkboxTurma).map(([key, value], index) => (
-                                    <div
-                                        key={index}
-                                        className="item-checkbox"
-                                        onClick={() => toggleCheckbox("turma", key)}
-                                    >
+                                    <div key={index} className="item-checkbox" onClick={() => toggleCheckbox("turma", key)}>
                                         <div className="box-checkbox">
                                             {value.selected && <i className="fa-solid fa-check"></i>}
                                         </div>
@@ -443,11 +388,11 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
 
                     </div>
 
+                    {/* BOTOES */}
                     <div className="botoes-filtros">
                         <div className="bot-aplicar" onClick={() => {
                             aplicarFiltros();
                             atualizarStorage();
-                            console.log('Filtros',);
                         }}>
                             <p>APLICAR FILTROS</p>
                         </div>
@@ -458,14 +403,14 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                     </div>
                 </div>
 
-                {/* MOSTRAR FILTROS SELECIONADOS */}
+                {/* EXIBIR FILTROS SELECIONADOS */}
                 <div className="mostrar">
                     <div className="mostrar-filtros">
                         <div className='filtros-selecionados'>
                             <p className='filtros-selecionados-p'>FILTROS SELECIONADOS</p>
                         </div>
 
-                        {/* ESCOLA */}
+                        {/* ESCOLAS */}
                         {isFilterSelected(checkboxEscola) && (
                             <>
                                 <p className='itens-filtro'>ESCOLA:</p>
@@ -473,9 +418,7 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                                     {Object.entries(checkboxEscola)
                                         .filter(([_, value]) => value.selected)
                                         .map(([key, value]) => (
-                                            <p key={key} className='filtro-selecionado'>
-                                                {value.label}
-                                            </p>
+                                            <p key={key} className='filtro-selecionado'>{value.label}</p>
                                         ))}
                                 </div>
                             </>
@@ -489,9 +432,7 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                                     {Object.entries(checkboxSerie)
                                         .filter(([_, value]) => value.selected)
                                         .map(([key, value]) => (
-                                            <p key={key} className='filtro-selecionado'>
-                                                {value.label}
-                                            </p>
+                                            <p key={key} className='filtro-selecionado'>{value.label}</p>
                                         ))}
                                 </div>
                             </>
@@ -505,15 +446,13 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                                     {Object.entries(checkboxTurma)
                                         .filter(([_, value]) => value.selected)
                                         .map(([key, value]) => (
-                                            <p key={key} className='filtro-selecionado'>
-                                                {value.label}
-                                            </p>
+                                            <p key={key} className='filtro-selecionado'>{value.label}</p>
                                         ))}
                                 </div>
                             </>
                         )}
 
-                        {/* 1º BIMESTRE */}
+                        {/* BIMESTRES */}
                         {isFilterSelected(checkboxBimestres.priBim) && (
                             <>
                                 <p className='itens-filtro'>1º BIMESTRE:</p>
@@ -521,15 +460,12 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                                     {Object.entries(checkboxBimestres.priBim)
                                         .filter(([_, value]) => value.selected)
                                         .map(([key]) => (
-                                            <p key={key} className='filtro-selecionado'>
-                                                {key.toUpperCase()}
-                                            </p>
+                                            <p key={key} className='filtro-selecionado'>{key.toUpperCase()}</p>
                                         ))}
                                 </div>
                             </>
                         )}
 
-                        {/* 2º BIMESTRE */}
                         {isFilterSelected(checkboxBimestres.segBim) && (
                             <>
                                 <p className='itens-filtro'>2º BIMESTRE:</p>
@@ -537,15 +473,12 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                                     {Object.entries(checkboxBimestres.segBim)
                                         .filter(([_, value]) => value.selected)
                                         .map(([key]) => (
-                                            <p key={key} className='filtro-selecionado'>
-                                                {key.toUpperCase()}
-                                            </p>
+                                            <p key={key} className='filtro-selecionado'>{key.toUpperCase()}</p>
                                         ))}
                                 </div>
                             </>
                         )}
 
-                        {/* 3º BIMESTRE */}
                         {isFilterSelected(checkboxBimestres.terBim) && (
                             <>
                                 <p className='itens-filtro'>3º BIMESTRE:</p>
@@ -553,15 +486,12 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                                     {Object.entries(checkboxBimestres.terBim)
                                         .filter(([_, value]) => value.selected)
                                         .map(([key]) => (
-                                            <p key={key} className='filtro-selecionado'>
-                                                {key.toUpperCase()}
-                                            </p>
+                                            <p key={key} className='filtro-selecionado'>{key.toUpperCase()}</p>
                                         ))}
                                 </div>
                             </>
                         )}
 
-                        {/* 4º BIMESTRE */}
                         {isFilterSelected(checkboxBimestres.quarBim) && (
                             <>
                                 <p className='itens-filtro'>4º BIMESTRE:</p>
@@ -569,9 +499,7 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                                     {Object.entries(checkboxBimestres.quarBim)
                                         .filter(([_, value]) => value.selected)
                                         .map(([key]) => (
-                                            <p key={key} className='filtro-selecionado'>
-                                                {key.toUpperCase()}
-                                            </p>
+                                            <p key={key} className='filtro-selecionado'>{key.toUpperCase()}</p>
                                         ))}
                                 </div>
                             </>
@@ -581,7 +509,7 @@ function Filtrar({ onApplyFilters, onFilterChange }) {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default Filtrar
+export default Filtrar;
