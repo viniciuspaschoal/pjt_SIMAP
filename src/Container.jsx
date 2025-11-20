@@ -12,6 +12,7 @@ import Pagina404 from './components/Pagina404';
 import WarningOverlay from './components/WarningOverlay';
 import ExitConfirmOverlay from './components/ExitConfirmOverlay';
 import { aplicarFiltros } from './services/alunoService';
+import Geral from './components/Geral';
 
 function Container() {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ function Container() {
   };
 
   const voltarParaLista = () => {
-    navigate('/geral');
+    navigate('/tabela-resultados');
   };
 
   return (
@@ -108,6 +109,10 @@ function Container() {
                 clickSearch={clickSearch}
                 clickGauge={clickGauge}
               />
+            } />
+
+            <Route path="/geral" element={
+              <Geral />
             } />
 
             <Route path="/busca" element={
