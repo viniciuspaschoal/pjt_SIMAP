@@ -112,7 +112,7 @@ function Container() {
             } />
 
             <Route path="/geral" element={
-              <Geral />
+              <Geral onApplyFilters={handleApplyFilters}/>
             } />
 
             <Route path="/busca" element={

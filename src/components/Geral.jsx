@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Geral() {
+function Geral({ onApplyFilters }) {
 
     const anos = [2023, 2024, 2025];
     const [anoSelecionado, setAnoSelecionado] = useState(null);
@@ -9,7 +9,7 @@ function Geral() {
     const [openEscola, setOpenEscola] = useState(false);
 
     const [checkboxEscola, setCheckboxEscola] = useState({
-        analia: { label: "EMEFEI ANÁLIA", value: "ANALIA", selected: false },
+        analia: { label: "EMEFEI ANÁLIA", value: "EMEFEI ANÁLIA DE LUCCA FURLAN", selected: false },
         outra1: { label: "Outra Escola 1", selected: false },
         outra2: { label: "Outra Escola 2", selected: false },
         outra3: { label: "Outra Escola 3", selected: false },
@@ -28,6 +28,24 @@ function Geral() {
 
     const temAlgumaEscola = Object.values(checkboxEscola).some(e => e.selected);
     const podeBuscar = anoSelecionado && temAlgumaEscola;
+
+    const montarJsonGeral = () => {
+        const escolasSelecionadas = Object.values(checkboxEscola)
+            .filter(e => e.selected)
+            .map(e => e.value || e.label)
+
+        const jsonGeral = {
+            anoLetivo: [String(anoSelecionado)],
+            escolas: escolasSelecionadas,
+            series: [],
+            turmas: [],
+            diagnosticos: {}
+        };
+
+        console.log("JSON geral: ", jsonGeral);
+
+        return jsonGeral;
+    }
 
     return (
         <div className="min-h-[90vh] w-full flex items-center justify-center bg-slate-100 p-4">
@@ -134,13 +152,11 @@ function Geral() {
                 <div className="flex justify-center pt-4">
                     <button
                         disabled={!podeBuscar}
-                        className={`
-                            px-8 py-3 rounded-lg font-semibold shadow-md transition
-                            ${podeBuscar
-                                ? "bg-green-600 hover:bg-green-700 text-white"
-                                : "bg-slate-300 text-slate-500 cursor-not-allowed"
-                            }
-                        `}
+                        onClick={() => {
+                            const json = montarJsonGeral();
+                            onApplyFilters && onApplyFilters(json);
+                        }}
+                        className="bg-green-600 text-white px-8 py-3 rounded-lg"
                     >
                         Realizar busca
                     </button>
