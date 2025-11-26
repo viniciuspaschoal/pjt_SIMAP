@@ -63,3 +63,34 @@ html,
         @apply h-[5.75rem] pt-3;
     }
 }
+
+/* --- Estilização da Barra de Rolagem Sutil (custom-scroll) --- */
+
+/* Para Firefox */
+.custom-scroll {
+  scrollbar-width: thin; /* Faz a barra ficar fina */
+  scrollbar-color: #e2e8f0 transparent; /* Cor do "polegar" e cor do "trilho" */
+}
+
+/* Para Chrome, Safari, Edge e outros navegadores baseados em WebKit */
+.custom-scroll::-webkit-scrollbar {
+  width: 4px; /* Largura bem fininha (padrão é uns 10-12px) */
+  height: 4px; /* Altura para scrolls horizontais, se houver */
+}
+
+/* O trilho (fundo) por onde a barra corre */
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent; /* Fundo transparente para não poluir o visual */
+}
+
+/* O "polegar" (a parte que você arrasta) */
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: #e2e8f0; /* Um cinza muito claro (slate-200 do Tailwind) */
+  border-radius: 20px; /* Bordas arredondadas para ficar suave */
+  border: transparent; /* Remove bordas padrão */
+}
+
+/* Opcional: Mudar ligeiramente a cor quando passa o mouse para indicar que é interativo */
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #cbd5e1; /* Um cinza um pouquinho mais escuro (slate-300) */
+}
