@@ -13,6 +13,9 @@ import WarningOverlay from './components/WarningOverlay';
 import ExitConfirmOverlay from './components/ExitConfirmOverlay';
 import { aplicarFiltros } from './services/alunoService';
 import Geral from './components/Geral';
+import FiltroProjeto from './components/FiltroProjeto';
+import { aplicarFiltrosProjeto } from './services/projetoService';
+import TableProjetoRecomposicao from './components/TableProjetoRecomposicao'; // Componente da tabela de projetos
 
 function Container() {
   const navigate = useNavigate();
@@ -76,6 +79,17 @@ function Container() {
     }
   };
 
+  // Função EXCLUSIVA para receber dados já buscados pelo FiltroProjeto
+  const handleProjectSuccess = (dadosProjetos, filtrosUsados) => {
+    setDadosFiltrados(dadosProjetos);
+    setFiltrosAtuais(filtrosUsados); // Opcional, se você quiser guardar o que foi filtrado
+    setFiltrosSalvos(true);
+
+    // Navega para a tabela correta de projetos
+    navigate('/projeto-resultados');
+  };
+
+  // Função para voltar à lista de resultados
   const voltarParaLista = () => {
     navigate('/tabela-resultados');
   };
@@ -96,8 +110,8 @@ function Container() {
         />
 
         <div className={`transition-all duration-300 h-[88%] ${estadoMenu === 'open'
-            ? 'ml-64 w-[calc(100%-16rem)]'
-            : 'ml-16 w-[calc(100%-4rem)]'
+          ? 'ml-64 w-[calc(100%-16rem)]'
+          : 'ml-16 w-[calc(100%-4rem)]'
           }`}>
 
           <Routes>
@@ -112,7 +126,16 @@ function Container() {
             } />
 
             <Route path="/geral" element={
-              <Geral onApplyFilters={handleApplyFilters}/>
+              <Geral onApplyFilters={handleApplyFilters} />
+            } />
+
+            <Route path="/projeto" element={
+              <FiltroProjeto onApplyFilters={(dados, filtros) => handleProjectSuccess(dados, filtros)} />
+            } />
+
+            {/* Tabela para Projetos filtrados */}
+            <Route path="/projeto-resultados" element={
+              <TableProjetoRecomposicao dados={dadosFiltrados} filtros={filtrosAtuais} />
             } />
 
             <Route path="/busca" element={
