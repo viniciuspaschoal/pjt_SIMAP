@@ -158,8 +158,8 @@ export default function FiltroProjeto({ onApplyFilters }) {
                             <Icon name="filter" className="w-6 h-6" />
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold text-slate-900">Filtrar Projetos</h1>
-                            <p className="text-sm text-slate-500">Selecione os parâmetros para gerar o relatório.</p>
+                            <h1 className="text-2xl font-bold text-slate-900">Filtrar Projetos de Recomposição</h1>
+                            <p className="text-sm text-slate-500">Selecione os filtros para buscar os grupos de Projetos de Recomposição.</p>
                         </div>
                     </div>
                     <button
