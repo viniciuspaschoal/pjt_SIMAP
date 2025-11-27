@@ -163,7 +163,7 @@ h2 {
 table {
     width: 100%; /* Define a largura da tabela como 100% do elemento pai */
     border-collapse: collapse; /* Remove os espaços entre as bordas da tabela */
-    margin-bottom: 2rem; /* Adiciona uma margem inferior de 2rem */
+    /*margin-bottom: 2rem; /* Adiciona uma margem inferior de 2rem */
 }
 
 table th, table td {
