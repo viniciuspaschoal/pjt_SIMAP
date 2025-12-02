@@ -7,5 +7,9 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),  // Agora o tailwindcss é passado como plugin corretamente
-  ],
+  ], 
+  
+  server: {
+    port: 5173
+  },
 })
