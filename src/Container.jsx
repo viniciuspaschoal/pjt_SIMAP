@@ -16,6 +16,9 @@ import Geral from './components/Geral';
 import FiltroProjeto from './components/FiltroProjeto';
 import { aplicarFiltrosProjeto } from './services/projetoService';
 import TableProjetoRecomposicao from './components/TableProjetoRecomposicao'; // Componente da tabela de projetos
+import AdminUsuarios from './components/AdminUsuarios';
+import RequireRole from './routes/RequireRole';
+
 
 function Container() {
   const navigate = useNavigate();
@@ -50,11 +53,12 @@ function Container() {
   // Botões agora precisam usar navigateCheck
   const clickHome = () => navigateCheck('/home');
   const clickBusca = () => navigateCheck('/busca');
-  const clickFilter = () => navigateCheck('/busca');
+  const clickAcesso = () => navigateCheck('/controle-acesso');
   const clickGuide = () => navigateCheck('/guide');
   const clickSettings = () => navigateCheck('/settings');
   const clickGeral = () => navigateCheck('/geral');
   const clickPJ = () => navigateCheck('/projeto');
+
   const clickSearch = () => navigateCheck('/busca');
   const clickGauge = () => navigateCheck('/relatorio');
 
@@ -104,7 +108,7 @@ function Container() {
           estadoMenuLateral={estadoMenu}
           clickHome={clickHome}
           clickBusca={clickBusca}
-          clickFilter={clickFilter}
+          clickAcesso={clickAcesso}
           clickGuide={clickGuide}
           clickSettings={clickSettings}
         />
@@ -162,6 +166,15 @@ function Container() {
               clickSearch={clickSearch}
               clickGauge={clickGauge}
             />} />
+
+            <Route
+              path="/controle-acesso"
+              element={
+                <RequireRole roles={["SUPER_ADMIN", "GESTAO"]}>
+                  <AdminUsuarios />
+                </RequireRole>
+              }
+            />
 
             <Route path="*" element={<Pagina404 />} />
 
