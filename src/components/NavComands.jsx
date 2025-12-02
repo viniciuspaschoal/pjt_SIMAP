@@ -1,4 +1,4 @@
-function NavComands({ estadoMenuLateral, clickHome, clickBusca, clickFilter, clickGuide, clickSettings }) {
+function NavComands({ estadoMenuLateral, clickHome, clickBusca, clickAcesso, clickGuide, clickSettings }) {
     const baseClasses =
         "bg-gradient-to-b from-[#004B24] via-[#00582A] to-[#0EB860] h-[90%] flex flex-col justify-between py-6 transition-all duration-300 fixed";
 
@@ -18,9 +18,12 @@ function NavComands({ estadoMenuLateral, clickHome, clickBusca, clickFilter, cli
                             onClick={clickBusca}
                         ></i>
                         <div className="w-8 border-t border-white"></div>
+
+                        {/* Ícone de Controle de Acesso */}
                         <i
-                            className="fa-solid fa-sliders text-white text-2xl cursor-pointer"
-                            onClick={clickFilter}
+                            className="fa-solid fa-user-lock text-white text-2xl cursor-pointer"
+                            onClick={clickAcesso}
+                            title="Controle de Acesso"
                         ></i>
                     </div>
 
@@ -58,9 +61,10 @@ function NavComands({ estadoMenuLateral, clickHome, clickBusca, clickFilter, cli
 
                         <div className="w-full border-t border-white" />
 
-                        <div className="flex items-center gap-4 cursor-pointer text-white" onClick={clickFilter}>
-                            <i className="fa-solid fa-sliders text-2xl" />
-                            <span className="text-lg">Filtrar</span>
+                        {/* Item de Controle de Acesso */}
+                        <div className="flex items-center gap-4 cursor-pointer text-white" onClick={clickAcesso}>
+                            <i className="fa-solid fa-user-lock text-2xl" />
+                            <span className="text-lg">Acesso</span>
                         </div>
                     </div>
 
