@@ -1,8 +1,7 @@
 import { Navigate } from "react-router-dom";
 
 export default function PrivateRoute({ children }) {
-    const user = localStorage.getItem("user");
+    const jwt = localStorage.getItem("jwt");
 
-    // Se existe usuário no localStorage → autenticado
-    return user ? children : <Navigate to="/login" replace />;
+    return jwt ? children : <Navigate to="/login" replace />;
 }
