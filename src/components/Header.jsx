@@ -5,7 +5,7 @@ import logoSecretaria from '../assets/images/logo_secretaria.png';
 function Header({ estadoMenu, clickMenu }) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const [imgError, setImgError] = useState(false); // <--- NOVO: Estado para controlar erro na imagem
+  const [imgError, setImgError] = useState(false);
   const navigate = useNavigate();
 
   const toggleUserMenu = () => {
@@ -13,38 +13,38 @@ function Header({ estadoMenu, clickMenu }) {
   };
 
   function exit() {
-    localStorage.setItem('autorizado', 'false');
-    // Limpar o user ao sair é uma boa prática
+    localStorage.removeItem('jwt');
     localStorage.removeItem('user');
     navigate('/login');
   }
 
+  // Carrega o usuário corretamente
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("user"));
+    const data = localStorage.getItem("user");
     if (data) {
-      setUser(data);
-      setImgError(false); // Reseta o erro ao carregar usuário
+      const parsed = JSON.parse(data);
+      setUser(parsed);
+      setImgError(false);
     }
   }, []);
 
   return (
     <div className="flex items-center bg-[#004b24] w-full h-[10%]">
 
-      {/* Menu abertura */}
+      {/* Ícones do menu */}
       {estadoMenu === 'close' && (
         <div onClick={clickMenu} className="flex justify-center items-center w-[2vw] m-[20px] ml-4">
           <i className="fa-solid fa-bars text-2xl text-white cursor-pointer"></i>
         </div>
       )}
 
-      {/* Menu fechar */}
       {estadoMenu === 'open' && (
         <div onClick={clickMenu} className="flex justify-center items-center w-[2vw] m-[20px] ml-[38px]">
           <i className="fa-solid fa-x text-xl text-white cursor-pointer"></i>
         </div>
       )}
 
-      {/* Logo + Título */}
+      {/* Logo + título */}
       <div className="flex items-center ml-[10px]">
         <img src={logoSecretaria} alt="Logo Secretaria" className="w-[40px]" />
         <h1 className="text-[#e7c801] text-center font-['Arial'] text-[24px] font-bold leading-normal pl-[24px]">
@@ -52,35 +52,32 @@ function Header({ estadoMenu, clickMenu }) {
         </h1>
       </div>
 
-      {/* Perfil do Usuário */}
+      {/* Perfil do usuário */}
       <div className="relative ml-auto pr-4" onClick={toggleUserMenu}>
-        <div className="flex items-center cursor-pointer text-black text-[1.4rem]">
+        <div className="flex items-center cursor-pointer">
 
-          {/* LÓGICA DA FOTO CORRIGIDA */}
-          {/* Se tem foto E não deu erro ao carregar, mostra a imagem */}
-          {user?.foto && !imgError ? (
+          {/* FOTO DO USUÁRIO */}
+          {user?.fotoUrl && !imgError ? (
             <img
-              src={user.foto}
+              src={user.fotoUrl}
               alt="Foto do usuário"
-              className="w-[40px] h-[40px] rounded-full object-cover border-2 border-white mr-[0.5vw] ml-[5px]"
-              // 1. O pulo do gato: Evita bloqueio do Google
+              className="w-[40px] h-[40px] rounded-full object-cover border-2 border-white mr-[10px]"
               referrerPolicy="no-referrer"
-              // 2. Se a imagem quebrar, ativa o modo ícone
               onError={() => setImgError(true)}
             />
           ) : (
-            // Fallback: Ícone padrão se não tiver foto OU se a foto quebrar
-            <div className="w-[40px] h-[40px] rounded-full bg-white flex items-center justify-center mr-[0.5vw] ml-[5px] border-2 border-transparent">
+            <div className="w-[40px] h-[40px] rounded-full bg-white flex items-center justify-center border-2 border-white mr-[10px]">
               <i className="fa-solid fa-user text-[#004b24] text-xl"></i>
             </div>
           )}
 
-          <i className="fa-solid fa-chevron-down text-xl text-white ml-[5px]"></i>
+          <i className="fa-solid fa-chevron-down text-xl text-white"></i>
         </div>
 
-        {/* Menu dropdown */}
+        {/* Dropdown do usuário */}
         {isUserMenuOpen && (
-          <div className="mt-[0.5vh] mr-3 absolute top-full right-0 bg-white shadow-md rounded-lg p-[8px] w-[130px] z-[100] border border-[#cecece]">
+          <div className="mt-[0.5vh] absolute top-full right-0 bg-white shadow-md rounded-lg p-[8px] w-[140px] z-[100] border border-[#cecece]">
+
             <p className="my-[8px] py-[4px] px-[8px] text-sm text-[#333] cursor-pointer hover:bg-[#f0f0f0] hover:rounded-md">
               Dados do perfil
             </p>
@@ -91,12 +88,14 @@ function Header({ estadoMenu, clickMenu }) {
             >
               Sair
               <span>
-                <i className="fa-solid fa-right-from-bracket text-base ml-[1vw]"></i>
+                <i className="fa-solid fa-right-from-bracket text-base ml-[10px]"></i>
               </span>
             </p>
+
           </div>
         )}
       </div>
+
     </div>
   );
 }
