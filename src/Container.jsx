@@ -145,6 +145,13 @@ function Container() {
             <Route path="/busca" element={
               <Filtrar
                 onApplyFilters={handleApplyFilters}
+
+                // Essa é a parte nova:
+                onAlunoSelecionado={(ra) => {
+                  console.log(">> Navegando para aluno:", ra);
+                  navigate(`/detalhes/${ra}`);
+                }}
+
                 onFilterChange={(estado) => {
                   console.log(">> Container recebeu onFilterChange:", estado);
                   setFiltrosSalvos(estado);

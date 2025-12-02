@@ -1,8 +1,14 @@
 import api from "./api";
 
-export const getAlunoByRa = (ra) => api.get(`/aluno/ra/${ra}`)
+// Busca completa por RA
+export const getAlunoByRa = (ra) => api.get(`/aluno/ra/${ra}`);
 
+// Envia os filtros 
 export const aplicarFiltros = (filtrosSelecionados) => {
-  console.log("➡️ Enviando filtros para backend:", filtrosSelecionados);
   return api.post('/aluno/filtro', filtrosSelecionados);
+}
+
+// --- Busca dinâmica para o Autocomplete ---
+export const buscarAlunos = (termo) => {
+  return api.get(`/aluno/buscar?termo=${termo}`);
 }
