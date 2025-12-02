@@ -1,73 +1,97 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logoSecretaria from '../assets/images/logo_secretaria.png'; // Importando a imagem do logo
+import logoSecretaria from '../assets/images/logo_secretaria.png';
 
-// Função que representa o cabeçalho (Header)
 function Header({ estadoMenu, clickMenu }) {
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);  // Hook para controlar o estado do menu de usuário (aberto ou fechado)
-  const navigate = useNavigate();  // Hook para navegação
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [imgError, setImgError] = useState(false); // <--- NOVO: Estado para controlar erro na imagem
+  const navigate = useNavigate();
 
   const toggleUserMenu = () => {
-    setIsUserMenuOpen(!isUserMenuOpen);  // Alterna o estado do menu de usuário entre aberto e fechado
+    setIsUserMenuOpen(!isUserMenuOpen);
   };
 
   function exit() {
-    // Função de logout que remove a autorização e redireciona para o login
-    localStorage.setItem('autorizado', 'false');  // Remove o estado de autorização
-    navigate('/login');  // Redireciona para a página de login
+    localStorage.setItem('autorizado', 'false');
+    // Limpar o user ao sair é uma boa prática
+    localStorage.removeItem('user');
+    navigate('/login');
   }
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("user"));
+    if (data) {
+      setUser(data);
+      setImgError(false); // Reseta o erro ao carregar usuário
+    }
+  }, []);
 
   return (
     <div className="flex items-center bg-[#004b24] w-full h-[10%]">
-      
-      {/* Menu - Ícone de menu (três barras) */}
-      {estadoMenu === 'close' && (  // Verifica se o menu está fechado
-        <div
-          onClick={clickMenu}  // Chama a função clickMenu quando o ícone for clicado
-          className="flex justify-center items-center w-[2vw] m-[20px] ml-4"
-        >
-          <i className="fa-solid fa-bars text-2xl text-white cursor-pointer"></i>  {/* Ícone de menu */}
+
+      {/* Menu abertura */}
+      {estadoMenu === 'close' && (
+        <div onClick={clickMenu} className="flex justify-center items-center w-[2vw] m-[20px] ml-4">
+          <i className="fa-solid fa-bars text-2xl text-white cursor-pointer"></i>
         </div>
       )}
 
-      {/* Menu - Ícone de fechar (X) */}
-      {estadoMenu === 'open' && (  // Verifica se o menu está aberto
-        <div
-          onClick={clickMenu}  // Chama a função clickMenu para fechar o menu
-          className="flex justify-center items-center w-[2vw] m-[20px] ml-[38px]"
-        >
-          <i className="fa-solid fa-x text-xl text-white cursor-pointer"></i>  {/* Ícone de fechar */}
+      {/* Menu fechar */}
+      {estadoMenu === 'open' && (
+        <div onClick={clickMenu} className="flex justify-center items-center w-[2vw] m-[20px] ml-[38px]">
+          <i className="fa-solid fa-x text-xl text-white cursor-pointer"></i>
         </div>
       )}
 
-      {/* Logo e Título */}
-      <div className="flex items-center ml-[10px]">  {/* Ajusta a margem para aproximar o logo do menu */}
-        <img src={logoSecretaria} alt="Logo Secretaria" className="w-[40px]" />  {/* Logo da Prefeitura */}
+      {/* Logo + Título */}
+      <div className="flex items-center ml-[10px]">
+        <img src={logoSecretaria} alt="Logo Secretaria" className="w-[40px]" />
         <h1 className="text-[#e7c801] text-center font-['Arial'] text-[24px] font-bold leading-normal pl-[24px]">
-          SISTEMA DE MONITORAMENTO E ACOMPANHAMENTO PEDAGÓGICO  {/* Título do sistema */}
+          SISTEMA DE MONITORAMENTO E ACOMPANHAMENTO PEDAGÓGICO
         </h1>
       </div>
 
-      {/* Menu de Usuário - Alinhado à direita */}
-      <div className="relative ml-auto pr-4" onClick={toggleUserMenu}>  {/* 'ml-auto' coloca o menu de usuário à direita */}
+      {/* Perfil do Usuário */}
+      <div className="relative ml-auto pr-4" onClick={toggleUserMenu}>
         <div className="flex items-center cursor-pointer text-black text-[1.4rem]">
-          <i className="fa-solid fa-user bg-white rounded-full p-3 mr-[0.5vw] ml-[5px]"></i>  {/* Ícone de usuário */}
-          <i className="fa-solid fa-chevron-down text-xl text-white ml-[5px]"></i>  {/* Setinha do menu (indica que há um menu suspenso) */}
+
+          {/* LÓGICA DA FOTO CORRIGIDA */}
+          {/* Se tem foto E não deu erro ao carregar, mostra a imagem */}
+          {user?.foto && !imgError ? (
+            <img
+              src={user.foto}
+              alt="Foto do usuário"
+              className="w-[40px] h-[40px] rounded-full object-cover border-2 border-white mr-[0.5vw] ml-[5px]"
+              // 1. O pulo do gato: Evita bloqueio do Google
+              referrerPolicy="no-referrer"
+              // 2. Se a imagem quebrar, ativa o modo ícone
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            // Fallback: Ícone padrão se não tiver foto OU se a foto quebrar
+            <div className="w-[40px] h-[40px] rounded-full bg-white flex items-center justify-center mr-[0.5vw] ml-[5px] border-2 border-transparent">
+              <i className="fa-solid fa-user text-[#004b24] text-xl"></i>
+            </div>
+          )}
+
+          <i className="fa-solid fa-chevron-down text-xl text-white ml-[5px]"></i>
         </div>
 
-        {/* Menu suspenso de opções de usuário */}
-        {isUserMenuOpen && (  // Verifica se o menu de usuário está aberto
+        {/* Menu dropdown */}
+        {isUserMenuOpen && (
           <div className="mt-[0.5vh] mr-3 absolute top-full right-0 bg-white shadow-md rounded-lg p-[8px] w-[130px] z-[100] border border-[#cecece]">
             <p className="my-[8px] py-[4px] px-[8px] text-sm text-[#333] cursor-pointer hover:bg-[#f0f0f0] hover:rounded-md">
-              Dados do perfil  {/* Opção para acessar os dados do perfil */}
+              Dados do perfil
             </p>
+
             <p
-              onClick={exit}  // Chama a função 'exit' ao clicar em "Sair"
+              onClick={exit}
               className="my-[8px] py-[4px] px-[8px] text-sm text-[#333] cursor-pointer hover:bg-[#f0f0f0] hover:rounded-md"
             >
-              Sair  {/* Opção para sair */}
+              Sair
               <span>
-                <i className="fa-solid fa-right-from-bracket text-base ml-[1vw]"></i>  {/* Ícone de logout */}
+                <i className="fa-solid fa-right-from-bracket text-base ml-[1vw]"></i>
               </span>
             </p>
           </div>
